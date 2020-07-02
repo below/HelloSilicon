@@ -1,2 +1,2 @@
 as -o HelloWorld.o HelloWorld.s
-ld -o HelloWorld HelloWorld.o
+ld -o HelloWorld HelloWorld.o -static
