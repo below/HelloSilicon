@@ -11,15 +11,17 @@
 // Setup the parameters to print hello world
 // and then the Kernel to do it.
 start: mov	X0, #1	    // 1 = StdOut
-	ldr	 X1, helloworld // string to print
-	mov	 X2, #13	    // length of our string
-	mov	X16, #4	    // Unix write system call
+	ldr	X1, helloworld // string to print
+	mov	X2, #13	    // length of our string
+	mov     X16, #0x0004
+     	movk 	X16, #0x2000, LSL #16	    // Unix write system call
 	svc	80 	    // System Call to output the string
 
 // Setup the parameters to exit the program
 // and then the Kernel to do it.
 	mov     X0, #0      // Use 0 return code
-        mov     X16, #1      // Service command code 1 terminates this program
+	mov     X16, #0x0001   // Service command code 1 terminates this program
+     	movk 	X16, #0x2000, LSL #16
         svc     80           // System Call to terminate the program
 
 helloworld:
