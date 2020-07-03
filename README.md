@@ -14,26 +14,28 @@ Any hints are appreciated
 // Assembler program to print "Hello World!"
 // to stdout.
 //
-// X0-X2 - parameters to Mach System Call
-// X16 - Mach System Call Number
+// X0-X2 - parameters to Unix System Call
+// X16 - Unix System Call Number
 //
 
 .global start	            // Provide program starting address to linker
 
 // Setup the parameters to print hello world
 // and then the Kernel to do it.
-start: mov	X0, #1	    // 1 = StdOut
-	ldr	 X1, =helloworld // string to print
-	mov	 X2, #13	    // length of our string
-	mov	X16, #4	    // Mach write system call
-	svc	80 	    // System Call to output the string
+start:	mov	X0, #1	    // 1 = StdOut
+ 	ldr	X1, =helloworld // string to print
+ 	mov	X2, #13	    // length of our string
+ 	mov     X16, #0x0004
+    	movk 	X16, #0x0200, LSL #16	    // Unix write system call
+  	svc	0x80 	    // System Call to output the string
 
 // Setup the parameters to exit the program
 // and then the Kernel to do it.
 	mov     X0, #0      // Use 0 return code
-        mov     X16, #1      // Service command code 1 terminates this program
-        svc     80           // System Call to terminate the program
+	mov     X16, #0x0001   // Service command code 1 terminates this program
+     	movk 	X16, #0x0200, LSL #16
+        svc     0x80           // System Call to terminate the program
 
-.data
-helloworld:      .ascii  "Hello World!\n"
+helloworld:
+.ascii  "Hello World!\n"
 ```
