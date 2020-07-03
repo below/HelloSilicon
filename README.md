@@ -29,7 +29,7 @@ start: mov	X0, #1	    // 1 = StdOut
 // Setup the parameters to exit the program
 // and then the Kernel to do it.
 	mov     X0, #0      // Use 0 return code
-        mov     X8, #1      // Service command code 1 terminates this program
+        mov     X16, #1      // Service command code 1 terminates this program
         svc     80           // System Call to terminate the program
 
 .data
