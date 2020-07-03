@@ -2,8 +2,8 @@
 // Assembler program to print "Hello World!"
 // to stdout.
 //
-// X0-X2 - parameters to Mach System Call
-// X16 - Mach System Call Number
+// X0-X2 - parameters to Unix System Call
+// X16 - Unix System Call Number
 //
 
 .global start	            // Provide program starting address to linker
@@ -13,7 +13,7 @@
 start: mov	X0, #1	    // 1 = StdOut
 	ldr	 X1, =helloworld // string to print
 	mov	 X2, #13	    // length of our string
-	mov	X16, #4	    // Mach write system call
+	mov	X16, #4	    // Unix write system call
 	svc	80 	    // System Call to output the string
 
 // Setup the parameters to exit the program
