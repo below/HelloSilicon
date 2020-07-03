@@ -3,6 +3,8 @@ An attempt with assembly on the machine we must not speak about
 
 So this is a little attempt to invoke syscalls on a machine running a Mach Kernel on an ARM64-like architecture.
 
+The code is taken from the book _Programming with 64-Bit ARM Assembly Language_
+
 But when I run it, all I get is: ´zsh: killed     ./HelloWorld`
 
 Any hints are appreciated
