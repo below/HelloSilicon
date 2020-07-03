@@ -11,7 +11,7 @@
 // Setup the parameters to print hello world
 // and then the Kernel to do it.
 start: mov	X0, #1	    // 1 = StdOut
-	ldr	 X1, =helloworld // string to print
+	ldr	 X1, helloworld // string to print
 	mov	 X2, #13	    // length of our string
 	mov	X16, #4	    // Unix write system call
 	svc	80 	    // System Call to output the string
@@ -22,6 +22,6 @@ start: mov	X0, #1	    // 1 = StdOut
         mov     X16, #1      // Service command code 1 terminates this program
         svc     80           // System Call to terminate the program
 
-.data
-helloworld:      .ascii  "Hello World!\n"
+helloworld:
+.ascii  "Hello World!\n"
 
