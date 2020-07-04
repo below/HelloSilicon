@@ -7,6 +7,7 @@
 //
 
 .global _main	            // Provide program starting address to linker
+.align 2
 
 // Setup the parameters to print hello world
 // and then call Linux to do it.
