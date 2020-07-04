@@ -7,6 +7,7 @@
 //
 
 .global _main	            // Provide program starting address to linker
+.p2align 2                  // align _main to 4 byte boundary
 
 // Setup the parameters to print hello world
 // and then call Linux to do it.
