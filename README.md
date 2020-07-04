@@ -5,37 +5,32 @@ So this is a little attempt to invoke syscalls on a machine running a Mach Kerne
 
 The code is taken from the book _Programming with 64-Bit ARM Assembly Language_
 
-But when I run it, all I get is: ´zsh: killed     ./HelloWorld`
+## What Works
 
-Any hints are appreciated
+The _MacAs_ Target runs. Here, a C `main` calls the assembly routine `_start`.
 
+## What Doesn't Work
+
+Anything without C. In the _AsMain_ target there is a file ´main.s´, in which I renamed `_start` to `_main`.  I can successfully build, and even run, but the executable crashes with an `EXC_BAD_ACCESS`
+
+Trying to build the file by itself fails.
 ```
-//
-// Assembler program to print "Hello World!"
-// to stdout.
-//
-// X0-X2 - parameters to Unix System Call
-// X16 - Unix System Call Number
-//
-
-.global start	            // Provide program starting address to linker
-
-// Setup the parameters to print hello world
-// and then the Kernel to do it.
-start:	mov	X0, #1	    // 1 = StdOut
- 	ldr	X1, =helloworld // string to print
- 	mov	X2, #13	    // length of our string
- 	mov     X16, #0x0004
-    	movk 	X16, #0x0200, LSL #16	    // Unix write system call
-  	svc	0x80 	    // System Call to output the string
-
-// Setup the parameters to exit the program
-// and then the Kernel to do it.
-	mov     X0, #0      // Use 0 return code
-	mov     X16, #0x0001   // Service command code 1 terminates this program
-     	movk 	X16, #0x0200, LSL #16
-        svc     0x80           // System Call to terminate the program
-
-helloworld:
-.ascii  "Hello World!\n"
+% make
+as -o HelloWorld.o main.s
+ld -o HelloWorld HelloWorld.o
+ld: warning: arm64 function not 4-byte aligned: _main from HelloWorld.o
+ld: warning: arm64 function not 4-byte aligned: helloworld from HelloWorld.o
+ld: dynamic main executables must link with libSystem.dylib for architecture arm64
 ```
+
+Adding `-lSystem` doesn't make it much better:
+```
+make           
+as -o HelloWorld.o main.s
+ld -o HelloWorld HelloWorld.o -lSystem
+ld: library not found for -lSystem
+```
+
+## Interesting:
+
+The alignment warning only appears in the `AsMain` target not when the code is succesfully built.
