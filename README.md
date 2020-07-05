@@ -23,6 +23,18 @@ We know the `-o` switch, let's examine the others:
 * `-e _start`: Darwin expects an entrypoint `_main`. In order to keep the sample both as close as possible to the book, and to allow it's use with in the C-Sample from _Chapter 3_, I opted to keep `_start` and tell the linker that this is the entry point we want to use
 * `-arch arm64` for good measure, let's throw in the option to cross-compile this from an Intel Mac
 
+## Listing 2-1
+
+Other than adding `.align 2` to silence the warning, it appears that the Clang assembler does not understand the `MOV X1, X2, LSL #1` alias, but requires `LSL X1, X2, #1`. If anyone has a hint where I can find the Clang assembly syntax reference guide, I'd be happy if you'd let me know.
+
+Also, of course, exit call and the makefile had to be adjusted like in _Listing 1-1_.
+
+## Listing 2-3, Listing 2-4
+
+The exit call must be adjusted.
+
+Please note that I have not yet update the ´codesnippets.s` file. Here Clang apparently also does not like the syntax.
+
 ## Listing 3-7
 
 While it is of course possible to call our method from an App, I chose to simply create a Command Line Tool, which is now using the same `HelloWorld.s` file.

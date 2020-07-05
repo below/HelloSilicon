@@ -2,6 +2,7 @@
 // Example of 128-Bit addition with the ADD/ADC instructions.
 //
 .global _start	            // Provide program starting address to linker
+.align 2
 
 // Load the registers with some data
 // First 64-bit number is 0x0000000000000003FFFFFFFFFFFFFFFF
@@ -15,10 +16,9 @@ _start:	MOV	X2, #0x0000000000000003
 	ADC	X0, X2, X4	// Higher order word
 
 // Setup the parameters to exit the programc
-// and then call Linux to do it.
+// and then call the kernel to do it.
 // R0 is the return code and will be what we
 // calculated above.
-        MOV     X8, #93     // Service command code 93 terminates this program
-        SVC     0           // Call linux to terminate the program
-
+	MOV     X16, #1		// System call number 1 terminates this program
+	SVC     #0x80		// Call kernel to terminate the program
 
