@@ -1,7 +1,9 @@
 # HelloSilicon
 An attempt with assembly on the machine we must not speak about
 
-This is the attempt to adapt _Listing 1-1_ in [Chapter 1](https://github.com/Apress/programming-with-64-bit-ARM-assembly-language/blob/master/Chapter%201-20200511T181604Z-001.zip) and _Listing 3-7_ in [Chapter 3](https://github.com/Apress/programming-with-64-bit-ARM-assembly-language/blob/master/Chapter%203-20200511T181457Z-001.zip) from the book [Programming with 64-Bit ARM Assembly Language](https://www.apress.com/gp/book/9781484258804).
+In this repository, I will code along with the book [Programming with 64-Bit ARM Assembly Language](https://www.apress.com/gp/book/9781484258804), adjusting all sample code for a new platform that might be very, very popular soon. The original sourcecode can be found [here](https://github.com/Apress/programming-with-64-bit-ARM-assembly-language).
+
+Below I will document the required changes
 
 ## Listing 1-1
 
