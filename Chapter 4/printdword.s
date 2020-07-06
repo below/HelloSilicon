@@ -11,13 +11,15 @@
 //
 
 .global _start	 // Provide program starting address
+.align 2
 
 _start: MOV	X4, #0x6E3A
 	MOVK	X4, #0x4F5D, LSL #16
 	MOVK	X4, #0xFEDC, LSL #32
 	MOVK	X4, #0x1234, LSL #48
 
-	LDR	X1, =hexstr // start of string
+	adrp	X1, hexstr@GOTPAGE // start of string
+//	add	X1, X1, hexstr@GOTPAGEOFF
 	ADD	X1, X1, #17	    // start at least sig digit
 // The loop is FOR W5 = 16 TO 1 STEP -1
 	MOV	W5, #16	    // 16 digits to print
@@ -42,16 +44,16 @@ cont:	// end if
 // Setup the parameters to print our hex number
 // and then call Linux to do it.
 	MOV	X0, #1	    // 1 = StdOut
-	LDR	X1, =hexstr // string to print
+	adrp	X1, hexstr@GOTPAGE // start of string
 	MOV	X2, #19	    // length of our string
-	MOV	X8, #64	    // linux write system call
-	SVC	0 	    // Call linux to output the string
+	MOV	X16, #4	    // linux write system call
+	SVC	#0x80 	    // Call linux to output the string
 
 // Setup the parameters to exit the program
 // and then call Linux to do it.
 	MOV     X0, #0      // Use 0 return code
-        MOV     X8, #93     // Service command code 93 terminates this program
-        SVC     0           // Call linux to terminate the program
+        MOV     X16, #1     // Service command code 93 terminates this program
+        SVC     #0x80           // Call linux to terminate the program
 
 .data
 hexstr:      .ascii  "0x123456789ABCDEFG\n"

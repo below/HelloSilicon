@@ -41,6 +41,19 @@ While it is of course possible to call our method from an App, I chose to simply
 Thankfully @saagarjha [suggested](https://github.com/below/HelloSilicon/issues/5) how it would be possible to build the sample with Xcode _without_ `libc`, and I might come back to try that later.
 Until then, I have removed the _AsMain_ target.
 
+## Listing 4-8
+
+Besides the changes that are common, we face a new issue, which is described in the book in Chapter 5: Darwin does not like `LSR X1, =symbol`, and in the case of `ASR X1, symbol` our data has to be in the read-only `.text` section. In this sample, we want writable data. 
+
+On Darwin "All local and small data is accessed directly using addressing that’s relative to the instruction pointer (RIP-relative addressing). All large or possibly nonlocal data is accessed indirectly through a global offset table (GOT) entry. The GOT entry is accessed directly using RIP-relative addressing." [Apple Documentation](https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/MachOTopics/1-Articles/x86_64_code.html#//apple_ref/doc/uid/TP40005044-SW1)
+
+Thankfully, @claui pointed me to the working solution: 
+
+```
+ADRP X1, hexstr@GOTPAGE
+```
+[ARM Documentation](https://developer.arm.com/documentation/dui0802/b/A64-General-Instructions/ADRP)
+
 ## Additional references
 
 * [What is required for a Mach-O executable to load?](https://stackoverflow.com/a/42399119/1600891)
