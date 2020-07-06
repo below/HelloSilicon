@@ -7,33 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8EAA6BDA23DB77B00045EDD6 /* upper.s in Sources */ = {isa = PBXBuildFile; fileRef = 8EAA6BD923DB77B00045EDD6 /* upper.s */; };
-		8EAA6BDE23DB7AF20045EDD6 /* mytoupper.c in Sources */ = {isa = PBXBuildFile; fileRef = 8EAA6BDD23DB7AF20045EDD6 /* mytoupper.c */; };
-		8EDBCEEF23DB540C00CE64BB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDBCEEE23DB540C00CE64BB /* AppDelegate.swift */; };
-		8EDBCEF123DB540C00CE64BB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDBCEF023DB540C00CE64BB /* SceneDelegate.swift */; };
-		8EDBCEF323DB540C00CE64BB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDBCEF223DB540C00CE64BB /* ViewController.swift */; };
-		8EDBCEF623DB540C00CE64BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EDBCEF423DB540C00CE64BB /* Main.storyboard */; };
-		8EDBCEF823DB541800CE64BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8EDBCEF723DB541800CE64BB /* Assets.xcassets */; };
-		8EDBCEFB23DB541800CE64BB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EDBCEF923DB541800CE64BB /* LaunchScreen.storyboard */; };
+		CB32CA4D24B3CBC100BF9B43 /* ToUpperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB32CA3A24B3CBC000BF9B43 /* ToUpperApp.swift */; };
+		CB32CA4E24B3CBC100BF9B43 /* ToUpperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB32CA3A24B3CBC000BF9B43 /* ToUpperApp.swift */; };
+		CB32CA4F24B3CBC100BF9B43 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB32CA3B24B3CBC000BF9B43 /* ContentView.swift */; };
+		CB32CA5024B3CBC100BF9B43 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB32CA3B24B3CBC000BF9B43 /* ContentView.swift */; };
+		CB32CA5124B3CBC100BF9B43 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB32CA3C24B3CBC000BF9B43 /* Assets.xcassets */; };
+		CB32CA5224B3CBC100BF9B43 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB32CA3C24B3CBC000BF9B43 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8EAA6BD923DB77B00045EDD6 /* upper.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = upper.s; sourceTree = "<group>"; };
-		8EAA6BDB23DB792B0045EDD6 /* upper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = upper.h; sourceTree = "<group>"; };
-		8EAA6BDC23DB7AF10045EDD6 /* ToUpper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ToUpper-Bridging-Header.h"; sourceTree = "<group>"; };
-		8EAA6BDD23DB7AF20045EDD6 /* mytoupper.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = mytoupper.c; sourceTree = "<group>"; };
-		8EDBCEEB23DB540C00CE64BB /* ToUpper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToUpper.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8EDBCEEE23DB540C00CE64BB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8EDBCEF023DB540C00CE64BB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		8EDBCEF223DB540C00CE64BB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		8EDBCEF523DB540C00CE64BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		8EDBCEF723DB541800CE64BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8EDBCEFA23DB541800CE64BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8EDBCEFC23DB541800CE64BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CB32CA3A24B3CBC000BF9B43 /* ToUpperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToUpperApp.swift; sourceTree = "<group>"; };
+		CB32CA3B24B3CBC000BF9B43 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		CB32CA3C24B3CBC000BF9B43 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CB32CA4124B3CBC000BF9B43 /* ToUpper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToUpper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB32CA4424B3CBC000BF9B43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CB32CA4924B3CBC100BF9B43 /* ToUpper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToUpper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB32CA4B24B3CBC100BF9B43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CB32CA4C24B3CBC100BF9B43 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		8EDBCEE823DB540B00CE64BB /* Frameworks */ = {
+		CB32CA3E24B3CBC000BF9B43 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CB32CA4624B3CBC100BF9B43 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -43,77 +44,107 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8EDBCEE223DB540B00CE64BB = {
+		CB32CA3424B3CBC000BF9B43 = {
 			isa = PBXGroup;
 			children = (
-				8EDBCEED23DB540C00CE64BB /* ToUpper */,
-				8EDBCEEC23DB540C00CE64BB /* Products */,
+				CB32CA3924B3CBC000BF9B43 /* Shared */,
+				CB32CA4324B3CBC000BF9B43 /* iOS */,
+				CB32CA4A24B3CBC100BF9B43 /* macOS */,
+				CB32CA4224B3CBC000BF9B43 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		8EDBCEEC23DB540C00CE64BB /* Products */ = {
+		CB32CA3924B3CBC000BF9B43 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				8EDBCEEB23DB540C00CE64BB /* ToUpper.app */,
+				CB32CA3A24B3CBC000BF9B43 /* ToUpperApp.swift */,
+				CB32CA3B24B3CBC000BF9B43 /* ContentView.swift */,
+				CB32CA3C24B3CBC000BF9B43 /* Assets.xcassets */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		CB32CA4224B3CBC000BF9B43 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CB32CA4124B3CBC000BF9B43 /* ToUpper.app */,
+				CB32CA4924B3CBC100BF9B43 /* ToUpper.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8EDBCEED23DB540C00CE64BB /* ToUpper */ = {
+		CB32CA4324B3CBC000BF9B43 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				8EDBCEEE23DB540C00CE64BB /* AppDelegate.swift */,
-				8EDBCEF023DB540C00CE64BB /* SceneDelegate.swift */,
-				8EDBCEF223DB540C00CE64BB /* ViewController.swift */,
-				8EDBCEF423DB540C00CE64BB /* Main.storyboard */,
-				8EDBCEF723DB541800CE64BB /* Assets.xcassets */,
-				8EDBCEF923DB541800CE64BB /* LaunchScreen.storyboard */,
-				8EDBCEFC23DB541800CE64BB /* Info.plist */,
-				8EAA6BD923DB77B00045EDD6 /* upper.s */,
-				8EAA6BDB23DB792B0045EDD6 /* upper.h */,
-				8EAA6BDD23DB7AF20045EDD6 /* mytoupper.c */,
-				8EAA6BDC23DB7AF10045EDD6 /* ToUpper-Bridging-Header.h */,
+				CB32CA4424B3CBC000BF9B43 /* Info.plist */,
 			);
-			path = ToUpper;
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		CB32CA4A24B3CBC100BF9B43 /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				CB32CA4B24B3CBC100BF9B43 /* Info.plist */,
+				CB32CA4C24B3CBC100BF9B43 /* macOS.entitlements */,
+			);
+			path = macOS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8EDBCEEA23DB540B00CE64BB /* ToUpper */ = {
+		CB32CA4024B3CBC000BF9B43 /* iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8EDBCEFF23DB541800CE64BB /* Build configuration list for PBXNativeTarget "ToUpper" */;
+			buildConfigurationList = CB32CA5524B3CBC100BF9B43 /* Build configuration list for PBXNativeTarget "iOS" */;
 			buildPhases = (
-				8EDBCEE723DB540B00CE64BB /* Sources */,
-				8EDBCEE823DB540B00CE64BB /* Frameworks */,
-				8EDBCEE923DB540B00CE64BB /* Resources */,
+				CB32CA3D24B3CBC000BF9B43 /* Sources */,
+				CB32CA3E24B3CBC000BF9B43 /* Frameworks */,
+				CB32CA3F24B3CBC000BF9B43 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = ToUpper;
-			productName = ToUpper;
-			productReference = 8EDBCEEB23DB540C00CE64BB /* ToUpper.app */;
+			name = iOS;
+			productName = iOS;
+			productReference = CB32CA4124B3CBC000BF9B43 /* ToUpper.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CB32CA4824B3CBC100BF9B43 /* macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CB32CA5824B3CBC100BF9B43 /* Build configuration list for PBXNativeTarget "macOS" */;
+			buildPhases = (
+				CB32CA4524B3CBC100BF9B43 /* Sources */,
+				CB32CA4624B3CBC100BF9B43 /* Frameworks */,
+				CB32CA4724B3CBC100BF9B43 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = macOS;
+			productName = macOS;
+			productReference = CB32CA4924B3CBC100BF9B43 /* ToUpper.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		8EDBCEE323DB540B00CE64BB /* Project object */ = {
+		CB32CA3524B3CBC000BF9B43 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1130;
-				ORGANIZATIONNAME = "Stephen Smith";
+				LastSwiftUpdateCheck = 1200;
+				LastUpgradeCheck = 1200;
 				TargetAttributes = {
-					8EDBCEEA23DB540B00CE64BB = {
-						CreatedOnToolsVersion = 11.3;
-						LastSwiftMigration = 1130;
+					CB32CA4024B3CBC000BF9B43 = {
+						CreatedOnToolsVersion = 12.0;
+					};
+					CB32CA4824B3CBC100BF9B43 = {
+						CreatedOnToolsVersion = 12.0;
 					};
 				};
 			};
-			buildConfigurationList = 8EDBCEE623DB540B00CE64BB /* Build configuration list for PBXProject "ToUpper" */;
+			buildConfigurationList = CB32CA3824B3CBC000BF9B43 /* Build configuration list for PBXProject "ToUpper" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -121,65 +152,59 @@
 				en,
 				Base,
 			);
-			mainGroup = 8EDBCEE223DB540B00CE64BB;
-			productRefGroup = 8EDBCEEC23DB540C00CE64BB /* Products */;
+			mainGroup = CB32CA3424B3CBC000BF9B43;
+			productRefGroup = CB32CA4224B3CBC000BF9B43 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8EDBCEEA23DB540B00CE64BB /* ToUpper */,
+				CB32CA4024B3CBC000BF9B43 /* iOS */,
+				CB32CA4824B3CBC100BF9B43 /* macOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		8EDBCEE923DB540B00CE64BB /* Resources */ = {
+		CB32CA3F24B3CBC000BF9B43 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8EDBCEFB23DB541800CE64BB /* LaunchScreen.storyboard in Resources */,
-				8EDBCEF823DB541800CE64BB /* Assets.xcassets in Resources */,
-				8EDBCEF623DB540C00CE64BB /* Main.storyboard in Resources */,
+				CB32CA5124B3CBC100BF9B43 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CB32CA4724B3CBC100BF9B43 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB32CA5224B3CBC100BF9B43 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		8EDBCEE723DB540B00CE64BB /* Sources */ = {
+		CB32CA3D24B3CBC000BF9B43 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8EAA6BDA23DB77B00045EDD6 /* upper.s in Sources */,
-				8EDBCEF323DB540C00CE64BB /* ViewController.swift in Sources */,
-				8EDBCEEF23DB540C00CE64BB /* AppDelegate.swift in Sources */,
-				8EAA6BDE23DB7AF20045EDD6 /* mytoupper.c in Sources */,
-				8EDBCEF123DB540C00CE64BB /* SceneDelegate.swift in Sources */,
+				CB32CA4F24B3CBC100BF9B43 /* ContentView.swift in Sources */,
+				CB32CA4D24B3CBC100BF9B43 /* ToUpperApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CB32CA4524B3CBC100BF9B43 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB32CA5024B3CBC100BF9B43 /* ContentView.swift in Sources */,
+				CB32CA4E24B3CBC100BF9B43 /* ToUpperApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXVariantGroup section */
-		8EDBCEF423DB540C00CE64BB /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8EDBCEF523DB540C00CE64BB /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		8EDBCEF923DB541800CE64BB /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8EDBCEFA23DB541800CE64BB /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
-		8EDBCEFD23DB541800CE64BB /* Debug */ = {
+		CB32CA5324B3CBC100BF9B43 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -205,6 +230,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -229,17 +255,15 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
-		8EDBCEFE23DB541800CE64BB /* Release */ = {
+		CB32CA5424B3CBC100BF9B43 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -265,6 +289,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -283,79 +308,131 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		8EDBCF0023DB541800CE64BB /* Debug */ = {
+		CB32CA5624B3CBC100BF9B43 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = L5GMAYM33S;
-				INFOPLIST_FILE = ToUpper/Info.plist;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = iOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ComputerSmiths.ToUpper;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "ToUpper/ToUpper-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.ToUpper;
+				PRODUCT_NAME = ToUpper;
+				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		8EDBCF0123DB541800CE64BB /* Release */ = {
+		CB32CA5724B3CBC100BF9B43 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = L5GMAYM33S;
-				INFOPLIST_FILE = ToUpper/Info.plist;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = iOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ComputerSmiths.ToUpper;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "ToUpper/ToUpper-Bridging-Header.h";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.ToUpper;
+				PRODUCT_NAME = ToUpper;
+				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CB32CA5924B3CBC100BF9B43 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = macOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.16;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.ToUpper;
+				PRODUCT_NAME = ToUpper;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		CB32CA5A24B3CBC100BF9B43 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = macOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.16;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.ToUpper;
+				PRODUCT_NAME = ToUpper;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8EDBCEE623DB540B00CE64BB /* Build configuration list for PBXProject "ToUpper" */ = {
+		CB32CA3824B3CBC000BF9B43 /* Build configuration list for PBXProject "ToUpper" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8EDBCEFD23DB541800CE64BB /* Debug */,
-				8EDBCEFE23DB541800CE64BB /* Release */,
+				CB32CA5324B3CBC100BF9B43 /* Debug */,
+				CB32CA5424B3CBC100BF9B43 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8EDBCEFF23DB541800CE64BB /* Build configuration list for PBXNativeTarget "ToUpper" */ = {
+		CB32CA5524B3CBC100BF9B43 /* Build configuration list for PBXNativeTarget "iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8EDBCF0023DB541800CE64BB /* Debug */,
-				8EDBCF0123DB541800CE64BB /* Release */,
+				CB32CA5624B3CBC100BF9B43 /* Debug */,
+				CB32CA5724B3CBC100BF9B43 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CB32CA5824B3CBC100BF9B43 /* Build configuration list for PBXNativeTarget "macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CB32CA5924B3CBC100BF9B43 /* Debug */,
+				CB32CA5A24B3CBC100BF9B43 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 8EDBCEE323DB540B00CE64BB /* Project object */;
+	rootObject = CB32CA3524B3CBC000BF9B43 /* Project object */;
 }
