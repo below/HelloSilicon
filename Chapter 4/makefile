@@ -12,7 +12,7 @@ LDFLAGS = -lSystem -syslibroot `xcrun -sdk macosx --show-sdk-path` -e _start -ar
 %.o : %.s
 	as $(DEBUGFLGS) $< -o $@
 
-all: printdword # codesnippets
+all: printdword codesnippets
 
 printdword: $(OBJS)
 	ld -o printdword $(LDFLAGS) $(OBJS)
