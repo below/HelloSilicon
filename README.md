@@ -54,6 +54,9 @@ ADRP X1, hexstr@GOTPAGE
 ```
 [ARM Documentation](https://developer.arm.com/documentation/dui0802/b/A64-General-Instructions/ADRP)
 
+## Listing 10-4, 10-5
+No changes in the core code were required, but I created a SwiftUI app that will work on macOS, iOS, and later on watchOS and tvOS, too.
+
 ## Additional references
 
 * [What is required for a Mach-O executable to load?](https://stackoverflow.com/a/42399119/1600891)
