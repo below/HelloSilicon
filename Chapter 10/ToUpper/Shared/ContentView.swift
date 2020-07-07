@@ -13,7 +13,15 @@ struct ContentView: View {
         VStack {
             TextField("Enter some text here", text: $text).padding(20)
             Button(action: {
-                text = text.uppercased()
+                var output : [CChar] = Array(repeating: 0, count: 255)
+                
+                let s: String = text
+                mytoupper(s, &output)
+                
+                guard let outputString = String(validatingUTF8: output) else {
+                    return
+                }
+                text = outputString
             }) {
                 Text("To Upper")
             }
