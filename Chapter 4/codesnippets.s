@@ -7,6 +7,7 @@
 // breakpoint at the one you are interested in.
 
 .global _start
+.p2align 2
 
 _start: 
 // uncomment the next 2 lines if you want to see
