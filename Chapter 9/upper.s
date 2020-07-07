@@ -8,9 +8,10 @@
 // W5 - current character being processed
 //
 
-.global mytoupper	     // Allow other files to call this routine
+.global _mytoupper	     // Allow other files to call this routine
+.p2align 2
 
-mytoupper:
+_mytoupper:
 	MOV	X4, X1
 // The loop is until byte pointed to by X1 is non-zero
 loop:	LDRB	W5, [X0], #1	// load character and increment pointer

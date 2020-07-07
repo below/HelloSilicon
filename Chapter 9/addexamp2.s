@@ -6,6 +6,7 @@
 .include "debug.s"
 
 .global main	            // Provide program starting address
+.p2align 2
 
 // Load the registers with some data
 // First 64-bit number is 0x0000000000000003FFFFFFFFFFFFFFFF

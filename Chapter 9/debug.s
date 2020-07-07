@@ -18,8 +18,9 @@
 	mov	    X3, X\reg	// for the %x
 	mov	    X1, #\reg	
 	add	    X1, X1, #'0'	// for %c
-        ldr  	    X0, =ptfStr // printf format str
-        bl	    printf	// call printf
+        adrp  	    X0, ptfStr@PAGE // printf format str
+	add	X0, X0, ptfStr@PAGEOFF	// add offset for format str
+        bl	    _printf	// call printf
 	ldp	    X18, LR, [SP], #16
 	ldp	    X16, X17, [SP], #16
 	ldp	    X14, X15, [SP], #16
@@ -43,8 +44,8 @@
 	stp	    X14, X15, [SP, #-16]!	
 	stp	    X16, X17, [SP, #-16]!	
 	stp	    X18, LR, [SP, #-16]!	
-	ldr	    X0, =1f	// load print str
-	bl	    printf	// call printf
+	adr	    X0, 1f	// load print str
+	bl	    _printf	// call printf
 	ldp	    X18, LR, [SP], #16
 	ldp	    X16, X17, [SP], #16
 	ldp	    X14, X15, [SP], #16
