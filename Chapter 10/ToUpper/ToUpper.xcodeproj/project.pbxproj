@@ -13,6 +13,8 @@
 		CB32CA5024B3CBC100BF9B43 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB32CA3B24B3CBC000BF9B43 /* ContentView.swift */; };
 		CB32CA5124B3CBC100BF9B43 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB32CA3C24B3CBC000BF9B43 /* Assets.xcassets */; };
 		CB32CA5224B3CBC100BF9B43 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB32CA3C24B3CBC000BF9B43 /* Assets.xcassets */; };
+		CB32CA5D24B3D51100BF9B43 /* upper.s in Sources */ = {isa = PBXBuildFile; fileRef = CB32CA5C24B3D51100BF9B43 /* upper.s */; };
+		CB32CA5E24B3D51100BF9B43 /* upper.s in Sources */ = {isa = PBXBuildFile; fileRef = CB32CA5C24B3D51100BF9B43 /* upper.s */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,9 @@
 		CB32CA4924B3CBC100BF9B43 /* ToUpper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToUpper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB32CA4B24B3CBC100BF9B43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB32CA4C24B3CBC100BF9B43 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
+		CB32CA5B24B3D51100BF9B43 /* upper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = upper.h; sourceTree = "<group>"; };
+		CB32CA5C24B3D51100BF9B43 /* upper.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = upper.s; sourceTree = "<group>"; };
+		CB32CA5F24B3D55200BF9B43 /* ToUpper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ToUpper-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +64,9 @@
 			children = (
 				CB32CA3A24B3CBC000BF9B43 /* ToUpperApp.swift */,
 				CB32CA3B24B3CBC000BF9B43 /* ContentView.swift */,
+				CB32CA5B24B3D51100BF9B43 /* upper.h */,
+				CB32CA5C24B3D51100BF9B43 /* upper.s */,
+				CB32CA5F24B3D55200BF9B43 /* ToUpper-Bridging-Header.h */,
 				CB32CA3C24B3CBC000BF9B43 /* Assets.xcassets */,
 			);
 			path = Shared;
@@ -187,6 +195,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB32CA5D24B3D51100BF9B43 /* upper.s in Sources */,
 				CB32CA4F24B3CBC100BF9B43 /* ContentView.swift in Sources */,
 				CB32CA4D24B3CBC100BF9B43 /* ToUpperApp.swift in Sources */,
 			);
@@ -196,6 +205,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB32CA5E24B3D51100BF9B43 /* upper.s in Sources */,
 				CB32CA5024B3CBC100BF9B43 /* ContentView.swift in Sources */,
 				CB32CA4E24B3CBC100BF9B43 /* ToUpperApp.swift in Sources */,
 			);
@@ -259,6 +269,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "Shared/ToUpper-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -311,6 +322,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OBJC_BRIDGING_HEADER = "Shared/ToUpper-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
