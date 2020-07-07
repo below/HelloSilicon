@@ -18,4 +18,4 @@ printdword: $(OBJS)
 	ld -o printdword $(LDFLAGS) $(OBJS)
 
 codesnippets: $(CSOBJS)
-	ld -o codesnippets $(CSOBJS)
+	ld -o codesnippets $(LDFLAGS) $(CSOBJS)
