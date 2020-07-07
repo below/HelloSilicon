@@ -54,6 +54,10 @@ ADRP X1, hexstr@GOTPAGE
 ```
 [ARM Documentation](https://developer.arm.com/documentation/dui0802/b/A64-General-Instructions/ADRP)
 
+## Listing 5-10
+
+Changes like in Chapter 4.
+
 ## Listing 10-4, 10-5
 No changes in the core code were required, but I created a SwiftUI app that will work on macOS, iOS, and later on watchOS and tvOS, too.
 
