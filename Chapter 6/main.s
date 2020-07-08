@@ -18,6 +18,8 @@ _start: ADRP	X0, instr@PAGE	// start of input string
 
 	BL	toupper
 
+	MOV	X2, X0	// First, save the length into X2
+
 // Setup the parameters to print our hex number
 // and then call the kernel to do it.
 	MOV	X0, #1	    // 1 = StdOut
