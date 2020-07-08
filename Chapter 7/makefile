@@ -9,6 +9,8 @@ LSTFLGS =
 
 all: upper
 
+LDFLAGS = -lSystem -syslibroot `xcrun -sdk macosx --show-sdk-path` -e _start -arch arm64
+
 %.o : %.S
 	gcc $(DEBUGFLGS) $(LSTFLGS) -c $< -o $@
 
@@ -16,5 +18,5 @@ all: upper
 	as $(DEBUGFLGS) $(LSTFLGS) $< -o $@
 
 upper: $(UPPEROBJS)
-	ld -o upper $(UPPEROBJS)
+	ld -o upper $(LDFLAGS) $(UPPEROBJS)
 
