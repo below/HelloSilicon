@@ -1,6 +1,12 @@
 # HelloSilicon
 An attempt with assembly on the machine we must not speak about
 
+## Latest News
+
+For now, I am throwing in the towel on [Chapter 7](https://github.com/below/HelloSilicon#chapter-7).
+
+## Introduction
+
 In this repository, I will code along with the book [Programming with 64-Bit ARM Assembly Language](https://www.apress.com/gp/book/9781484258804), adjusting all sample code for a new platform that might be very, very popular soon. The original sourcecode can be found [here](https://github.com/Apress/programming-with-64-bit-ARM-assembly-language).
 
 Below I will document the required changes
@@ -79,6 +85,12 @@ Unrelated, the Darwin `write` system call apparently requires the length of the 
 ```
 	MOV	X2, X0	// First, save the length into X2
 ```
+
+## Chapter 7
+
+As of right now, I will skip this chapter. Linux, by design, is made for tinkering, and Darwin is not. `unistd.h` is not part of the userland MacOS SDK, and the whole system call mechanism is considered private and subject to change. As @sagaarjha said: _"Go used to create static binaries on macOS but they would constantly break whenever an update came out"_.
+
+When I find the time I may look deeper into this. Or maybe someone else wants to?
 
 ## Listing 10-4, 10-5
 No changes in the core code were required, but I created a SwiftUI app that will work on macOS, iOS, and later on watchOS and tvOS, too.
