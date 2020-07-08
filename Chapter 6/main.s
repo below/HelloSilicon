@@ -19,11 +19,12 @@ _start: ADRP	X0, instr@PAGE	// start of input string
 	BL	toupper
 
 // Setup the parameters to print our hex number
-// and then call Linux to do it.
+// and then call the kernel to do it.
 	MOV	X0, #1	    // 1 = StdOut
-	ADRP	X1, outstr@GOTPAGE // start of string
-	MOV	X16, #4	    // linux write system call
-	SVC	#0x80 	    // Call linux to output the string
+	ADRP	X1, outstr@PAGE // start of string
+	ADD	X1, X1, outstr@PAGEOFF
+	MOV	X16, #4	    // Unix write system call
+	SVC	#0x80 	    // Call kernel to output the string
 
 // Setup the parameters to exit the program
 // and then call the kernel to do it.
