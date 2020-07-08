@@ -9,6 +9,7 @@
 //
 
 .global _start	            // Provide program starting address to linker
+.p2align 2
 
 _start: ADRP	X0, instr@GOTPAGE	// start of input string
 	ADRP	X1, outstr@GOTPAGE	// address of output string
