@@ -33,19 +33,19 @@ l5:	.byte		0x3F
 .text
 
 _start: 
-l6:	LDR	X1, =helloworld
+l6:	ADRP	X1, helloworld@GOTPAGE
 	ADR	X1, helloworld2
 
 l7:	LDR	X1, =0x1234ABCD1234ABCD
 
 l8:
 // load the address of mynumber into X1
-	LDR	X1, =mynumber
+	ADRP	X1, mynumber@GOTPAGE
 // load the word stored at mynumber into X2
 	LDR	X2, [X1]
 
 
-l9:	LDR	X1, =arr1
+l9:	ADRP	X1, arr1@GOTPAGE
 
 l10:	// Load the first element
 	LDR	W2, [X1]
@@ -74,25 +74,25 @@ l13: 	// Our array is of WORDs. 2 is the index
 
 l14:	LDR W2, [X1, #(2 * 4)]!
 
-	LDR X2, =arr1
+	ADRP X2, arr1@GOTPAGE
 l15:	// Load X1 with the memory pointed to by X2
 	// Then do X2 = X2 + 2
 	LDR	X1, [X2], #2
 
-l16: 	LDR	X1, =myoctaword
+l16: 	ADRP	X1, myoctaword@GOTPAGE
 	LDP	X2, X3, [X1]
 	STP	X2, X3, [X1]
 
 // Setup the parameters to exit the program
-// and then call Linux to do it.
-	MOV     X0, #0      // Use 0 return code
-        MOV     X8, #93     // Service command code 93 terminates this program
-        SVC     0           // Call linux to terminate the program
+// and then call the kernel to do it.
+	mov     X0, #0		// Use 0 return code
+	mov     X16, #1		// System call number 1 terminates this program
+	svc     #0x80		// Call kernel to terminate the program
 helloworld2:	.ascii "Hello World!"
 
 .data
 helloworld:	.ascii "Hello World!"
 .align 4
-mynumber:	.QUAD	0x123456789ABCDEF0
-arr1:	.FILL	10, 4, 0
-myoctaword:	.OCTA 0x12345678876543211234567887654321
+mynumber:	.quad	0x123456789ABCDEF0
+arr1:	.fill	10, 4, 0
+myoctaword:	.octa 0x12345678876543211234567887654321
