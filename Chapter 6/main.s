@@ -11,8 +11,10 @@
 .global _start	            // Provide program starting address to linker
 .p2align 2
 
-_start: ADRP	X0, instr@GOTPAGE	// start of input string
-	ADRP	X1, outstr@GOTPAGE	// address of output string
+_start: ADRP	X0, instr@PAGE	// start of input string
+	ADD	X0, X0, instr@PAGEOFF
+	ADRP	X1, outstr@PAGE	// address of output string
+	ADD	X1, X1, outstr@PAGEOFF
 
 	BL	toupper
 
