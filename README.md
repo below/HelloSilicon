@@ -56,7 +56,7 @@ ADRP X1, hexstr@GOTPAGE
 
 ## Listing 5-10
 
-Changes like in Chapter 4.
+Changes like in Chapter 4, and the `quad`, `octa` and `fill` keywords apparently must be in lowercase for the llvm as. (See bottom of this file)
 
 ## Listing 6-3 to 6-5
 
