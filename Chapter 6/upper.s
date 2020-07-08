@@ -9,6 +9,7 @@
 //
 
 .global toupper	     // Allow other files to call this routine
+.align 2
 
 toupper: MOV	X4, X1
 // The loop is until byte pointed to by X1 is non-zero

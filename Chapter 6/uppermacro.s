@@ -11,7 +11,7 @@
 // label 1 = loop
 // label 2 = cont
 
-.MACRO	toupper	instr, outstr
+.macro	toupper	instr, outstr
 	LDR	X0, =\instr
 	LDR	X1, =\outstr
 	MOV	X2, X1
@@ -30,4 +30,4 @@
 	CMP	W3, #0		// stop on hitting a null character
 	B.NE	1b		// loop if character isn't null
 	SUB	X0, X1, X2	// get the length by subtracting the pointers
-.ENDM
+.endmacro

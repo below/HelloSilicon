@@ -58,6 +58,28 @@ ADRP X1, hexstr@GOTPAGE
 
 Changes like in Chapter 4.
 
+## Listing 6-3 to 6-5
+
+Learned something new: `@GOTPAGE` operand worked for us, but only by chance: It gave us the base address of the Global Offest Table. When we debug the `upper` sample from Chapter 5, we see that actually the `instr` is converted in place, and the `outstr` is not touched.
+
+The correct answer can be found [here](https://reverseengineering.stackexchange.com/a/15324): _"The `ADRP` instruction loads the address of the 4KB page anywhere in the +/-4GB (33 bits) range of the current instruction (which takes 21 high bits of the offset). This is denoted by the `@PAGE` operator. then, we can either use `LDR` or `STR` to read or write any address inside that page or `ADD` to to calculate the final address using the remaining 12 bits of the offset (denoted by `@PAGEOFF`)."_
+
+So this: 
+```
+	LDR	X1, =outstr // address of output string
+```
+
+becomes this:
+```
+	ADRP	X1, outstr@PAGE	// address of output string
+	ADD	X1, X1, outstr@PAGEOFF
+```
+
+Unrelated, the Darwin `write` system call apparently requires the length of the output to be stored in `X2`, whereas this is either a bug in the original code (unlikely), or Linux can work with zero-termination:
+```
+	MOV	X2, X0	// First, save the length into X2
+```
+
 ## Listing 10-4, 10-5
 No changes in the core code were required, but I created a SwiftUI app that will work on macOS, iOS, and later on watchOS and tvOS, too.
 

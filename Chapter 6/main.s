@@ -9,26 +9,30 @@
 //
 
 .global _start	            // Provide program starting address to linker
+.p2align 2
 
-_start: LDR	X0, =instr // start of input string
-	LDR	X1, =outstr // address of output string
+_start: ADRP	X0, instr@PAGE	// start of input string
+	ADD	X0, X0, instr@PAGEOFF
+	ADRP	X1, outstr@PAGE	// address of output string
+	ADD	X1, X1, outstr@PAGEOFF
 
 	BL	toupper
 
-// Setup the parameters to print our hex number
-// and then call Linux to do it.
-	MOV	X2,X0	// return code is the length of the string
+	MOV	X2, X0	// First, save the length into X2
 
+// Setup the parameters to print our hex number
+// and then call the kernel to do it.
 	MOV	X0, #1	    // 1 = StdOut
-	LDR	X1, =outstr // string to print
-	MOV	X8, #64	    // linux write system call
-	SVC	0 	    // Call linux to output the string
+	ADRP	X1, outstr@PAGE // start of string
+	ADD	X1, X1, outstr@PAGEOFF
+	MOV	X16, #4	    // Unix write system call
+	SVC	#0x80 	    // Call kernel to output the string
 
 // Setup the parameters to exit the program
-// and then call Linux to do it.
-	MOV     X0, #0      // Use 0 return code
-        MOV     X8, #93     // Service command code 93 terminates
-        SVC     0           // Call linux to terminate the program
+// and then call the kernel to do it.
+	MOV     X0, #0		// Use 0 return code
+	MOV     X16, #1		// System call number 1 terminates this program
+	SVC     #0x80		// Call kernel to terminate the program
 
 .data
 instr:  .asciz  "This is our Test String that we will convert.\n"
