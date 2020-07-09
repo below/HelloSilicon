@@ -9,7 +9,7 @@ LSTFLGS =
 
 LDFLAGS = -lSystem -lc -e main -arch arm64
 
-all: addexamp2 uppertst # uppertst2 uppertst3 uppertst4
+all: addexamp2 uppertst uppertst2 # uppertst3 uppertst4
 
 %.o : %.s
 	as $(DEBUGFLGS) $(LSTFLGS) $< -o $@
@@ -24,7 +24,7 @@ libupper.a: $(LIBOBJS)
 	ar -cvq libupper.a upper.o
 
 uppertst2: uppertst.c libupper.a
-	gcc -o uppertst2 uppertst.c libupper.a
+	clang -o uppertst2 uppertst.c libupper.a
 
 libup.so.1.0: $(LIBOBJS)
 	gcc -shared -Wl,-soname,libup.so.1 -o libup.so.1.0 $(LIBOBJS)
