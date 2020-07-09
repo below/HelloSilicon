@@ -9,7 +9,7 @@ LSTFLGS =
 
 LDFLAGS = -lSystem -lc -e main -arch arm64
 
-all: addexamp2 uppertst uppertst2 # uppertst3 uppertst4
+all: addexamp2 uppertst uppertst2 uppertst3 # uppertst4
 
 %.o : %.s
 	as $(DEBUGFLGS) $(LSTFLGS) $< -o $@
@@ -26,18 +26,17 @@ libupper.a: $(LIBOBJS)
 uppertst2: uppertst.c libupper.a
 	clang -o uppertst2 uppertst.c libupper.a
 
-libup.so.1.0: $(LIBOBJS)
-	gcc -shared -Wl,-soname,libup.so.1 -o libup.so.1.0 $(LIBOBJS)
-	mv libup.so.1.0 /usr/local/lib
-	ln -sf /usr/local/lib/libup.so.1.0 /usr/local/lib/libup.so.1
-	ln -sf /usr/local/lib/libup.so.1.0 /usr/local/lib/libup.so
-	ldconfig
+libup.dylib: $(LIBOBJS)
+	clang -current_version 1.0 -compatibility_version 1.0 -dynamiclib -o libup.A.dylib $(LIBOBJS)
+	mkdir -p ~/lib
+	mv libup.A.dylib ~/lib/
+	ln -sf ~/lib/libup.A.dylib ~/lib/libup.dylib
 
-uppertst3: libup.so.1.0
-	gcc -o uppertst3 uppertst.c -lup
+uppertst3: libup.dylib
+	clang -o uppertst3 uppertst.c -L ~/lib -lup
 
 uppertst4: uppertst4.c
-	gcc -o uppertst4 uppertst4.c 
+	clang -o uppertst4 uppertst4.c 
 
 clean:
-	rm *.o addexamp2 uppertst libupper.a uppertst?
+	rm -f *.o addexamp2 uppertst libupper.a uppertst? ~/lib/libup.dylib ~/lib/libup.A.dylib
