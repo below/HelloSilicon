@@ -8,7 +8,7 @@ DEBUGFLGS =
 endif
 LSTFLGS =
 
-LDFLAGS = -lSystem -syslibroot `xcrun -sdk macosx --show-sdk-path` -e _start -arch arm64  
+LDFLAGS = -lSystem -syslibroot `xcrun -sdk macosx --show-sdk-path` -e _start -arch arm64
 
 all: codesnippets upper
 
