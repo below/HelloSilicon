@@ -92,6 +92,18 @@ As of right now, I will skip this chapter. Linux, by design, is made for tinkeri
 
 When I find the time I may look deeper into this. Or maybe someone else wants to?
 
+## Chapter 8
+
+For transparency reasons, I replaced `gcc` with `clang`. On macOS it doesn't matter because
+```
+% gcc --version
+Apple clang version 12.0.0 (clang-1200.0.22.41)
+```
+
+Speaking of ´clang`, functions were prefixed with `_` as this is necessary for C to find them.
+
+Instead of a shared `.so` library, a dynamic mach libary was created. Further information can be fore here: [Creating Dynamic Libraries](https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/100-Articles/CreatingDynamicLibraries.html)
+
 ## Listing 10-4, 10-5
 No changes in the core code were required, but I created a SwiftUI app that will work on macOS, iOS, and later on watchOS and tvOS, too.
 
