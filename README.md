@@ -63,9 +63,14 @@ ADD  X1, X1, hexstr@PAGEOFF
 ```
 [ARM Documentation](https://developer.arm.com/documentation/dui0802/b/A64-General-Instructions/ADRP)
 
-## Listing 5-10
+## Chapter 5
 
-Changes like in Chapter 4, and the `quad`, `octa` and `fill` keywords apparently must be in lowercase for the llvm as. (See bottom of this file)
+### Listing 5-1
+The `quad`, `octa` and `fill` keywords apparently must be in lowercase for the llvm assembler. (See bottom of this file)
+
+### Listing 5-10
+
+Changes like in Chapter 4
 
 ## Listing 6-3 to 6-5
 
