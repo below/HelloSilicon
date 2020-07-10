@@ -49,14 +49,17 @@ Until then, I have removed the _AsMain_ target.
 
 ## Listing 4-8
 
-Besides the changes that are common, we face a new issue, which is described in the book in Chapter 5: Darwin does not like `LSR X1, =symbol`, and in the case of `ASR X1, symbol` our data has to be in the read-only `.text` section. In this sample, we want writable data. 
+Besides the changes that are common, we face a new issue, which is described in the book in Chapter 5: Darwin does not like `LSR X1, =symbol`, and in the case of `ASR X1, symbol` our data has to be in the read-only `.text` section. In this sample however, we want writable data. 
 
-On Darwin "All local and small data is accessed directly using addressing that’s relative to the instruction pointer (RIP-relative addressing). All large or possibly nonlocal data is accessed indirectly through a global offset table (GOT) entry. The GOT entry is accessed directly using RIP-relative addressing." [Apple Documentation](https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/MachOTopics/1-Articles/x86_64_code.html#//apple_ref/doc/uid/TP40005044-SW1)
+On Darwin "All large or possibly nonlocal data is accessed indirectly through a global offset table (GOT) entry. The GOT entry is accessed directly using RIP-relative addressing." [Apple Documentation](https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/MachOTopics/1-Articles/x86_64_code.html#//apple_ref/doc/uid/TP40005044-SW1)
+
+And by default, on Darwin all data contained in the `.data` section, where data is writeable, is "possibly nonlocal".
 
 Thankfully, @claui pointed me to the working solution: 
 
 ```
-ADRP X1, hexstr@GOTPAGE
+ADRP X1, hexstr@PAGE
+ADD  X1, X1, hexstr@PAGEOFF
 ```
 [ARM Documentation](https://developer.arm.com/documentation/dui0802/b/A64-General-Instructions/ADRP)
 
