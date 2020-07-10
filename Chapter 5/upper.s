@@ -12,8 +12,10 @@
 .global _start	            // Provide program starting address to linker
 .p2align 2
 
-_start: ADRP	X4, instr@GOTPAGE // start of input string
-	ADRP	X3, outstr@GOTPAGE // address of output string
+_start: ADRP	X4, instr@PAGE // start of input string
+	ADD	X4, X4, instr@PAGEOFF
+	ADRP	X3, outstr@PAGE // address of output string
+	ADD	X3, X3, outstr@PAGEOFF
 // The loop is until byte pointed to by X1 is non-zero
 loop:	LDRB	W5, [X4], #1	// load character and increment pointer
 // If W5 > 'z' then goto cont
@@ -32,7 +34,8 @@ cont:	// end if
 // Setup the parameters to print our hex number
 // and then call the Kernel to do it.
 	MOV	X0, #1	    // 1 = StdOut
-	ADRP	X1, outstr@GOTPAGE // string to print
+	ADRP	X1, outstr@PAGE // string to print
+	ADD	X1, X1, outstr@PAGEOFF
 	SUB	X2, X3, X1  // get the length by subtracting the pointers
 	MOV	X16, #4	    // Unix write system call
 	SVC	#0x80 	    // Call kernel to output the string

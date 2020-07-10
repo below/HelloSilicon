@@ -33,19 +33,22 @@ l5:	.byte		0x3F
 .text
 
 _start: 
-l6:	ADRP	X1, helloworld@GOTPAGE
+l6:	ADRP	X1, helloworld@PAGE
+	ADD	X1, X1, helloworld@PAGEOFF
 	ADR	X1, helloworld2
 
 l7:	LDR	X1, =0x1234ABCD1234ABCD
 
 l8:
 // load the address of mynumber into X1
-	ADRP	X1, mynumber@GOTPAGE
+	ADRP	X1, mynumber@PAGE
+	ADD	X1, X1, mynumber@PAGEOFF
 // load the word stored at mynumber into X2
 	LDR	X2, [X1]
 
 
-l9:	ADRP	X1, arr1@GOTPAGE
+l9:	ADRP	X1, arr1@PAGE
+	ADD	X1, X1, arr1@PAGEOFF
 
 l10:	// Load the first element
 	LDR	W2, [X1]
@@ -74,12 +77,14 @@ l13: 	// Our array is of WORDs. 2 is the index
 
 l14:	LDR W2, [X1, #(2 * 4)]!
 
-	ADRP X2, arr1@GOTPAGE
+	ADRP X2, arr1@PAGE
+	ADD  X2, X2, arr1@PAGEOFF
 l15:	// Load X1 with the memory pointed to by X2
 	// Then do X2 = X2 + 2
 	LDR	X1, [X2], #2
 
-l16: 	ADRP	X1, myoctaword@GOTPAGE
+l16: 	ADRP	X1, myoctaword@PAGE
+	ADD	X1, X1, myoctaword@PAGEOFF
 	LDP	X2, X3, [X1]
 	STP	X2, X3, [X1]
 
