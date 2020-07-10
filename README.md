@@ -49,34 +49,14 @@ Until then, I have removed the _AsMain_ target.
 
 ## Listing 4-8
 
-Besides the changes that are common, we face a new issue, which is described in the book in Chapter 5: Darwin does not like `LSR X1, =symbol`, and in the case of `ASR X1, symbol` our data has to be in the read-only `.text` section. In this sample however, we want writable data. 
+Besides the changes that are common, we face a new issue, which is described in the book in Chapter 5: Darwin does not like `LSR X1, =symbol`, we will get the error `ld: Absolute addressing not allowed in arm64 code`. If we use `ASR X1, symbol`, our data has to be in the read-only `.text` section. In this sample however, we want writable data. 
 
 On Darwin "All large or possibly nonlocal data is accessed indirectly through a global offset table (GOT) entry. The GOT entry is accessed directly using RIP-relative addressing." [Apple Documentation](https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/MachOTopics/1-Articles/x86_64_code.html#//apple_ref/doc/uid/TP40005044-SW1)
 
 And by default, on Darwin all data contained in the `.data` section, where data is writeable, is "possibly nonlocal".
 
-Thankfully, @claui pointed me to the working solution: 
-
-```
-ADRP X1, hexstr@PAGE
-ADD  X1, X1, hexstr@PAGEOFF
-```
-[ARM Documentation](https://developer.arm.com/documentation/dui0802/b/A64-General-Instructions/ADRP)
-
-## Chapter 5
-
-### Listing 5-1
-The `quad`, `octa` and `fill` keywords apparently must be in lowercase for the llvm assembler. (See bottom of this file)
-
-### Listing 5-10
-
-Changes like in Chapter 4
-
-## Listing 6-3 to 6-5
-
-Learned something new: `@GOTPAGE` operand worked for us, but only by chance: It gave us the base address of the Global Offest Table. When we debug the `upper` sample from Chapter 5, we see that actually the `instr` is converted in place, and the `outstr` is not touched.
-
-The correct answer can be found [here](https://reverseengineering.stackexchange.com/a/15324): _"The `ADRP` instruction loads the address of the 4KB page anywhere in the +/-4GB (33 bits) range of the current instruction (which takes 21 high bits of the offset). This is denoted by the `@PAGE` operator. then, we can either use `LDR` or `STR` to read or write any address inside that page or `ADD` to to calculate the final address using the remaining 12 bits of the offset (denoted by `@PAGEOFF`)."_
+Thankfully, @claui gave me a pointer into the right direction, and the full answer can be found [here](https://reverseengineering.stackexchange.com/a/15324): 
+> The `ADRP` instruction loads the address of the 4KB page anywhere in the +/-4GB (33 bits) range of the current instruction (which takes 21 high bits of the offset). This is denoted by the `@PAGE` operator. then, we can either use `LDR` or `STR` to read or write any address inside that page or `ADD` to to calculate the final address using the remaining 12 bits of the offset (denoted by `@PAGEOFF`).
 
 So this: 
 ```
@@ -89,7 +69,20 @@ becomes this:
 	ADD	X1, X1, outstr@PAGEOFF
 ```
 
-Unrelated, the Darwin `write` system call apparently requires the length of the output to be stored in `X2`, whereas this is either a bug in the original code (unlikely), or Linux can work with zero-termination:
+## Chapter 5
+
+The important differences in memory addressing for Darwin were already addresed above.
+
+### Listing 5-1
+The `quad`, `octa` and `fill` keywords apparently must be in lowercase for the llvm assembler. (See bottom of this file)
+
+### Listing 5-10
+
+Changes like in Chapter 4
+
+## Listing 6-3 to 6-5
+
+The Darwin `write` system call apparently requires the length of the output to be stored in `X2`, whereas this is either a bug in the original code (unlikely), or Linux can work with zero-termination:
 ```
 	MOV	X2, X0	// First, save the length into X2
 ```
@@ -106,8 +99,9 @@ No changes in the core code were required, but I created a SwiftUI app that will
 ## Additional references
 
 * [What is required for a Mach-O executable to load?](https://stackoverflow.com/a/42399119/1600891)
-* Mac OS X Internals, A Systems Approach. Amit Singh, 2007 
+* [Mac OS X Internals, A Systems Approach](https://www.pearson.ch/Informatik/Macintosh/EAN/9780134426549/Mac-OS-X-Internals) Amit Singh, 2007 
 * [Darwin Source Code](https://opensource.apple.com/source/xnu/)
+* [ARM Archicture Reference Manual](https://static.docs.arm.com/ddi0487/ca/DDI0487C_a_armv8_arm.pdf)
 
 ## One More Thing…
 "The C language is case-sensitive. Compilers are case-sensitive. The Unix command line, ufs, and nfs file systems are case-sensitive. I'm case-sensitive too, especially about product names. The IDE is called Xcode. Big X, little c. Not XCode or xCode or X-Code. Remember that now."
