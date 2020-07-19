@@ -14,7 +14,7 @@ all: upper uppermacro # codesnippets
 LDFLAGS = -lSystem -syslibroot `xcrun -sdk macosx --show-sdk-path` -e _start -arch arm64  
 
 %.o : %.s
-	as $(DEBUGFLGS) $(LSTFLGS) $< -o $@
+	as $(DEBUGFLGS) $(LSTFLGS) -arch arm64 $< -o $@
 codesnippets: $(CSOBJS)
 	ld -o codesnippets $(LDFLAGS) $(CSOBJS)
 
