@@ -85,12 +85,9 @@ The `quad`, `octa` and `fill` keywords apparently must be in lowercase for the l
 
 Changes like in Chapter 4
 
-## Listing 6-3 to 6-5
+## Chapter 6
 
-The Darwin `write` system call apparently requires the length of the output to be stored in `X2`, whereas this is either a bug in the original code (unlikely), or Linux can work with zero-termination:
-```
-	MOV	X2, X0	// First, save the length into X2
-```
+**Note:** This chapter is still a work in progress, you can see the progress in this [branch](https://github.com/below/HelloSilicon/tree/Chapter_6)
 
 ## Chapter 7
 
