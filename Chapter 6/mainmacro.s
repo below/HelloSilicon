@@ -16,28 +16,34 @@
 
 _start:
 	// Convert tststr to uppercase
-	toupper tststr, buffer@GOTPAGE
+  ADRP  X0, buffer@PAGE
+  ADD X0, X0, buffer@PAGEOFF
+	toupper tststr, X0
 
 // Setup the parameters to print
-// and then call Linux to do it.
+// and then call the kernel to do it.
 	MOV	X2,X0	// return code is the length of the string
 
 	MOV	X0, #1	    // 1 = StdOut
-	ADRP	X1, buffer@GOTPAGE // string to print
-	MOV	X16, #4	    // linux write system call
-	SVC	#0x80 	    // Call linux to output the string
+	ADRP	X1, buffer@PAGE // string to print
+	ADD X1, X1, buffer@PAGEOFF
+	MOV	X16, #4	    // Unix write system call
+	SVC	#0x80 	    // Call kernel to output the string
 
 	// Convert tststr2 to uppercase
-	toupper tststr2, buffer@GOTPAGE
+	ADRP  X0, buffer@PAGE
+	ADD X0, X0, buffer@PAGEOFF
+	toupper tststr2, X0
 
 // Setup the parameters to print
-// and then call Linux to do it.
+// and then call the kernel to do it.
 	MOV	X2,X0	// return code is the length of the string
 
 	MOV	X0, #1	    // 1 = StdOut
-	ADRP	X1, buffer@GOTPAGE // string to print
-	MOV	X16, #4	    // linux write system call
-	SVC	#0x80 	    // Call linux to output the string
+	ADRP	X1, buffer@PAGE // string to print
+	ADD X1, X1, buffer@PAGEOFF
+	MOV	X16, #4	    // Unix write system call
+	SVC	#0x80 	    // Call kernel to output the string
 
 // Setup the parameters to exit the program
 // and then call the kernel to do it.
