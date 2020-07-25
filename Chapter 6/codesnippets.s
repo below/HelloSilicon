@@ -7,6 +7,7 @@
 // breakpoint at the one you are interested in.
 
 .global _start
+.p2align 2
 
 _start: 
 l1:	STR	X0, [SP, #-16]!
@@ -68,9 +69,9 @@ l9:	BL	SUMFN
 // including other functions.
 
 // Define our variables
-		.EQU	VAR1, 0
-		.EQU	VAR2, 4
-		.EQU	SUM,  8
+		.equ	VAR1, 0
+		.equ	VAR2, 4
+		.equ	SUM,  8
 
 SUMFN:		STP	LR, FP, [SP, #-16]!
 		SUB	FP, SP, #16
@@ -93,18 +94,18 @@ SUMFN:		STP	LR, FP, [SP, #-16]!
 		LDP	LR, FP, [SP], #16 // Restore LR, FP
 		RET
  	
-.MACRO	PUSH1 register
+.macro	PUSH1 register
 		STR	\register, [SP, #-16]!
-.ENDM
-.MACRO	POP1 	register
+.endmacro
+.macro	POP1 	register
 		LDR	\register, [SP], #16
-.ENDM
-.MACRO 	PUSH2 register1, register2
+.endmacro
+.macro 	PUSH2 register1, register2
 		STP	\register1, \register2, [SP, #-16]!
-.ENDM
-.MACRO 	POP2	register1, register2
+.endmacro
+.macro 	POP2	register1, register2
 		LDP	\register1, \register2, [SP], #16
-.ENDM
+.endmacro
 
 Myfunction:
 	PUSH1	LR
