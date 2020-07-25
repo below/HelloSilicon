@@ -7,6 +7,7 @@
 // breakpoint at the one you are interested in.
 
 .global _start
+.global _l9
 
 .data
 l1: .byte 74, 0112, 0b00101010, 0x4A, 0X4a, 'J', 'H' + 2
@@ -47,7 +48,7 @@ l8:
 	LDR	X2, [X1]
 
 
-l9:	ADRP	X1, arr1@PAGE
+_l9:	ADRP	X1, arr1@PAGE
 	ADD	X1, X1, arr1@PAGEOFF
 
 l10:	// Load the first element
