@@ -9,7 +9,7 @@ DEBUGFLGS =
 endif
 LSTFLGS =
 
-all: upper uppermacro # codesnippets
+all: upper uppermacro codesnippets
 
 LDFLAGS = -lSystem -syslibroot `xcrun -sdk macosx --show-sdk-path` -e _start -arch arm64  
 
