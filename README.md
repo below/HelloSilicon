@@ -35,7 +35,7 @@ We know the `-o` switch, let's examine the others:
 
 ## Listing 2-1
 
-Other than adding `.align 2` to silence the warning, it appears that the Clang assembler does not understand the `MOV X1, X2, LSL #1` alias, but requires `LSL X1, X2, #1`. If anyone has a hint where I can find the Clang assembly syntax reference guide, I'd be happy if you'd let me know.
+Other than adding `.align 2` to silence the warning, the Clang assembler does not understand the `MOV X1, X2, LSL #1` alias, but requires `LSL X1, X2, #1`. Apple has told me (FB7855327) that they are not planning to change this. If anyone has a hint where I can find the Clang assembly syntax reference guide, I'd be happy if you'd let me know.
 
 Also, of course, exit call and the makefile had to be adjusted like in _Listing 1-1_.
 
