@@ -3,7 +3,7 @@ An attempt with assembly on the machine we must not speak about
 
 ## Latest News
 
-For now, I am throwing in the towel on [Chapter 7](https://github.com/below/HelloSilicon#chapter-7).
+[Chapter 6](https://github.com/below/HelloSilicon#chapter-6) completed.
 
 ## Introduction
 
