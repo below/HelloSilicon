@@ -21,4 +21,4 @@ upper: $(UPPEROBJS)
 	ld -o upper $(LDFLAGS) $(UPPEROBJS)
 
 clean:
-	*.o upper codesnippets
+	rm -f *.o upper codesnippets
