@@ -12,8 +12,10 @@
 // label 2 = cont
 
 .macro	toupper	instr, outstr
-	LDR	X0, =\instr
-	LDR	X1, =\outstr
+	ADRP	X0, \instr@PAGE
+	ADD X0, X0, \instr@PAGEOFF
+	ADRP	X1, \outstr@PAGE
+	ADD X1, X1, \outstr@PAGEOFF
 	MOV	X2, X1
 // The loop is until byte pointed to by X1 is non-zero
 1:	LDRB	W3, [X0], #1	// load character and increment pointer

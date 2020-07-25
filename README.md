@@ -87,7 +87,11 @@ Changes like in Chapter 4
 
 ## Chapter 6
 
-**Note:** This chapter is still a work in progress, you can see the progress in this [branch](https://github.com/below/HelloSilicon/tree/Chapter_6)
+Of course, the usual alignment and addressing changes were needed.
+
+And as we learned in Chapter 5, all assembler directives (like `.equ` must be in lowercase for the Clang assember. Also, clang uses `.endmacro` instead of GNU's `.ENDM`.
+
+Please note that I have not tested the `codesnippts` code yet, at this point all I can say is that it builds.
 
 ## Chapter 7
 
