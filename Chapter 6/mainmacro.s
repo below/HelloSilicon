@@ -16,9 +16,7 @@
 
 _start:
 	// Convert tststr to uppercase
-  ADRP  X0, buffer@PAGE
-  ADD X0, X0, buffer@PAGEOFF
-	toupper tststr, X0
+	toupper tststr, buffer
 
 // Setup the parameters to print
 // and then call the kernel to do it.
@@ -31,9 +29,7 @@ _start:
 	SVC	#0x80 	    // Call kernel to output the string
 
 	// Convert tststr2 to uppercase
-	ADRP  X0, buffer@PAGE
-	ADD X0, X0, buffer@PAGEOFF
-	toupper tststr2, X0
+	toupper tststr2, buffer
 
 // Setup the parameters to print
 // and then call the kernel to do it.
