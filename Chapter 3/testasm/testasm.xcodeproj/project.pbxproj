@@ -24,9 +24,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		CB32CA0624AF83F100BF9B43 /* MacAs */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MacAs; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB32CA0624AF83F100BF9B43 /* testasm */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = testasm; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB32CA0924AF83F100BF9B43 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
-		CB32CA1024AF83FB00BF9B43 /* HelloWorld.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; name = HelloWorld.s; path = ../HelloWorld.s; sourceTree = "<group>"; };
+		CB32CA1024AF83FB00BF9B43 /* HelloWorld.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; name = HelloWorld.s; path = ../../HelloWorld.s; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,7 +43,7 @@
 		CB32C9FD24AF83F100BF9B43 = {
 			isa = PBXGroup;
 			children = (
-				CB32CA0824AF83F100BF9B43 /* MacAs */,
+				CB32CA0824AF83F100BF9B43 /* testasm */,
 				CB32CA0724AF83F100BF9B43 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -51,26 +51,26 @@
 		CB32CA0724AF83F100BF9B43 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CB32CA0624AF83F100BF9B43 /* MacAs */,
+				CB32CA0624AF83F100BF9B43 /* testasm */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		CB32CA0824AF83F100BF9B43 /* MacAs */ = {
+		CB32CA0824AF83F100BF9B43 /* testasm */ = {
 			isa = PBXGroup;
 			children = (
 				CB32CA1024AF83FB00BF9B43 /* HelloWorld.s */,
 				CB32CA0924AF83F100BF9B43 /* main.c */,
 			);
-			path = MacAs;
+			path = testasm;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		CB32CA0524AF83F100BF9B43 /* MacAs */ = {
+		CB32CA0524AF83F100BF9B43 /* testasm */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CB32CA0D24AF83F100BF9B43 /* Build configuration list for PBXNativeTarget "MacAs" */;
+			buildConfigurationList = CB32CA0D24AF83F100BF9B43 /* Build configuration list for PBXNativeTarget "testasm" */;
 			buildPhases = (
 				CB32CA0224AF83F100BF9B43 /* Sources */,
 				CB32CA0324AF83F100BF9B43 /* Frameworks */,
@@ -80,9 +80,9 @@
 			);
 			dependencies = (
 			);
-			name = MacAs;
+			name = testasm;
 			productName = MacAs;
-			productReference = CB32CA0624AF83F100BF9B43 /* MacAs */;
+			productReference = CB32CA0624AF83F100BF9B43 /* testasm */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -98,7 +98,7 @@
 					};
 				};
 			};
-			buildConfigurationList = CB32CA0124AF83F100BF9B43 /* Build configuration list for PBXProject "MacAs" */;
+			buildConfigurationList = CB32CA0124AF83F100BF9B43 /* Build configuration list for PBXProject "testasm" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -111,7 +111,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CB32CA0524AF83F100BF9B43 /* MacAs */,
+				CB32CA0524AF83F100BF9B43 /* testasm */,
 			);
 		};
 /* End PBXProject section */
@@ -259,7 +259,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CB32CA0124AF83F100BF9B43 /* Build configuration list for PBXProject "MacAs" */ = {
+		CB32CA0124AF83F100BF9B43 /* Build configuration list for PBXProject "testasm" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CB32CA0B24AF83F100BF9B43 /* Debug */,
@@ -268,7 +268,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CB32CA0D24AF83F100BF9B43 /* Build configuration list for PBXNativeTarget "MacAs" */ = {
+		CB32CA0D24AF83F100BF9B43 /* Build configuration list for PBXNativeTarget "testasm" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CB32CA0E24AF83F100BF9B43 /* Debug */,
