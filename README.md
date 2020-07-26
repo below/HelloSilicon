@@ -3,7 +3,9 @@ An attempt with assembly on the Machine We Must Not Speak About
 
 ## Latest News
 
-[Chapter 9](https://github.com/below/HelloSilicon#chapter-9) completed. That was a piece of work!
+[Chapter 11](https://github.com/below/HelloSilicon#chapter-9) is kind-of completed. All the samples end with a segmentation fault, I seem to miss something when pushing the arguments for `printf`
+
+Chapter 12 is in the works, and has the same issue. Chapter 16 is almost done, too
 
 ## Introduction
 
@@ -13,28 +15,27 @@ In this repository, I will code along with the book [Programming with 64-Bit ARM
 
 While I pretty much assume that people who made it here meet most if not all required prerequisites, it doesn't hurt to list them. 
 
-* You need [Xcode 12](https://developer.apple.com/xcode/), and to make things easier, the command line tools should to be installed. I believe they are when you say "Yes" to "Install additional components", but I might be wrong. This ensures that our tools are found in default locations (namely `/usr/bin`). If you are not sure, check _Preferences → Locations_ in Xcode.
+* You need [Xcode 12](https://developer.apple.com/xcode/), and to make things easier, the command line tools should be installed. I believe they are when you say "Yes" to "Install additional components", but I might be wrong. This ensures that the tools are found in default locations (namely `/usr/bin`). If you are not sure, check _Preferences → Locations_ in Xcode.
 
 * All application samples also require [macOS Big Sur](https://developer.apple.com/macos/), [iOS 14](https://developer.apple.com/ios/) or their respective watchOS or tvOS equivalents. Especially for the later three systems it is not a necessity per-se, but it makes things a lot simpler.
 
 * Finally, while all samples can be adjusted to work on Apple's current production ARM64 devices, for best results you should have access to a [MWMNSA](https://developer.apple.com/programs/universal/).
 
-
 With the exception of the existing iOS samples, the book is based on the Linux operating system. Apple's operating systems (macOS, iOS, watchOS and tvOS) are actually just flavors of the [Darwin](https://en.wikipedia.org/wiki/Darwin_(operating_system)) operating system, so they share a set of common core compoents. 
-While Linux and Darwin share a common ancestor and appear to be very similar, some changes are needed to make the samples run on Apple hardware, and they are listed below.
+While Linux and Darwin share a common ancestor and appear to be very similar, some changes are needed to make the samples run on Apple hardware.
 
 ### Tools
 
-The book uses Linux GNU tools, such as the GNU `as` assembler. While there is an `as` command on macOS, it will invoce the integrated Clang assembler by default. While there is the `-Q` option to use the GNU based assembler, this was only ever an option for x86_64 — and this will be deprecated as well.
+The book uses Linux GNU tools, such as the GNU `as` assembler. While there is an `as` command on macOS, it will invoce the integrated Clang assembler by default. And even if there is the `-Q` option to use the GNU based assembler, this was only ever an option for x86_64 — and this will be deprecated as well.
 ```
 % as -Q -arch arm64
 /usr/bin/as: can't specifiy -Q with -arch arm64
 ```
-Thus, the GNU assembler syntax is not an option for Darwin, and the code will have to be adjusted for the Clang assembler syntax
+Thus, the GNU assembler syntax is not an option for Darwin, and the code will have to be adjusted for the Clang assembler syntax.
 
 ### Operating System
 
-Linux and Darwin, while having similar roots in AT&T Unix, are different. For the listings in the book, this mostly concerns system calls (i.e. when we want the Kernel to do someting for us), and the way Darwin accesses memory. 
+Linux and Darwin, which have similar roots in AT&T Unix, are significantly different at the level we are looking at. For the listings in the book, this mostly concerns system calls (i.e. when we want the Kernel to do someting for us), and the way Darwin accesses memory. 
 
 The changes will be explained in details below.
 
@@ -68,7 +69,7 @@ We know the `-o` switch, let's examine the others:
 
 Other than adding `.align 2` to silence the warning, the Clang assembler does not understand the `MOV X1, X2, LSL #1` alias, but requires `LSL X1, X2, #1`. Apple has told me (FB7855327) that they are not planning to change this. If anyone has a hint where I can find the Clang assembly syntax reference guide, I'd be happy if you'd let me know.
 
-Also, of course, exit call and the makefile had to be adjusted like in _Listing 1-1_.
+Also, of course, exit call and the makefile had to be adjusted like in [Listing 1-1](https://github.com/below/HelloSilicon#listing-1-1).
 
 ## Listing 2-3, Listing 2-4
 
@@ -80,13 +81,13 @@ Please note that I have not yet update the `codesnippets.s` file. Here Clang app
 
 ### Listing 3-1
 
-As an excersise, I have added code to find the default Xcode toolchain on macOS. In the book they are using this to later switch from a Linux to an Android toolchain. This process is much different for macOS and iOS: It does not usually involve a different toolchain, but instead a different Software Development Kit (SDK). You can see that in [Listing 1-1] where `-sysroot` is set. 
+As an excersise, I have added code to find the default Xcode toolchain on macOS. In the book they are using this to later switch from a Linux to an Android toolchain. This process is much different for macOS and iOS: It does not usually involve a different toolchain, but instead a different Software Development Kit (SDK). You can see that in [Listing 1-1](https://github.com/below/HelloSilicon#listing-1-1) where `-sysroot` is set. 
 
 That said, while it is possible to build an iOS executable with the command line, it is not a trivial process. So for building apps, I will stick to Xcode.
 
 ### Listing 3-7
 
-As [Chapter 10] focusses on building an app that will run on iOS I have chosen to simply create a Command Line Tool, which is now using the same `HelloWorld.s` file.
+As [Chapter 10](https://github.com/below/HelloSilicon#chapter-10) focusses on building an app that will run on iOS I have chosen to simply create a Command Line Tool, which is now using the same `HelloWorld.s` file.
 Thankfully @saagarjha [suggested](https://github.com/below/HelloSilicon/issues/5) how it would be possible to build the sample with Xcode _without_ `libc`, and I might come back to try that later.
 
 ## Chapter 4
