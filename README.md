@@ -86,9 +86,8 @@ That said, while it is possible to build an iOS executable with the command line
 
 ### Listing 3-7
 
-While it is of course possible to call our method from an App, I chose to simply create a Command Line Tool, which is now using the same `HelloWorld.s` file.
+As [Chapter 10] focusses on building an app that will run on iOS I have chosen to simply create a Command Line Tool, which is now using the same `HelloWorld.s` file.
 Thankfully @saagarjha [suggested](https://github.com/below/HelloSilicon/issues/5) how it would be possible to build the sample with Xcode _without_ `libc`, and I might come back to try that later.
-Until then, I have removed the _AsMain_ target.
 
 ## Chapter 4
 
