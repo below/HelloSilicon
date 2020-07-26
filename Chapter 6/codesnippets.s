@@ -120,5 +120,5 @@ l10:
 // Setup the parameters to exit the program
 // and then call Linux to do it.
 	MOV     X0, #0      // Use 0 return code
-        MOV     X8, #93      // Service command code 93 terminates
-        SVC     0           // Call linux to terminate the program
+	mov     X16, #1		// System call number 1 terminates this program
+	svc     #0x80		// Call kernel to terminate the program
