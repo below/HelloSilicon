@@ -9,7 +9,22 @@ An attempt with assembly on the machine we must not speak about
 
 In this repository, I will code along with the book [Programming with 64-Bit ARM Assembly Language](https://www.apress.com/gp/book/9781484258804), adjusting all sample code for a new platform that might be very, very popular soon. The original sourcecode can be found [here](https://github.com/Apress/programming-with-64-bit-ARM-assembly-language).
 
-Below I will document the required changes
+The required changes fall into two categories:
+
+### Tools
+
+The book uses Linux GNU tools, such as the GNU `as` assembler. While there is an `as` command on macOS, it will invoce the integrated Clang assembler by default. While there is the `-Q` option to use the GNU based assembler, this was only ever an option for x86_64 — and this will be deprecated as well.
+```
+% as -Q -arch arm64
+/usr/bin/as: can't specifiy -Q with -arch arm64
+```
+Thus, the GNU assembler syntax is not an option for Darwin, and the code will have to be adjusted for the Clang assembler syntax
+
+### Operating System
+
+Linux and Darwin, while having similar roots in AT&T Unix, are different. For the listings in the book, this mostly concerns system calls (i.e. when we want the Kernel to do someting for us), and the way Darwin accesses memory. 
+
+The changes will be explained in details below.
 
 ## Listing 1-1
 
