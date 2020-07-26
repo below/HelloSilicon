@@ -74,15 +74,23 @@ Also, of course, exit call and the makefile had to be adjusted like in _Listing 
 
 The exit call must be adjusted.
 
-Please note that I have not yet update the ´codesnippets.s` file. Here Clang apparently also does not like the syntax.
+Please note that I have not yet update the `codesnippets.s` file. Here Clang apparently also does not like the syntax.
 
-## Listing 3-7
+## Chapter 3
+
+### Listing 3-1
+
+As an excersise, I have added code to find the default Xcode toolchain on macOS. In the book they are using this to later switch from a Linux to an Android toolchain. This process is much different for macOS and iOS: It does not usually involve a different toolchain, but instead a different Software Development Kit (SDK). You can see that in [Listing 1-1] where `-sysroot` is set. 
+
+That said, while it is possible to build an iOS executable with the command line, it is not a trivial process. So for building apps, I will stick to Xcode.
+
+### Listing 3-7
 
 While it is of course possible to call our method from an App, I chose to simply create a Command Line Tool, which is now using the same `HelloWorld.s` file.
 Thankfully @saagarjha [suggested](https://github.com/below/HelloSilicon/issues/5) how it would be possible to build the sample with Xcode _without_ `libc`, and I might come back to try that later.
 Until then, I have removed the _AsMain_ target.
 
-## Listing 4-8
+## Chapter 4
 
 Besides the changes that are common, we face a new issue, which is described in the book in Chapter 5: Darwin does not like `LSR X1, =symbol`, we will get the error `ld: Absolute addressing not allowed in arm64 code`. If we use `ASR X1, symbol`, our data has to be in the read-only `.text` section. In this sample however, we want writable data. 
 
