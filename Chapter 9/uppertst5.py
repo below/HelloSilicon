@@ -1,6 +1,6 @@
 from ctypes import *
 
-libupper = CDLL("libup.so")
+libupper = CDLL("/Users/below/lib/libup.dylib")
 
 libupper.mytoupper.argtypes = [c_char_p, c_char_p]
 libupper.mytoupper.restype = c_int
