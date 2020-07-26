@@ -18,6 +18,10 @@
 	mov	    X3, X\reg	// for the %x
 	mov	    X1, #\reg	
 	add	    X1, X1, #'0'	// for %c
+	mov	    X9, SP	// Move Stackpointer into X9
+	str	    X1, [X9]	// Push X1 onto the stack
+	str	    X2, [X9, #8]	// Push X2 onto the stack
+	str	    X3, [X9, #16]	// Push X3 onto the stack
         adrp  	    X0, ptfStr@PAGE // printf format str
 	add	X0, X0, ptfStr@PAGEOFF	// add offset for format str
         bl	    _printf	// call printf

@@ -9,7 +9,7 @@ LSTFLGS =
 
 LDFLAGS = -lSystem -lc -e main -arch arm64
 
-all: addexamp2 uppertst uppertst2 uppertst3 # uppertst4
+all: addexamp2 uppertst uppertst2 uppertst3 uppertst4
 
 %.o : %.s
 	as $(DEBUGFLGS) $(LSTFLGS) $< -o $@
