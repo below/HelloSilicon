@@ -42,9 +42,11 @@ main:
 	printStr "UMNEGL X4=-W2*W3:"
 	printReg 4
 
-	LDR	X2, =A
+	ADRP	X2, A@PAGE
+	ADD	X2, X2, A@PAGEOFF
 	LDR	X2, [X2]
-	LDR	X3, =B
+	ADRP	X3, B@PAGE
+	ADD	X3, X3, B@PAGEOFF
 	LDR	X3, [X3]
 	MUL	X4, X2, X3
 	printStr "Inputs:"

@@ -16,6 +16,7 @@
 //	X6 - col in dotloop
 
 .global main // Provide program starting address
+.align 4
 
 	.equ	N, 3	// Matrix dimensions
 	.equ	WDSIZE, 4 // Size of element
@@ -24,10 +25,13 @@ main:
 	STP	X19, X20, [SP, #-16]!	// Save required regs
 
 	MOV	W1, #N		// Row index
-	LDR	X4, =A		// Address of current row
-	LDR	X19, =C		// Address of results matrix
+	ADRP	X4, A@PAGE	// Address of current row
+	ADD	X4, X4, A@PAGEOFF
+	ADRP	X19, C@PAGE	// Address of results matrix
+	ADD	X19, X19, C@PAGEOFF 
 rowloop:
-	LDR	X5, =B		// first column in B
+	ADRP	X5, B@PAGE	// first column in B
+	ADD	X5, X5, B@PAGEOFF
 	MOV	W2, #N		// Column index (will count down to 0)
 
 colloop:	
@@ -57,14 +61,20 @@ dotloop:
 // Print out matrix C
 // Loop through 3 rows printing 3 cols each time.
 	MOV	W20, #3		// Print 3 rows
-	LDR	X19, =C		// Addr of results matrix
+	ADRP	X19, C@PAGE	// Addr of results matrix
+	ADD	X19, X19, C@PAGEOFF
 printloop:
 		
-	LDR	X0, =prtstr	// printf format string
+	ADRP	X0, prtstr@PAGE	// printf format string
+	ADD	X0, X0, prtstr@PAGEOFF
 	LDR	W1, [X19], #WDSIZE 	// first element in current row
 	LDR	W2, [X19], #WDSIZE	// second element in current row
 	LDR	W3, [X19], #WDSIZE	// third element in curent row
-	BL	printf		// Call printf
+	MOV	X9, SP		// Move Stackpointer into X9
+	STR	W1, [X9]	// Push X1 onto the stack
+	STR	W2, [X9, #8]	// Push X2 onto the stack
+	STR	W3, [X9, #16]	// Push X3 onto the stack
+	BL	_printf		// Call printf
 	SUBS	W20, W20, #1		// Dec loop counter
 	B.NE	printloop	// If not zero loop
 

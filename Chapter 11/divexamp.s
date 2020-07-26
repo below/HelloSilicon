@@ -5,6 +5,7 @@
 .include "debug.s"
 
 .global main // Provide program starting address
+.align 4
 
 // Load the registers with some data
 // Perform various division instructions

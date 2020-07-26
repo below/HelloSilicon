@@ -184,6 +184,11 @@ Above, you read something about _universal binary_. For a very long time, the Ma
 ## Chapter 10
 No changes in the core code were required, but I created a SwiftUI app that will work on macOS, iOS, and later on watchOS and tvOS, too.
 
+## Chapter 11
+Nothing besides the usual had to be changed. Still, while the code is working, the executables end with a segmentation fault. 
+
+I will get back to that — unless someone else wants to…
+
 ## Additional references
 
 * [What is required for a Mach-O executable to load?](https://stackoverflow.com/a/42399119/1600891)
