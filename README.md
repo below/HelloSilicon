@@ -3,7 +3,7 @@ An attempt with assembly on the Machine We Must Not Speak About
 
 ## Latest News
 
-[Chapter 6](https://github.com/below/HelloSilicon#chapter-6) completed.
+[Chapter 9](https://github.com/below/HelloSilicon#chapter-9) completed. That was a piece of work!
 
 ## Introduction
 
