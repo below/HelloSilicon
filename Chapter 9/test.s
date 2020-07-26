@@ -5,7 +5,7 @@
 .align 4
 
 _main:	
-	stp	x29, LR, [sp, #32]     ; 16-byte Folded Spill
+	stp	x29, LR, [sp, #16]!     ; 16-byte Folded Spill
         adrp  	    X0, ptfStr@PAGE // printf format str
 	add	X0, X0, ptfStr@PAGEOFF
 	mov	x9, sp	// Move the stack pointer into X9
@@ -14,7 +14,7 @@ _main:
         bl	    _printf	// call printf
 
 	MOV	X0, #0		// return code
-	ldp	x29, LR, [sp, #32]     ; 16-byte Folded Reload
+	ldp	x29, LR, [sp], #16     ; 16-byte Folded Reload
 	RET
 .data
 ptfStr: .asciz	"X%c\n"
