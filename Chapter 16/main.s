@@ -9,12 +9,14 @@
 //
 
 .global _start	            // Provide program starting address to linker
+.align 4
 
 DownloadCreditCardNumbers:
 // Setup the parameters to print hello world
 // and then call Linux to do it.
 	mov	X0, #1	    // 1 = StdOut
-	ldr	X1, =getcreditcards // string to print
+	adrp	X1, getcreditcards@PAGE // string to print
+	add	X1, X1, getcreditcards@PAGEOFF
 	mov	X2, #30	    // length of our string
 	mov	X8, #64	    // Linux write system call
 	svc	0 	    // Call linux to output the string	
@@ -23,7 +25,8 @@ DownloadCreditCardNumbers:
 calltoupper:	
 	STR	LR, [SP, #-16]!	// Put LR on the stack
 	SUB	SP, SP, #16	// 16 bytes for outstr
-	LDR	X0, =instr // start of input string
+	ADRP	X0, instr@PAGE	// start of input string
+	ADD	X0, X0, instr@PAGEOFF
 	MOV	X1, SP     // address of output string
 
 	BL	toupper
