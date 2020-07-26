@@ -13,11 +13,11 @@ _main:
 	mov     x9, sp
 	mov	x10, #'2'
 	str     x10, [x9]
-        mov     x10, #4711
-        str     x10, [x9, #8]
+	mov     x10, #4711
+	str     x10, [x9, #8]
 	str	x10, [x9, #16]
 
-        bl	    _printf	// call printf
+	bl	    _printf	// call printf
 
 	MOV	X0, #0		// return code
 	ldp	x29, LR, [sp, #48]     ; 16-byte Folded Reload

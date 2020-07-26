@@ -22,9 +22,9 @@
 	str	    X1, [X9]	// Push X1 onto the stack
 	str	    X2, [X9, #8]	// Push X2 onto the stack
 	str	    X3, [X9, #16]	// Push X3 onto the stack
-        adrp  	    X0, ptfStr@PAGE // printf format str
+	adrp  	    X0, ptfStr@PAGE // printf format str
 	add	X0, X0, ptfStr@PAGEOFF	// add offset for format str
-        bl	    _printf	// call printf
+	bl	    _printf	// call printf
 	ldp	    X18, LR, [SP], #16
 	ldp	    X16, X17, [SP], #16
 	ldp	    X14, X15, [SP], #16

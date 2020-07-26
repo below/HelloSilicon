@@ -94,17 +94,49 @@ When I find the time I may look deeper into this. Or maybe someone else wants to
 
 ## Chapter 8
 
-For transparency reasons, I replaced `gcc` with `clang`. On macOS it doesn't matter because
+This chapter is specifically for the Raspberry Pi4, so there is nothing to do here.
+
+## Chapter 9
+
+For transparency reasons, I replaced `gcc` with `clang`. On macOS it doesn't matter because:
 ```
 % gcc --version
 Apple clang version 12.0.0 (clang-1200.0.22.41)
 ```
 
-Speaking of ´clang`, functions were prefixed with `_` as this is necessary for C to find them.
+### Listing 9-1
+Apart from the usual changes, it appears that on Linux, printf will accept arguments passed in the registers. On Darwin, this is not the case, and we must pass the arguments on the stack. As I am still learning this stuff, this may not be the most elegant way to do it, but it works:
+```
+mov	    X9, SP	// Move Stackpointer into X9
+str	    X1, [X9]	// Push X1 onto the stack
+str	    X2, [X9, #8]	// Push X2 onto the stack
+str	    X3, [X9, #16]	// Push X3 onto the stack
+```
 
-Instead of a shared `.so` library, a dynamic mach libary was created. Further information can be fore here: [Creating Dynamic Libraries](https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/100-Articles/CreatingDynamicLibraries.html)
+It took me quite a while to figure this out, and there is minimal `test.s` and corresponding `build` script to see the printf call in isolation.
 
-## Listing 10-4, 10-5
+### Listing 9-5
+`mytoupper` was prefixed with `_` as this is necessary for C on Darwin to find it.
+
+### Listing 9-7
+Instead of a shared `.so` library, a dynamic Mach-O libary was created. Further information can be fore here: [Creating Dynamic Libraries](https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/100-Articles/CreatingDynamicLibraries.html)
+
+### Listing 9-8
+The size of one variable had to be changed from int to long to make the assembler happy.
+
+More importantly, I had to change the `loop` label to a numeric label, and branch to it with the `f` — forward — option. If anyone has an idea how a non-numeric label can be used here, that would be apprecated.
+
+### Listing 9-9
+
+While the `uppertst5.py` file only needed a minimal change, calling the code was more challenging that I had thought: On the MWMNSA, python is a Mach-O universal binary with 2 architectures: x86_64 and arm64e. Notably absent is the arm64 architecture we were building for up to this point. This makes our dylib unusable with python.
+
+arm64e is the [Armv-8 architecture](https://community.arm.com/developer/ip-products/processors/b/processors-ip-blog/posts/armv8-a-architecture-2016-additions), which Apple is using since the A12 chip. If you want to address devies prior to the A12, you must stick to arm64. It is public knowledge that the MWMNSA runs on an A12Z Bionic, thus Apple decided to take advangage of the new features.
+
+So, what to do? We could compile everything as arm64e, but that would make the library useless on any iPhone but the very latests, and we would like to support those, too.
+
+Above, you read something about _universal binary_. For a very long time, the Mach-O executable format had support for several processor architectures. This includes, but is not limited to, Motorola 68k (on NeXT computers), PowerPC, Intel x86 and x86 64-Bit, as well as 32-Bit and 64-Bit arm variants. In this case, I am building a universal dynamic library which includes arm64 and arm64e code. More information can be found [here](https://developer.apple.com/documentation/xcode/building_a_universal_macos_binary). 
+
+## Chapter 10
 No changes in the core code were required, but I created a SwiftUI app that will work on macOS, iOS, and later on watchOS and tvOS, too.
 
 ## Additional references
