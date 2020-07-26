@@ -1,5 +1,5 @@
 # HelloSilicon
-An attempt with assembly on the machine we must not speak about
+An attempt with assembly on the Machine We Must Not Speak About
 
 ## Latest News
 
@@ -9,7 +9,19 @@ An attempt with assembly on the machine we must not speak about
 
 In this repository, I will code along with the book [Programming with 64-Bit ARM Assembly Language](https://www.apress.com/gp/book/9781484258804), adjusting all sample code for a new platform that might be very, very popular soon. The original sourcecode can be found [here](https://github.com/Apress/programming-with-64-bit-ARM-assembly-language).
 
-The required changes fall into two categories:
+### Prerequisites
+
+While I pretty much assume that people who made it here meet most if not all required prerequisites, it doesn't hurt to list them. 
+
+* You need [Xcode 12](https://developer.apple.com/xcode/), and to make things easier, the command line tools should to be installed. I believe they are when you say "Yes" to "Install additional components", but I might be wrong. This ensures that our tools are found in default locations (namely `/usr/bin`). If you are not sure, check _Preferences → Locations_ in Xcode.
+
+* All application samples also require [macOS Big Sur](https://developer.apple.com/macos/), [iOS 14](https://developer.apple.com/ios/) or their respective watchOS or tvOS equivalents. Especially for the later three systems it is not a necessity per-se, but it makes things a lot simpler.
+
+* Finally, while all samples can be adjusted to work on Apple's current production ARM64 devices, for best results you should have access to a [MWMNSA](https://developer.apple.com/programs/universal/).
+
+
+With the exception of the existing iOS samples, the book is based on the Linux operating system. Apple's operating systems (macOS, iOS, watchOS and tvOS) are actually just flavors of the [Darwin](https://en.wikipedia.org/wiki/Darwin_(operating_system)) operating system, so they share a set of common core compoents. 
+While Linux and Darwin share a common ancestor and appear to be very similar, some changes are needed to make the samples run on Apple hardware, and they are listed below.
 
 ### Tools
 
@@ -26,12 +38,16 @@ Linux and Darwin, while having similar roots in AT&T Unix, are different. For th
 
 The changes will be explained in details below.
 
-## Listing 1-1
+## Chapter 1
+
+If you are reading this, I assume you know that the macOS Terminal can be found in _Applications → Utilities → Terminal.app_. But if you didn't I feel honored to tell you and I wish you lots of fun on this journey! Don't be afraid to ask questions.
+
+### Listing 1-1
 
 To make "Hello World" run on the MWMNSA, first the changes from page 78 have to be applied to account for the differences between the Darwin and the Linux kernel.
 The next trick is to insert `.align 2` (or `.p2align 2`), because Darwin likes things to be aligned on even boundaries. Thanks to @m-schmidt and @zhuowei!
 
-To make the linker work, a little more is needed, most of it should look familiar to Mac/iOS developers. The complete call to the linker looks like this:
+To make the linker work, a little more is needed, most of it should look familiar to Mac/iOS developers. These changes need to be applied to the `makefile` and to the `build` file. The complete call to the linker looks like this:
 ```
 ld -o HelloWorld HelloWorld.o \
 	-lSystem \
