@@ -11,6 +11,9 @@ LDFLAGS = -lSystem -lc -e main -arch arm64
 
 all: addexamp2 uppertst uppertst2 uppertst3 uppertst4
 
+upper.e.o : upper.s
+	as -arch arm64e $(DEBUGFLAG) $< -o upper.e.o
+
 %.o : %.s
 	as $(DEBUGFLGS) $(LSTFLGS) $< -o $@
 
@@ -26,8 +29,10 @@ libupper.a: $(LIBOBJS)
 uppertst2: uppertst.c libupper.a
 	clang -o uppertst2 uppertst.c libupper.a
 
-libup.dylib: $(LIBOBJS)
-	clang -current_version 1.0 -compatibility_version 1.0 -dynamiclib -o libup.A.dylib $(LIBOBJS)
+libup.dylib: $(LIBOBJS) upper.e.o
+	clang -current_version 1.0 -compatibility_version 1.0 -dynamiclib -o libup.arm64.dylib $(LIBOBJS)
+	clang -arch arm64e -current_version 1.0 -compatibility_version 1.0 -dynamiclib -o libup.arm64e.dylib upper.e.o
+	lipo -create -output libup.A.dylib libup.arm64.dylib libup.arm64e.dylib 
 	mkdir -p ~/lib
 	mv libup.A.dylib ~/lib/
 	ln -sf ~/lib/libup.A.dylib ~/lib/libup.dylib
