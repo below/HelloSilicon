@@ -163,6 +163,12 @@ It took me quite a while to figure this out, and there is minimal `test.s` and c
 ### Listing 9-5
 `mytoupper` was prefixed with `_` as this is necessary for C on Darwin to find it.
 
+### Listing 9-6
+
+No change was required, but there is a peculiar warning: `/usr/bin/ranlib: archive member: libupper.a(upper.o) offset in archive not a multiple of 8 (must be since member is an 64-bit object file)`
+
+I have no idea how to silence this warning, the library appears to be working. @siegel seems to have a similar issue, let's see how we can resolve it.
+
 ### Listing 9-7
 Instead of a shared `.so` library, a dynamic Mach-O libary was created. Further information can be fore here: [Creating Dynamic Libraries](https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/100-Articles/CreatingDynamicLibraries.html)
 
