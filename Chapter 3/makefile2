@@ -1,0 +1,15 @@
+
+ifdef ANDROID
+AS = aarch64-linux-android-as
+LD = aarch64-linux-android-ld
+else
+AS = as
+LD = ld
+endif
+
+OBJS = HelloWorld.o
+
+%.o : %.s
+	$(AS) $< -o $@
+HelloWorld: $(OBJS)
+	$(LD) -o HelloWorld $(OBJS)
