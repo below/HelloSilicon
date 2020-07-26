@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "CB32CA0524AF83F100BF9B43"
-               BuildableName = "MacAs"
-               BlueprintName = "MacAs"
-               ReferencedContainer = "container:MacAs.xcodeproj">
+               BuildableName = "testasm"
+               BlueprintName = "testasm"
+               ReferencedContainer = "container:testasm.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CB32CA0524AF83F100BF9B43"
-            BuildableName = "MacAs"
-            BlueprintName = "MacAs"
-            ReferencedContainer = "container:MacAs.xcodeproj">
+            BuildableName = "testasm"
+            BlueprintName = "testasm"
+            ReferencedContainer = "container:testasm.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CB32CA0524AF83F100BF9B43"
-            BuildableName = "MacAs"
-            BlueprintName = "MacAs"
-            ReferencedContainer = "container:MacAs.xcodeproj">
+            BuildableName = "testasm"
+            BlueprintName = "testasm"
+            ReferencedContainer = "container:testasm.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
