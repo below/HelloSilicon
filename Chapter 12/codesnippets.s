@@ -7,6 +7,7 @@
 // breakpoint at the one you are interested in.
 
 .global _start
+.align 4
 
 _start: 
 l1:	STP	Q8, Q9, [SP, #-32]!
@@ -14,7 +15,8 @@ l1:	STP	Q8, Q9, [SP, #-32]!
 	LDP	Q8, Q9, [SP], #32
 	LDR	Q10, [SP], #16
 
-l2:	LDR	X1, =fp1
+l2:	ADRP	X1, fp1@PAGE
+	ADD	X1, X1, fp1@PAGEOFF
 	LDR	S4, [X1]
 	LDR	D5, [X1, #4]
 	STR	S4, [X1]

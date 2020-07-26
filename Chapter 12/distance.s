@@ -10,6 +10,7 @@
 //	X0 - the length (as single precision FP)
 
 .global distance // Allow function to be called by others
+.align 4
 
 // 
 distance:	
