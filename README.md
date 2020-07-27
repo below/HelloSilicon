@@ -7,6 +7,8 @@ An attempt with assembly on the Machine We Must Not Speak About
 
 Chapter 12 is in the works, and has the same issue. Chapter 16 is almost done, too
 
+[Chapter 10](https://github.com/below/HelloSilicon#chapter-10) received updates for watchOS and tvOS
+
 ## Introduction
 
 In this repository, I will code along with the book [Programming with 64-Bit ARM Assembly Language](https://www.apress.com/gp/book/9781484258804), adjusting all sample code for a new platform that might be very, very popular soon. The original sourcecode can be found [here](https://github.com/Apress/programming-with-64-bit-ARM-assembly-language).
@@ -189,7 +191,9 @@ So, what to do? We could compile everything as arm64e, but that would make the l
 Above, you read something about _universal binary_. For a very long time, the Mach-O executable format had support for several processor architectures. This includes, but is not limited to, Motorola 68k (on NeXT computers), PowerPC, Intel x86 and x86 64-Bit, as well as 32-Bit and 64-Bit arm variants. In this case, I am building a universal dynamic library which includes arm64 and arm64e code. More information can be found [here](https://developer.apple.com/documentation/xcode/building_a_universal_macos_binary). 
 
 ## Chapter 10
-No changes in the core code were required, but I created a SwiftUI app that will work on macOS, iOS, and later on watchOS and tvOS, too.
+No changes in the core code were required, but I created a SwiftUI app that will work on macOS, iOS, watchOS (Series 4 and later), and tvOS.
+
+The only issue I found was that I had to prevent Xcode 12 Beta 3 from attempting to build x386 and x86_64 binaries for the watch App. I would assume that is a bug.
 
 ## Chapter 11
 Nothing besides the usual had to be changed. Still, while the code is working, the executables end with a segmentation fault. 
