@@ -29,7 +29,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "CB64C3A824CEDF3A00D1C852"
-               BuildableName = "ToUpper (watchOS).app"
+               BuildableName = "ToUpper.app"
                BlueprintName = "ToUpper (watchOS)"
                ReferencedContainer = "container:ToUpper.xcodeproj">
             </BuildableReference>
@@ -54,8 +54,10 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.Carousel"
+         RemotePath = "/ToUpper WatchKit App">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CB64C3AB24CEDF3A00D1C852"
@@ -63,7 +65,7 @@
             BlueprintName = "ToUpper WatchKit App"
             ReferencedContainer = "container:ToUpper.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -71,8 +73,10 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.Carousel"
+         RemotePath = "/ToUpper WatchKit App">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CB64C3AB24CEDF3A00D1C852"
@@ -80,7 +84,16 @@
             BlueprintName = "ToUpper WatchKit App"
             ReferencedContainer = "container:ToUpper.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "CB64C3AB24CEDF3A00D1C852"
+            BuildableName = "ToUpper WatchKit App.app"
+            BlueprintName = "ToUpper WatchKit App"
+            ReferencedContainer = "container:ToUpper.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

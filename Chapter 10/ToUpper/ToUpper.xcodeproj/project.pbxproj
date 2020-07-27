@@ -22,6 +22,11 @@
 		CB64C3D424CEDFC700D1C852 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64C38224CED9F700D1C852 /* ContentView.swift */; };
 		CB64C3D524CEDFC700D1C852 /* upper.s in Sources */ = {isa = PBXBuildFile; fileRef = CB64C3A224CEDC5500D1C852 /* upper.s */; };
 		CB64C3D624CEDFC700D1C852 /* ToUpperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64C38124CED9F700D1C852 /* ToUpperApp.swift */; };
+		CB64C3E224CEE89000D1C852 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB64C3E124CEE89000D1C852 /* Assets.xcassets */; };
+		CB64C3E524CEE89000D1C852 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB64C3E424CEE89000D1C852 /* Preview Assets.xcassets */; };
+		CB64C3EA24CEEAB300D1C852 /* ToUpperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64C38124CED9F700D1C852 /* ToUpperApp.swift */; };
+		CB64C3EB24CEEAB300D1C852 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64C38224CED9F700D1C852 /* ContentView.swift */; };
+		CB64C3EC24CEEAB300D1C852 /* upper.s in Sources */ = {isa = PBXBuildFile; fileRef = CB64C3A224CEDC5500D1C852 /* upper.s */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +90,10 @@
 		CB64C3B824CEDF3C00D1C852 /* ToUpper WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "ToUpper WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB64C3C624CEDF3C00D1C852 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CB64C3C824CEDF3C00D1C852 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CB64C3DB24CEE89000D1C852 /* ToUpper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToUpper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB64C3E124CEE89000D1C852 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CB64C3E424CEE89000D1C852 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		CB64C3E624CEE89000D1C852 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +118,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CB64C3D824CEE89000D1C852 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -120,6 +136,7 @@
 				CB64C39124CED9F700D1C852 /* macOS */,
 				CB64C3B024CEDF3A00D1C852 /* ToUpper WatchKit App */,
 				CB64C3BC24CEDF3C00D1C852 /* ToUpper WatchKit Extension */,
+				CB64C3DC24CEE89000D1C852 /* tvOS */,
 				CB64C38924CED9F700D1C852 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -145,6 +162,7 @@
 				CB64C3A924CEDF3A00D1C852 /* ToUpper.app */,
 				CB64C3AC24CEDF3A00D1C852 /* ToUpper WatchKit App.app */,
 				CB64C3B824CEDF3C00D1C852 /* ToUpper WatchKit Extension.appex */,
+				CB64C3DB24CEE89000D1C852 /* ToUpper.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -188,6 +206,24 @@
 			isa = PBXGroup;
 			children = (
 				CB64C3C624CEDF3C00D1C852 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		CB64C3DC24CEE89000D1C852 /* tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				CB64C3E124CEE89000D1C852 /* Assets.xcassets */,
+				CB64C3E624CEE89000D1C852 /* Info.plist */,
+				CB64C3E324CEE89000D1C852 /* Preview Content */,
+			);
+			path = tvOS;
+			sourceTree = "<group>";
+		};
+		CB64C3E324CEE89000D1C852 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				CB64C3E424CEE89000D1C852 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -280,6 +316,23 @@
 			productReference = CB64C3B824CEDF3C00D1C852 /* ToUpper WatchKit Extension.appex */;
 			productType = "com.apple.product-type.watchkit2-extension";
 		};
+		CB64C3DA24CEE89000D1C852 /* ToUpper (tvOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CB64C3E924CEE89000D1C852 /* Build configuration list for PBXNativeTarget "ToUpper (tvOS)" */;
+			buildPhases = (
+				CB64C3D724CEE89000D1C852 /* Sources */,
+				CB64C3D824CEE89000D1C852 /* Frameworks */,
+				CB64C3D924CEE89000D1C852 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ToUpper (tvOS)";
+			productName = ToUpper;
+			productReference = CB64C3DB24CEE89000D1C852 /* ToUpper.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -304,6 +357,9 @@
 					CB64C3B724CEDF3C00D1C852 = {
 						CreatedOnToolsVersion = 12.0;
 					};
+					CB64C3DA24CEE89000D1C852 = {
+						CreatedOnToolsVersion = 12.0;
+					};
 				};
 			};
 			buildConfigurationList = CB64C37F24CED9F700D1C852 /* Build configuration list for PBXProject "ToUpper" */;
@@ -324,6 +380,7 @@
 				CB64C3A824CEDF3A00D1C852 /* ToUpper (watchOS) */,
 				CB64C3AB24CEDF3A00D1C852 /* ToUpper WatchKit App */,
 				CB64C3B724CEDF3C00D1C852 /* ToUpper WatchKit Extension */,
+				CB64C3DA24CEE89000D1C852 /* ToUpper (tvOS) */,
 			);
 		};
 /* End PBXProject section */
@@ -368,6 +425,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CB64C3D924CEE89000D1C852 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB64C3E524CEE89000D1C852 /* Preview Assets.xcassets in Resources */,
+				CB64C3E224CEE89000D1C852 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -398,6 +464,16 @@
 				CB64C3D524CEDFC700D1C852 /* upper.s in Sources */,
 				CB64C3D624CEDFC700D1C852 /* ToUpperApp.swift in Sources */,
 				CB64C3D424CEDFC700D1C852 /* ContentView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CB64C3D724CEE89000D1C852 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB64C3EC24CEEAB300D1C852 /* upper.s in Sources */,
+				CB64C3EB24CEEAB300D1C852 /* ContentView.swift in Sources */,
+				CB64C3EA24CEEAB300D1C852 /* ToUpperApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -728,6 +804,49 @@
 			};
 			name = Release;
 		};
+		CB64C3E724CEE89000D1C852 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"tvOS/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = tvOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.ToUpper;
+				SDKROOT = appletvos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 14.0;
+			};
+			name = Debug;
+		};
+		CB64C3E824CEE89000D1C852 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"tvOS/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = tvOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.ToUpper;
+				SDKROOT = appletvos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 14.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -781,6 +900,15 @@
 			buildConfigurations = (
 				CB64C3D224CEDF3C00D1C852 /* Debug */,
 				CB64C3D324CEDF3C00D1C852 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CB64C3E924CEE89000D1C852 /* Build configuration list for PBXNativeTarget "ToUpper (tvOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CB64C3E724CEE89000D1C852 /* Debug */,
+				CB64C3E824CEE89000D1C852 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
