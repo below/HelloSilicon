@@ -7,39 +7,39 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CB32CA4D24B3CBC100BF9B43 /* ToUpperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB32CA3A24B3CBC000BF9B43 /* ToUpperApp.swift */; };
-		CB32CA4E24B3CBC100BF9B43 /* ToUpperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB32CA3A24B3CBC000BF9B43 /* ToUpperApp.swift */; };
-		CB32CA4F24B3CBC100BF9B43 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB32CA3B24B3CBC000BF9B43 /* ContentView.swift */; };
-		CB32CA5024B3CBC100BF9B43 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB32CA3B24B3CBC000BF9B43 /* ContentView.swift */; };
-		CB32CA5124B3CBC100BF9B43 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB32CA3C24B3CBC000BF9B43 /* Assets.xcassets */; };
-		CB32CA5224B3CBC100BF9B43 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB32CA3C24B3CBC000BF9B43 /* Assets.xcassets */; };
-		CB32CA5D24B3D51100BF9B43 /* upper.s in Sources */ = {isa = PBXBuildFile; fileRef = CB32CA5C24B3D51100BF9B43 /* upper.s */; };
-		CB32CA5E24B3D51100BF9B43 /* upper.s in Sources */ = {isa = PBXBuildFile; fileRef = CB32CA5C24B3D51100BF9B43 /* upper.s */; };
+		CB64C39424CED9F700D1C852 /* ToUpperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64C38124CED9F700D1C852 /* ToUpperApp.swift */; };
+		CB64C39524CED9F700D1C852 /* ToUpperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64C38124CED9F700D1C852 /* ToUpperApp.swift */; };
+		CB64C39624CED9F700D1C852 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64C38224CED9F700D1C852 /* ContentView.swift */; };
+		CB64C39724CED9F700D1C852 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64C38224CED9F700D1C852 /* ContentView.swift */; };
+		CB64C39824CED9F700D1C852 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB64C38324CED9F700D1C852 /* Assets.xcassets */; };
+		CB64C39924CED9F700D1C852 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB64C38324CED9F700D1C852 /* Assets.xcassets */; };
+		CB64C3A524CEDC5500D1C852 /* upper.s in Sources */ = {isa = PBXBuildFile; fileRef = CB64C3A224CEDC5500D1C852 /* upper.s */; };
+		CB64C3A624CEDC5500D1C852 /* upper.s in Sources */ = {isa = PBXBuildFile; fileRef = CB64C3A224CEDC5500D1C852 /* upper.s */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		CB32CA3A24B3CBC000BF9B43 /* ToUpperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToUpperApp.swift; sourceTree = "<group>"; };
-		CB32CA3B24B3CBC000BF9B43 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		CB32CA3C24B3CBC000BF9B43 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		CB32CA4124B3CBC000BF9B43 /* ToUpper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToUpper.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		CB32CA4424B3CBC000BF9B43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CB32CA4924B3CBC100BF9B43 /* ToUpper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToUpper.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		CB32CA4B24B3CBC100BF9B43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CB32CA4C24B3CBC100BF9B43 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
-		CB32CA5B24B3D51100BF9B43 /* upper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = upper.h; sourceTree = "<group>"; };
-		CB32CA5C24B3D51100BF9B43 /* upper.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = upper.s; sourceTree = "<group>"; };
-		CB32CA5F24B3D55200BF9B43 /* ToUpper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ToUpper-Bridging-Header.h"; sourceTree = "<group>"; };
+		CB64C38124CED9F700D1C852 /* ToUpperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToUpperApp.swift; sourceTree = "<group>"; };
+		CB64C38224CED9F700D1C852 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		CB64C38324CED9F700D1C852 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CB64C38824CED9F700D1C852 /* ToUpper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToUpper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB64C38B24CED9F700D1C852 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CB64C39024CED9F700D1C852 /* ToUpper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToUpper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB64C39224CED9F700D1C852 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CB64C39324CED9F700D1C852 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
+		CB64C3A224CEDC5500D1C852 /* upper.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = upper.s; sourceTree = "<group>"; };
+		CB64C3A324CEDC5500D1C852 /* ToUpper-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ToUpper-Bridging-Header.h"; sourceTree = "<group>"; };
+		CB64C3A424CEDC5500D1C852 /* upper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = upper.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		CB32CA3E24B3CBC000BF9B43 /* Frameworks */ = {
+		CB64C38524CED9F700D1C852 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CB32CA4624B3CBC100BF9B43 /* Frameworks */ = {
+		CB64C38D24CED9F700D1C852 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -49,51 +49,51 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		CB32CA3424B3CBC000BF9B43 = {
+		CB64C37B24CED9F700D1C852 = {
 			isa = PBXGroup;
 			children = (
-				CB32CA3924B3CBC000BF9B43 /* Shared */,
-				CB32CA4324B3CBC000BF9B43 /* iOS */,
-				CB32CA4A24B3CBC100BF9B43 /* macOS */,
-				CB32CA4224B3CBC000BF9B43 /* Products */,
+				CB64C38024CED9F700D1C852 /* Shared */,
+				CB64C38A24CED9F700D1C852 /* iOS */,
+				CB64C39124CED9F700D1C852 /* macOS */,
+				CB64C38924CED9F700D1C852 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		CB32CA3924B3CBC000BF9B43 /* Shared */ = {
+		CB64C38024CED9F700D1C852 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				CB32CA3A24B3CBC000BF9B43 /* ToUpperApp.swift */,
-				CB32CA3B24B3CBC000BF9B43 /* ContentView.swift */,
-				CB32CA5B24B3D51100BF9B43 /* upper.h */,
-				CB32CA5C24B3D51100BF9B43 /* upper.s */,
-				CB32CA5F24B3D55200BF9B43 /* ToUpper-Bridging-Header.h */,
-				CB32CA3C24B3CBC000BF9B43 /* Assets.xcassets */,
+				CB64C38124CED9F700D1C852 /* ToUpperApp.swift */,
+				CB64C38224CED9F700D1C852 /* ContentView.swift */,
+				CB64C3A424CEDC5500D1C852 /* upper.h */,
+				CB64C3A224CEDC5500D1C852 /* upper.s */,
+				CB64C3A324CEDC5500D1C852 /* ToUpper-Bridging-Header.h */,
+				CB64C38324CED9F700D1C852 /* Assets.xcassets */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
 		};
-		CB32CA4224B3CBC000BF9B43 /* Products */ = {
+		CB64C38924CED9F700D1C852 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CB32CA4124B3CBC000BF9B43 /* ToUpper.app */,
-				CB32CA4924B3CBC100BF9B43 /* ToUpper.app */,
+				CB64C38824CED9F700D1C852 /* ToUpper.app */,
+				CB64C39024CED9F700D1C852 /* ToUpper.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		CB32CA4324B3CBC000BF9B43 /* iOS */ = {
+		CB64C38A24CED9F700D1C852 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				CB32CA4424B3CBC000BF9B43 /* Info.plist */,
+				CB64C38B24CED9F700D1C852 /* Info.plist */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
 		};
-		CB32CA4A24B3CBC100BF9B43 /* macOS */ = {
+		CB64C39124CED9F700D1C852 /* macOS */ = {
 			isa = PBXGroup;
 			children = (
-				CB32CA4B24B3CBC100BF9B43 /* Info.plist */,
-				CB32CA4C24B3CBC100BF9B43 /* macOS.entitlements */,
+				CB64C39224CED9F700D1C852 /* Info.plist */,
+				CB64C39324CED9F700D1C852 /* macOS.entitlements */,
 			);
 			path = macOS;
 			sourceTree = "<group>";
@@ -101,58 +101,58 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		CB32CA4024B3CBC000BF9B43 /* iOS */ = {
+		CB64C38724CED9F700D1C852 /* ToUpper (iOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CB32CA5524B3CBC100BF9B43 /* Build configuration list for PBXNativeTarget "iOS" */;
+			buildConfigurationList = CB64C39C24CED9F700D1C852 /* Build configuration list for PBXNativeTarget "ToUpper (iOS)" */;
 			buildPhases = (
-				CB32CA3D24B3CBC000BF9B43 /* Sources */,
-				CB32CA3E24B3CBC000BF9B43 /* Frameworks */,
-				CB32CA3F24B3CBC000BF9B43 /* Resources */,
+				CB64C38424CED9F700D1C852 /* Sources */,
+				CB64C38524CED9F700D1C852 /* Frameworks */,
+				CB64C38624CED9F700D1C852 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = iOS;
-			productName = iOS;
-			productReference = CB32CA4124B3CBC000BF9B43 /* ToUpper.app */;
+			name = "ToUpper (iOS)";
+			productName = "ToUpper (iOS)";
+			productReference = CB64C38824CED9F700D1C852 /* ToUpper.app */;
 			productType = "com.apple.product-type.application";
 		};
-		CB32CA4824B3CBC100BF9B43 /* macOS */ = {
+		CB64C38F24CED9F700D1C852 /* ToUpper (macOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CB32CA5824B3CBC100BF9B43 /* Build configuration list for PBXNativeTarget "macOS" */;
+			buildConfigurationList = CB64C39F24CED9F700D1C852 /* Build configuration list for PBXNativeTarget "ToUpper (macOS)" */;
 			buildPhases = (
-				CB32CA4524B3CBC100BF9B43 /* Sources */,
-				CB32CA4624B3CBC100BF9B43 /* Frameworks */,
-				CB32CA4724B3CBC100BF9B43 /* Resources */,
+				CB64C38C24CED9F700D1C852 /* Sources */,
+				CB64C38D24CED9F700D1C852 /* Frameworks */,
+				CB64C38E24CED9F700D1C852 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = macOS;
-			productName = macOS;
-			productReference = CB32CA4924B3CBC100BF9B43 /* ToUpper.app */;
+			name = "ToUpper (macOS)";
+			productName = "ToUpper (macOS)";
+			productReference = CB64C39024CED9F700D1C852 /* ToUpper.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		CB32CA3524B3CBC000BF9B43 /* Project object */ = {
+		CB64C37C24CED9F700D1C852 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1200;
 				LastUpgradeCheck = 1200;
 				TargetAttributes = {
-					CB32CA4024B3CBC000BF9B43 = {
+					CB64C38724CED9F700D1C852 = {
 						CreatedOnToolsVersion = 12.0;
 					};
-					CB32CA4824B3CBC100BF9B43 = {
+					CB64C38F24CED9F700D1C852 = {
 						CreatedOnToolsVersion = 12.0;
 					};
 				};
 			};
-			buildConfigurationList = CB32CA3824B3CBC000BF9B43 /* Build configuration list for PBXProject "ToUpper" */;
+			buildConfigurationList = CB64C37F24CED9F700D1C852 /* Build configuration list for PBXProject "ToUpper" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -160,61 +160,61 @@
 				en,
 				Base,
 			);
-			mainGroup = CB32CA3424B3CBC000BF9B43;
-			productRefGroup = CB32CA4224B3CBC000BF9B43 /* Products */;
+			mainGroup = CB64C37B24CED9F700D1C852;
+			productRefGroup = CB64C38924CED9F700D1C852 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CB32CA4024B3CBC000BF9B43 /* iOS */,
-				CB32CA4824B3CBC100BF9B43 /* macOS */,
+				CB64C38724CED9F700D1C852 /* ToUpper (iOS) */,
+				CB64C38F24CED9F700D1C852 /* ToUpper (macOS) */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		CB32CA3F24B3CBC000BF9B43 /* Resources */ = {
+		CB64C38624CED9F700D1C852 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB32CA5124B3CBC100BF9B43 /* Assets.xcassets in Resources */,
+				CB64C39824CED9F700D1C852 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CB32CA4724B3CBC100BF9B43 /* Resources */ = {
+		CB64C38E24CED9F700D1C852 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB32CA5224B3CBC100BF9B43 /* Assets.xcassets in Resources */,
+				CB64C39924CED9F700D1C852 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		CB32CA3D24B3CBC000BF9B43 /* Sources */ = {
+		CB64C38424CED9F700D1C852 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB32CA5D24B3D51100BF9B43 /* upper.s in Sources */,
-				CB32CA4F24B3CBC100BF9B43 /* ContentView.swift in Sources */,
-				CB32CA4D24B3CBC100BF9B43 /* ToUpperApp.swift in Sources */,
+				CB64C3A524CEDC5500D1C852 /* upper.s in Sources */,
+				CB64C39624CED9F700D1C852 /* ContentView.swift in Sources */,
+				CB64C39424CED9F700D1C852 /* ToUpperApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CB32CA4524B3CBC100BF9B43 /* Sources */ = {
+		CB64C38C24CED9F700D1C852 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB32CA5E24B3D51100BF9B43 /* upper.s in Sources */,
-				CB32CA5024B3CBC100BF9B43 /* ContentView.swift in Sources */,
-				CB32CA4E24B3CBC100BF9B43 /* ToUpperApp.swift in Sources */,
+				CB64C3A624CEDC5500D1C852 /* upper.s in Sources */,
+				CB64C39724CED9F700D1C852 /* ContentView.swift in Sources */,
+				CB64C39524CED9F700D1C852 /* ToUpperApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		CB32CA5324B3CBC100BF9B43 /* Debug */ = {
+		CB64C39A24CED9F700D1C852 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -274,7 +274,7 @@
 			};
 			name = Debug;
 		};
-		CB32CA5424B3CBC100BF9B43 /* Release */ = {
+		CB64C39B24CED9F700D1C852 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -327,7 +327,7 @@
 			};
 			name = Release;
 		};
-		CB32CA5624B3CBC100BF9B43 /* Debug */ = {
+		CB64C39D24CED9F700D1C852 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -348,7 +348,7 @@
 			};
 			name = Debug;
 		};
-		CB32CA5724B3CBC100BF9B43 /* Release */ = {
+		CB64C39E24CED9F700D1C852 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -370,7 +370,7 @@
 			};
 			name = Release;
 		};
-		CB32CA5924B3CBC100BF9B43 /* Debug */ = {
+		CB64C3A024CED9F700D1C852 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -384,7 +384,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.16;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.ToUpper;
 				PRODUCT_NAME = ToUpper;
 				SDKROOT = macosx;
@@ -392,7 +392,7 @@
 			};
 			name = Debug;
 		};
-		CB32CA5A24B3CBC100BF9B43 /* Release */ = {
+		CB64C3A124CED9F700D1C852 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -406,7 +406,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.16;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.ToUpper;
 				PRODUCT_NAME = ToUpper;
 				SDKROOT = macosx;
@@ -417,34 +417,34 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CB32CA3824B3CBC000BF9B43 /* Build configuration list for PBXProject "ToUpper" */ = {
+		CB64C37F24CED9F700D1C852 /* Build configuration list for PBXProject "ToUpper" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CB32CA5324B3CBC100BF9B43 /* Debug */,
-				CB32CA5424B3CBC100BF9B43 /* Release */,
+				CB64C39A24CED9F700D1C852 /* Debug */,
+				CB64C39B24CED9F700D1C852 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CB32CA5524B3CBC100BF9B43 /* Build configuration list for PBXNativeTarget "iOS" */ = {
+		CB64C39C24CED9F700D1C852 /* Build configuration list for PBXNativeTarget "ToUpper (iOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CB32CA5624B3CBC100BF9B43 /* Debug */,
-				CB32CA5724B3CBC100BF9B43 /* Release */,
+				CB64C39D24CED9F700D1C852 /* Debug */,
+				CB64C39E24CED9F700D1C852 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CB32CA5824B3CBC100BF9B43 /* Build configuration list for PBXNativeTarget "macOS" */ = {
+		CB64C39F24CED9F700D1C852 /* Build configuration list for PBXNativeTarget "ToUpper (macOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CB32CA5924B3CBC100BF9B43 /* Debug */,
-				CB32CA5A24B3CBC100BF9B43 /* Release */,
+				CB64C3A024CED9F700D1C852 /* Debug */,
+				CB64C3A124CED9F700D1C852 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = CB32CA3524B3CBC000BF9B43 /* Project object */;
+	rootObject = CB64C37C24CED9F700D1C852 /* Project object */;
 }
