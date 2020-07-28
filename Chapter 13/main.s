@@ -28,8 +28,9 @@ loop:	MOV	X0, X20		// move pointer to parameter 1 (r0)
 	FMOV	S2, W0		// move back to fpu for conversion
 	FCVT	D0, S2	// convert single to double
 	FMOV	X1, D0	// return double to r2, r3
-	LDR	X0, =prtstr	// load print string
-	BL	printf		// print the distance
+	ADRP	X0, prtstr@PAGE	// load print string
+	ADD	X0, X0, prtstr@PAGEOFF
+	BL	_printf		// print the distance
 
 	ADD	X20, X20, #(8*4) // 8 elements each 4 bytes
 	SUBS	W19, W19, #1	// decrement loop counter
