@@ -6,23 +6,23 @@
 
 _main:	
 	// Setup
-	mov	x2, #4711
-	stp	x29, LR, [sp, #48]     ; 16-byte Folded Spill
+	stp	x29, LR, [sp, #-16]!     ; Save LR, FR
 	adrp  	    X0, ptfStr@PAGE // printf format str
 	add	X0, X0, ptfStr@PAGEOFF
-	mov     x9, sp
-	mov	x10, #'2'
-	str     x10, [x9]
-	mov     x10, #4711
-	str     x10, [x9, #8]
-	str	x10, [x9, #16]
+	mov	x2, #4711
+	mov	x3, #3845
+	mov     x10, #65
+	str	x3, [SP, #-16]!
+	stp     x10, x2, [SP, #-16]!
 
 	bl	    _printf	// call printf
 
+	ldr	x10, [SP], #32
+
 	MOV	X0, #0		// return code
-	ldp	x29, LR, [sp, #48]     ; 16-byte Folded Reload
+	ldp	x29, LR, [sp], #16     ; Restore FR, LR
 	RET
 .data
-ptfStr: .asciz	"X%c = %32ld, 0x%016lx\n"
+ptfStr: .asciz	"Hello World %c %ld %ld\n"
 .align 4
 .text

@@ -1,4 +1,4 @@
 #!/bin/zsh
 
-as -o test.o test.s
+as -g -o test.o test.s
 ld -o test test.o -lSystem -syslibroot `xcrun -sdk macosx --show-sdk-path` -e _main -arch arm64 
