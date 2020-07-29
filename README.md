@@ -1,17 +1,13 @@
 # HelloSilicon
 An attempt with assembly on the Machine We Must Not Speak About
 
-## Latest News
-
-[Chapter 11](https://github.com/below/HelloSilicon#chapter-9) is kind-of completed. All the samples end with a segmentation fault, I seem to miss something when pushing the arguments for `printf`
-
-Chapter 12 is in the works, and has the same issue. Chapter 16 is almost done, too
-
-[Chapter 10](https://github.com/below/HelloSilicon#chapter-10) received updates for watchOS and tvOS
-
 ## Introduction
 
 In this repository, I will code along with the book [Programming with 64-Bit ARM Assembly Language](https://www.apress.com/gp/book/9781484258804), adjusting all sample code for a new platform that might be very, very popular soon. The original sourcecode can be found [here](https://github.com/Apress/programming-with-64-bit-ARM-assembly-language).
+
+## Latest News
+
+I finally figured out the calling convention for `printf`, so the segmenation fault is fixed for [Chapter 9](https://github.com/below/HelloSilicon#chapter-9) and, with the exception of the `matrixmult` sample, also for [Chapter 11](https://github.com/below/HelloSilicon#chapter-11). That's all for today … 🙇‍♂️
 
 ### Prerequisites
 
