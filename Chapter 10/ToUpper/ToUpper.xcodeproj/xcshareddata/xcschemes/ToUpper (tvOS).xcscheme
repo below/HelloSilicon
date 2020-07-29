@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "CB64C3DA24CEE89000D1C852"
-               BuildableName = "ToUpper (tvOS).app"
+               BuildableName = "ToUpper.app"
                BlueprintName = "ToUpper (tvOS)"
                ReferencedContainer = "container:ToUpper.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CB64C3DA24CEE89000D1C852"
-            BuildableName = "ToUpper (tvOS).app"
+            BuildableName = "ToUpper.app"
             BlueprintName = "ToUpper (tvOS)"
             ReferencedContainer = "container:ToUpper.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CB64C3DA24CEE89000D1C852"
-            BuildableName = "ToUpper (tvOS).app"
+            BuildableName = "ToUpper.app"
             BlueprintName = "ToUpper (tvOS)"
             ReferencedContainer = "container:ToUpper.xcodeproj">
          </BuildableReference>
