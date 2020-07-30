@@ -10,11 +10,11 @@
 	mov	    r1, #\reg	
 	add	    r1, #'0'	@ for %c
 	ldr  	    r0, =ptfStr @ printf format str
-	mov	    r9, sp
-	str	    r1, [r9]
-	str	    r2, [r9, #8]
-	str	    r3, [r9, #16]
+	str	    r1, [sp, #-32]
+	str	    r2, [sp, #8]
+	str	    r3, [sp, #16]
 	bl	    _printf	@ call printf
+	add	    sp, sp, #32
 	pop	    {r0-r4, lr} @ restore regs
 .endm
 

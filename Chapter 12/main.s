@@ -30,10 +30,11 @@ loop:	MOV	X0, X20		// move pointer to parameter 1 (X0)
 	FMOV	S2, W0		// move back to fpu for conversion
 	FCVT	D0, S2	// convert single to double
 	FMOV	X1, D0		// return double to X1
-	STR	X1, [SP]	// Push X1 onto the stack
+	STR	X1, [SP, #-16]!	// Push X1 onto the stack
 	ADRP	X0, prtstr@PAGE	// load print string
 	ADD	X0, X0, prtstr@PAGEOFF
 	BL	_printf		// print the distance
+	ADD	SP, SP, #16
 
 	ADD	X20, X20, #(4*4) 	// 4 points each 4 bytes
 	SUBS	W19, W19, #1	// decrement loop counter
