@@ -9,6 +9,8 @@ In this repository, I will code along with the book [Programming with 64-Bit ARM
 
 I finally figured out the calling convention for `printf`, so the segmenation fault is fixed for [Chapter 9](https://github.com/below/HelloSilicon#chapter-9) and [Chapter 11](https://github.com/below/HelloSilicon#chapter-11).
 
+[Chapter 12](https://github.com/below/HelloSilicon#chapter-12) is also ready.
+
 ### Prerequisites
 
 While I pretty much assume that people who made it here meet most if not all required prerequisites, it doesn't hurt to list them. 
@@ -230,9 +232,12 @@ No changes in the core code were required, but I created a SwiftUI app that will
 The only issue I found was that I had to prevent Xcode 12 Beta 3 from attempting to build x386 and x86_64 binaries for the watch App. I would assume that is a bug.
 
 ## Chapter 11
-Nothing besides the usual had to be changed. Still, while the code is working, the executables end with a segmentation fault. 
 
-I will get back to that — unless someone else wants to…
+At this point, the changes should be self-explainatory. The usual makefile adjustments, `.align 4`, address mode changes, and `_printf` adjustments.
+
+## Chapter 12
+
+Like in Chapter 11, all the chages have been introduced already. Nothing new here
 
 ## Additional references
 
