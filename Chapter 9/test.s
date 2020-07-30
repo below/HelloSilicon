@@ -12,8 +12,9 @@ _main:
 	mov	x2, #4711
 	mov	x3, #3845
 	mov     x10, #65
-	str	x3, [SP, #-16]!
-	stp     x10, x2, [SP, #-16]!
+	str	x10, [SP, #-32]!
+	str	x2, [SP, #8]
+	str	x3, [SP, #16]
 
 	bl	    _printf	// call printf
 
