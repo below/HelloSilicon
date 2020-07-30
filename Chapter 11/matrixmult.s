@@ -70,7 +70,6 @@ printloop:
 	LDR	W1, [X19], #WDSIZE 	// first element in current row
 	LDR	W2, [X19], #WDSIZE	// second element in current row
 	LDR	W3, [X19], #WDSIZE	// third element in curent row
-printcore:
 	STR	W1, [SP, #-32]!	// Push W1 onto the stack, leaving room for W2 and W3
 	STR	W2, [SP, #8]
 	STR	W3, [SP, #16]	// Push X3 onto the stack
