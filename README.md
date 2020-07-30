@@ -7,9 +7,7 @@ In this repository, I will code along with the book [Programming with 64-Bit ARM
 
 ## Latest News
 
-I finally figured out the calling convention for `printf`, so the segmenation fault is fixed for [Chapter 9](https://github.com/below/HelloSilicon#chapter-9) and [Chapter 11](https://github.com/below/HelloSilicon#chapter-11).
-
-[Chapter 12](https://github.com/below/HelloSilicon#chapter-12) is also ready.
+Most content is done. What is missing is most notably Chapter 7, and Chapter 14 stil has an open issue
 
 ### Prerequisites
 
