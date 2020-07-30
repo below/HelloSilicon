@@ -7,6 +7,7 @@
 // breakpoint at the one you are interested in.
 
 .global _start
+.align 4
 
 _start: 
 l1:	ADD	X0, XZR, X1
@@ -17,10 +18,10 @@ l2:	MOV	X2, #0x6E3A
 	MOVK	X2, #0x4F5D, LSL #16
 	MOVK	X2, #0xFEDC, LSL #32
 	MOVK	X2, #0x1234, LSL #48
-l3:	MOV	X1, X2, LSL #1	// Logical shift left
-	MOV	X1, X2, LSR #1	// Logical shift right
-	MOV	X1, X2, ASR #1	// Arithmetic shift right
-	MOV	X1, X2, ROR #1	// Rotate right
+l3:	LSL	X1, X2, #1	// Logical shift left
+	LSR	X1, X2, #1	// Logical shift right
+	ASR	X1, X2, #1	// Arithmetic shift right
+	ROR	X1, X2, #1	// Rotate right
 
 l4:	LSL	X1, X2, #1	// Logical shift left
 	LSR	X1, X2, #1	// Logical shift right
@@ -49,9 +50,9 @@ l6:	// the immediate value can be 12-bits, so 0-4095
 	ADD	X2, X1, X0, LSL 2
 	// With register extension options
 	// X2 = X1 + signed extended byte(X0)
-	ADD	X2, X1, X0, SXTB
+	ADD	X2, X1, X0, SXTX
 	// X2 = X1 + zero extended halfword(X0) * 4
-	ADD	X2, X1, X0, UXTH 2
+	ADD	X2, X1, X0, UXTX 2
 
 
 l8:	ADDS	X0, X0, #1

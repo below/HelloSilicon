@@ -14,7 +14,7 @@ LDFLAGS = -lSystem -syslibroot `xcrun -sdk macosx --show-sdk-path` -e _start -ar
 %.o : %.s
 	as $(DEBUGFLGS) $< -o $@
 
-all: movexamps addexamp1 addexamp2 # codesnippets
+all: movexamps addexamp1 addexamp2 codesnippets
 
 movexamps: $(MEOBJS)
 	ld -o movexamps $(LDFLAGS) $(MEOBJS)
