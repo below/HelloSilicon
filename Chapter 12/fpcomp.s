@@ -10,6 +10,7 @@
 //	X0 - 1 if they are equal, else 0
 
 .global fpcomp // Allow function to be called by others
+.align 4
 
 // 
 fpcomp:	// load the 3 numbers

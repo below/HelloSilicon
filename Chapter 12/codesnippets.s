@@ -7,6 +7,7 @@
 // breakpoint at the one you are interested in.
 
 .global _start
+.align 4
 
 _start: 
 l1:	STP	Q8, Q9, [SP, #-32]!
@@ -14,7 +15,8 @@ l1:	STP	Q8, Q9, [SP, #-32]!
 	LDP	Q8, Q9, [SP], #32
 	LDR	Q10, [SP], #16
 
-l2:	LDR	X1, =fp1
+l2:	ADRP	X1, fp1@PAGE
+	ADD	X1, X1, fp1@PAGEOFF
 	LDR	S4, [X1]
 	LDR	D5, [X1, #4]
 	STR	S4, [X1]
@@ -65,10 +67,10 @@ l8:	FCMP	H1, H2
 	FCMP	D1, #0.0
 
 // Setup the parameters to exit the program
-// and then call Linux to do it.
+// and then call the kernel to do it.
 	MOV     X0, #0      // Use 0 return code
-        MOV     X8, #93     // Service command code 93 terminates
-        SVC     0           // Call linux to terminate the program
+        MOV     X16, #1     // Service command code 1 terminates
+        SVC     #0x80           // Call kernel to terminate the program
 
 .data
 .single	1.343, 4.343e20, -0.4343, -0.4444e-10

@@ -5,6 +5,7 @@
 // X20 - address to current set of points
 
 .global main // Provide program starting address to linker
+.align 4
 
 //
 
@@ -14,7 +15,8 @@ main:
 	STP	X19, X20, [SP, #-16]!
 	STR	LR, [SP, #-16]!
 
-	LDR	X20, =points	// pointer to current points
+	ADRP	X20, points@PAGE	// pointer to current points
+	ADD	X20, X20, points@PAGEOFF
 	
 	MOV	W19, #N		// number of loop iterations
 
@@ -28,8 +30,11 @@ loop:	MOV	X0, X20		// move pointer to parameter 1 (X0)
 	FMOV	S2, W0		// move back to fpu for conversion
 	FCVT	D0, S2	// convert single to double
 	FMOV	X1, D0		// return double to X1
-	LDR	X0, =prtstr	// load print string
-	BL	printf		// print the distance
+	STR	X1, [SP, #-16]!	// Push X1 onto the stack
+	ADRP	X0, prtstr@PAGE	// load print string
+	ADD	X0, X0, prtstr@PAGEOFF
+	BL	_printf		// print the distance
+	ADD	SP, SP, #16
 
 	ADD	X20, X20, #(4*4) 	// 4 points each 4 bytes
 	SUBS	W19, W19, #1	// decrement loop counter
