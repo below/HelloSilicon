@@ -64,17 +64,17 @@ We know the `-o` switch, let's examine the others:
 * `-e _start`: Darwin expects an entrypoint `_main`. In order to keep the sample both as close as possible to the book, and to allow it's use with in the C-Sample from _Chapter 3_, I opted to keep `_start` and tell the linker that this is the entry point we want to use
 * `-arch arm64` for good measure, let's throw in the option to cross-compile this from an Intel Mac
 
-## Listing 2-1
+## Chapter 2
 
-Other than adding `.align 2` to silence the warning, the Clang assembler does not understand the `MOV X1, X2, LSL #1` alias, but requires `LSL X1, X2, #1`. Apple has told me (FB7855327) that they are not planning to change this. If anyone has a hint where I can find the Clang assembly syntax reference guide, I'd be happy if you'd let me know.
+The chagnes from [Chapter 1](https://github.com/below/HelloSilicon#chapter-1) (makefile, alignment, system calls) have to be applied
 
-Also, of course, exit call and the makefile had to be adjusted like in _Listing 1-1_.
+### Register and Shift
 
-## Listing 2-3, Listing 2-4
+The clang assembler does not understand the `MOV X1, X2, LSL #1` aliases, but requires `LSL X1, X2, #1`. Apple has told me (FB7855327) that they are not planning to change this.
 
-The exit call must be adjusted.
+### Register and Extension
 
-Please note that I have not yet update the `codesnippets.s` file. Here Clang apparently also does not like the syntax.
+Apparently, the clang assembler does not like the `sxtb` or `uxth` extension operators, but only allows `sxtx` or `uxtx`. I have not done a deep dive into why that is, and if anyone has a hint where I can find the Clang assembly syntax reference guide, I'd be happy if you'd let me know.
 
 ## Chapter 3
 
@@ -125,11 +125,7 @@ Changes like in Chapter 4
 
 ## Chapter 6
 
-Of course, the usual alignment and addressing changes were needed.
-
-And as we learned in Chapter 5, all assembler directives (like `.equ` must be in lowercase for the Clang assember. Also, clang uses `.endmacro` instead of GNU's `.ENDM`.
-
-Please note that I have not tested the `codesnippts` code yet, at this point all I can say is that it builds.
+As we learned in Chapter 5, all assembler directives (like `.equ` must be in lowercase for the Clang assember. 
 
 ## Chapter 7
 
@@ -191,9 +187,11 @@ Above, you read something about _universal binary_. For a very long time, the Ma
 No changes in the core code were required, but I created a SwiftUI app that will work on macOS, iOS, and later on watchOS and tvOS, too.
 
 ## Chapter 11
-Nothing besides the usual had to be changed. Still, while the code is working, the executables end with a segmentation fault. 
+Nothing besides the usual had to be changed.
 
-I will get back to that — unless someone else wants to…
+## Chapter 12
+
+At this point, all the changes have been discussed
 
 ## Additional references
 
