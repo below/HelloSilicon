@@ -5,7 +5,7 @@ else
 DEBUGFLGS =
 endif
 
-LDFLAGS = -lc -e main
+CFLAGS = -lc -e main
 
 all: distance matrixmultneon
 
@@ -13,8 +13,8 @@ all: distance matrixmultneon
 	as $(DEBUGFLGS) $(LSTFLGS) $< -o $@
 
 distance: distance.s main.s
-	clang $(LDFLAGS) -g -o distance distance.s main.s
+	clang $(CFLAGS) $(DEBUGFLGS) -o distance distance.s main.s
 
 matrixmultneon: matrixmultneon.s
-	clang $(LDFLAGS) -g -o matrixmultneon matrixmultneon.s
+	clang $(CFLAGS) $(DEBUGFLGS) -o matrixmultneon matrixmultneon.s
 
