@@ -18,7 +18,7 @@ upper.e.o : upper.s
 	as $(DEBUGFLGS) $(LSTFLGS) $< -o $@
 
 addexamp2: addexamp2.s debug.s
-	clang $(LDFLAGS) -o addexamp2 addexamp2.s
+	clang $(LDFLAGS) $(DEBUGFLGS) -o addexamp2 addexamp2.s
 
 uppertst: uppertst.c upper.s
 	clang -o uppertst uppertst.c upper.s

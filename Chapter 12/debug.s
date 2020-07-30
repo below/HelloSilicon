@@ -9,15 +9,19 @@
 	mov	    r3, R\reg	@ for the %x
 	mov	    r1, #\reg	
 	add	    r1, #'0'	@ for %c
-        ldr  	    r0, =ptfStr @ printf format str
-        bl	    printf	@ call printf
+	ldr  	    r0, =ptfStr @ printf format str
+	str	    r1, [sp, #-32]
+	str	    r2, [sp, #8]
+	str	    r3, [sp, #16]
+	bl	    _printf	@ call printf
+	add	    sp, sp, #32
 	pop	    {r0-r4, lr} @ restore regs
 .endm
 
 .macro	printStr    str
 	push	    {r0-r4, lr}	@ save regs
 	ldr	    r0, =1f	@ load print str
-	bl	    printf	@ call printf
+	bl	    _printf	@ call printf
 	pop	    {r0-r4, lr}	@ restore regs
 	b	    2f		@ branch around str
 1:	.asciz	    "\str\n"

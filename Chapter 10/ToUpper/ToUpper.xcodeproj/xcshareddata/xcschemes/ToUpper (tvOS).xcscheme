@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CB32CA4024B3CBC000BF9B43"
+               BlueprintIdentifier = "CB64C3DA24CEE89000D1C852"
                BuildableName = "ToUpper.app"
-               BlueprintName = "iOS"
+               BlueprintName = "ToUpper (tvOS)"
                ReferencedContainer = "container:ToUpper.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -44,9 +44,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CB32CA4024B3CBC000BF9B43"
+            BlueprintIdentifier = "CB64C3DA24CEE89000D1C852"
             BuildableName = "ToUpper.app"
-            BlueprintName = "iOS"
+            BlueprintName = "ToUpper (tvOS)"
             ReferencedContainer = "container:ToUpper.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -61,9 +61,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CB32CA4024B3CBC000BF9B43"
+            BlueprintIdentifier = "CB64C3DA24CEE89000D1C852"
             BuildableName = "ToUpper.app"
-            BlueprintName = "iOS"
+            BlueprintName = "ToUpper (tvOS)"
             ReferencedContainer = "container:ToUpper.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
