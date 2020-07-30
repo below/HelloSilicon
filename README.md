@@ -228,7 +228,6 @@ No changes in the core code were required, but I created a SwiftUI app that will
 The only issue I found was that I had to prevent Xcode 12 Beta 3 from attempting to build x386 and x86_64 binaries for the watch App. I would assume that is a bug.
 
 ## Chapter 11
-
 At this point, the changes should be self-explainatory. The usual makefile adjustments, `.align 4`, address mode changes, and `_printf` adjustments.
 
 ## Chapter 12
