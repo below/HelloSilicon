@@ -77,6 +77,44 @@ Please note that I have not yet update the `codesnippets.s` file. Here Clang app
 
 ## Chapter 3
 
+### Beginning GDB
+
+On macOS, `gdb` has been replaced with the [LLDB Debugger](https://lldb.llvm.org) `lldb` of the LLVM project. The syntax is not always the same as for gdb, so I will note the differences here. 
+
+To start debugging our **moveexamps** program, enter the command
+```
+lldb moveexamps
+```
+This yields the abbreviated output:
+```
+(lldb) target create "movexamps"
+Current executable set to 'movexamps' (arm64).
+(lldb)
+```
+
+Commands like `run` or `list` work just the same, and there is a nice [GDB to LLDB command map](https://lldb.llvm.org/use/map.html).
+
+To disassemble our program, we a slightly different syntax is used for lldb:
+```
+disassemble --name start
+```
+Note that because we are linking a dynamic executable, the listing will be long and include a other `start` functions. Our code will be listed under the line ``movexamps`start:``
+
+Likewise, lldb wants the breakpoint name without the underscore: `b start`
+
+To get the registers on llbd, we use **register read** (or **re r**).
+
+We can see all the breakpoints with **breakpoint list** (or **br l**). We can delete a breakpoint with **breakpoint delete** (or **br de**) specifying the breakpoint number to delete.
+
+**lldb** has even more powerful mechanisms to display memory. The main command is **memory read** (or **m read**). For starters, we will present the parameters used by the book:
+```
+memory read -fx -c4 -s4
+```
+where
+* **-f** is the display format
+* **-s** size of the data
+* **-c** count
+
 ### Listing 3-1
 
 As an excersise, I have added code to find the default Xcode toolchain on macOS. In the book they are using this to later switch from a Linux to an Android toolchain. This process is much different for macOS and iOS: It does not usually involve a different toolchain, but instead a different Software Development Kit (SDK). You can see that in [Listing 1-1](https://github.com/below/HelloSilicon#listing-1-1) where `-sysroot` is set. 
