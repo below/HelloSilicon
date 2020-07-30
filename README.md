@@ -234,6 +234,22 @@ At this point, the changes should be self-explainatory. The usual makefile adjus
 
 Like in Chapter 11, all the chages have been introduced already. Nothing new here
 
+## Chapter 16
+
+This chapter is still in the works. There is one [issue](https://github.com/below/HelloSilicon/issues/15) I'd like to fix
+
+## Chapter 14
+
+No unusal changes here
+
+## Chapter 15
+
+When I have some time, I might write about where to find the information the book shows about Linux in the Darwin Kernel
+
+## Chapter 16
+
+All that can be said is that clang automatically enables position-independent executables, and the option `-no-pie` does not work. Therefore, the exploit shown in the `upper.s` file can not be reproduced.
+
 ## Additional references
 
 * [What is required for a Mach-O executable to load?](https://stackoverflow.com/a/42399119/1600891)
