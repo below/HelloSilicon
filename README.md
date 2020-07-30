@@ -7,7 +7,7 @@ In this repository, I will code along with the book [Programming with 64-Bit ARM
 
 ## Latest News
 
-I finally figured out the calling convention for `printf`, so the segmenation fault is fixed for [Chapter 9](https://github.com/below/HelloSilicon#chapter-9) and, with the exception of the `matrixmult` sample, also for [Chapter 11](https://github.com/below/HelloSilicon#chapter-11). That's all for today … 🙇‍♂️
+I finally figured out the calling convention for `printf`, so the segmenation fault is fixed for [Chapter 9](https://github.com/below/HelloSilicon#chapter-9) and [Chapter 11](https://github.com/below/HelloSilicon#chapter-11).
 
 ### Prerequisites
 
