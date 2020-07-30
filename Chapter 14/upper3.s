@@ -11,10 +11,13 @@
 //
 
 .global _start	 // Provide program starting address
+.align 4
 
-.MACRO toupper inputstr, outputstr
-	LDR	X0, =\inputstr	// start of input string
-	LDR	X1, =\outputstr	// address of output string
+.macro toupper inputstr, outputstr
+	ADRP	X0, \inputstr@PAGE	// start of input string
+	ADD	X0, X0, \inputstr@PAGEOFF
+	ADRP	X1, \outputstr@PAGE	// address of output string
+	ADD	X1, X1, \outputstr@PAGEOFF
 	MOV	X2, X1
 // The loop is until byte pointed to by R1 is non-zero
 loop:	LDRB	W3, [X0], #1	// load character and increment pointer
@@ -23,25 +26,26 @@ loop:	LDRB	W3, [X0], #1	// load character and increment pointer
 	CMP	W3, #0		// stop on hitting a null charactser
 	B.NE	loop		// loop if character isn't null
 	SUB	X0, X1, X2	// get the length by subtracting the pointers
-.ENDM
+.endm
 
 _start:
 	toupper	instr, outstr
 
 // Setup the parameters to print our hex number
-// and then call Linux to do it.
+// and then call the Kernel to do it.
 	MOV	X2,X0	// return code is the length of the string
 
 	MOV	X0, #1	    // 1 = StdOut
-	LDR	X1, =outstr // string to print
-	MOV	X8, #64	    // linux write system call
-	SVC	0 	    // Call linux to output the string
+	ADRP	X1, outstr@PAGE // string to print
+	ADD	X1, X1, outstr@PAGEOFF
+	MOV	X16, #4	    // Unix write system call
+	SVC	#0x80 	    // Call kernel to output the string
 
 // Setup the parameters to exit the program
-// and then call Linux to do it.
+// and then call the Kernel to do it.
 	MOV     X0, #0      // Use 0 return code
-	MOV     X8, #93      // Service command code 96 terminates
-	SVC     0           // Call linux to terminate the program
+        MOV     X16, #1     // System call number 1 terminates
+        SVC     #0x80           // Call kernel to terminate the program
 
 .data
 instr:  .asciz  "ThisIsRatherALargeVariableNameAaZz//[`{\n"

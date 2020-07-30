@@ -12,14 +12,18 @@
 // Q8 - spaces for bic operation
 
 .global toupper	     // Allow other files to call this routine
+.align 4
 
-	.EQU	N, 4
+	.equ	N, 4
 toupper:
-	LDR X2, =aaas
+	ADRP X2, aaas@PAGE
+	ADD	X2, X2, aaas@PAGEOFF
 	LDR	Q1, [X2]   // Load Q1 with all as
-	LDR X2, =endch
+	ADRP X2, endch@PAGE
+	ADD	X2, X2, endch@PAGEOFF
 	LDR	Q3, [X2]  // Load Q3 with all 25's
-	LDR X2, =spaces
+	ADRP X2, spaces@PAGE
+	ADD	X2, X2, spaces@PAGEOFF
 	LDR	Q8, [X2] // Load Q8 with all spaces
 	MOV	W3, #N
 // The loop is until byte pointed to by R1 is non-zero
