@@ -12,7 +12,7 @@ all: upper
 LDFLAGS = -lSystem -syslibroot `xcrun -sdk macosx --show-sdk-path` -e _start -arch arm64
 
 %.o : %.S
-	gcc $(DEBUGFLGS) $(LSTFLGS) -c $< -o $@
+	clang $(DEBUGFLGS) $(LSTFLGS) -c $< -o $@
 
 %.o : %.s
 	as $(DEBUGFLGS) $(LSTFLGS) $< -o $@
