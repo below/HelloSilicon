@@ -9,6 +9,7 @@
 //
 
 .global toupper	     // Allow other files to call this routine
+.align 4
 
 toupper:
 	MOV	X4, X1

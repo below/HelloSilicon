@@ -15,12 +15,15 @@
 .equ	BUFFERLEN, 250
 
 .global _start	            // Provide program starting address to linker
+.align 4
 
-_start:	openFile	inFile, O_RDONLY
+_start:	MOV		X0, #-1
+	openFile	inFile, O_RDONLY
 	ADDS		X11, XZR, X0	// save file descriptor
 	B.PL		nxtfil  // pos number file opened ok
 	MOV		X1, #1  // stdout
-	LDR		X2, =inpErrsz	// Error msg
+	ADRP		X2, inpErrsz@PAGE	// Error msg
+	ADD		X2, X2, inpErrsz@PAGEOFF	
 	LDR		W2, [X2]
 	writeFile	X1, inpErr, X2 // print the error
 	B		exit
@@ -29,7 +32,8 @@ nxtfil: openFile	outFile, O_CREAT+O_WRONLY
 	ADDS		X9, XZR, X0	// save file descriptor
 	B.PL		loop    // pos number file opened ok
 	MOV		X1, #1
-	LDR		X2, =outErrsz
+	ADRP		X2, outErrsz@PAGE
+	ADD		X2, X2, outErrsz@PAGEOFF
 	LDR		W2, [X2]
 	writeFile	X1, outErr, X2
 	B		exit
@@ -40,9 +44,11 @@ loop:	readFile	X11, buffer, BUFFERLEN
 	MOV		X1, #0	// Null terminator for string
 
 	// setup call to toupper and call function
-	LDR		X0, =buffer	// first param for toupper
+	ADRP		X0, buffer@PAGE	// first param for toupper
+	ADD		X0, X0, buffer@PAGEOFF
 	STRB		W1, [X0, X10]	// put null at end of string.
-	LDR		X1, =outBuf
+	ADRP		X1, outBuf@PAGE
+	ADD		X1, X1, outBuf@PAGEOFF
 	BL		toupper		
 
 	writeFile	X9, outBuf, X10
@@ -54,10 +60,10 @@ loop:	readFile	X11, buffer, BUFFERLEN
 	flushClose	X9
 
 // Setup the parameters to exit the program
-// and then call Linux to do it.
+// and then call the kernel to do it.
 exit:	MOV     X0, #0      // Use 0 return code
-        MOV     X8, #__NR_exit
-        SVC     0           // Call Linux to terminate the program
+        MOV     X16, #1
+        SVC     #0x80           // Call kernel to terminate the program
 
 .data
 inFile:  .asciz  "main.S"

@@ -14,34 +14,37 @@
 
 .macro  openFile    fileName, flags
 	mov         X0, #AT_FDCWD
-        ldr         X1, =\fileName
+        adrp        X1, \fileName@PAGE
+	add	    X1, X1, \fileName@PAGEOFF 
         mov         X2, #\flags
 	mov	    X3, #S_RDWR		// RW access rights
         mov	    X16, #463	// openat, see bsd/kern/syscalls.master
-        svc         0
+        svc         #0x80
 .endm
 .macro  readFile   fd, buffer, length
         mov         X0, \fd      // file descriptor
-        ldr         X1, =\buffer
+        adrp        X1, \buffer@PAGE
+	add	    X1, X1, \buffer@PAGEOFF
         mov         X2, #\length
-        mov         X8, #__NR_read
-        svc         0
+        mov         X16, #3
+        svc         #0x80
 .endm
 .macro  writeFile   fd, buffer, length
         mov         X0, \fd      // file descriptor
-        ldr         X1, =\buffer
+        adrp        X1, \buffer@PAGE
+	add	    X1, X1, \buffer@PAGEOFF
         mov         X2, \length
-        mov         X8, #__NR_write
-        svc         0
+        mov         X16, #4
+        svc         #0x80
 .endm
 .macro  flushClose  fd
 //fsync syscall
         mov         X0, \fd
-        mov         X8, #__NR_fsync
-        svc         0
+        mov         X16, #95	//__NR_fsync
+        svc         #0x80
 
 //close syscall
         mov         X0, \fd
-        mov         X8, #__NR_close
-        svc         0
+        mov         X16, #6 // __NR_close
+        svc         #0x80
 .endm
