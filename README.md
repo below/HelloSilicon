@@ -73,7 +73,16 @@ The clang assembler does not understand the `MOV X1, X2, LSL #1` aliases, but re
 
 ### Register and Extension
 
-Apparently, the clang assembler does not like the `sxtb` or `uxth` extension operators, but only allows `sxtx` or `uxtx`. I have not done a deep dive into why that is, and if anyone has a hint where I can find the Clang assembly syntax reference guide, I'd be happy if you'd let me know.
+Apparently, the clang assembler does not like the `sxtb` or `uxth` extension operators on `ADD`, and we have to do this in two operations:
+```
+SXTB	X0, X0
+ADD	X2, X1, X0
+```
+First, we extract the byte from X0, then we can add it.
+
+I have not done a deep dive into why that is. The extensions are listed in the [ARM Compiler armasm User Guide](https://developer.arm.com/documentation/dui0801/c/a64-general-instructions/add--extended-register-?lang=en), but Clang only seems to understand the sxtx and uxtx extensions. And honestly, I don't know what they are doing…
+
+If anyone has a hint where I can find the Clang assembly syntax reference guide, I'd be happy if you'd let me know.
 
 ## Chapter 3
 
