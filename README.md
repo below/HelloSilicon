@@ -43,8 +43,8 @@ If you are reading this, I assume you know that the macOS Terminal can be found 
 
 ### Listing 1-1
 
-To make "Hello World" run on the MWMNSA, first the changes from page 78 have to be applied to account for the differences between the Darwin and the Linux kernel.
-The next trick is to insert `.align 2` (or `.p2align 2`), because Darwin likes things to be aligned on even boundaries. Thanks to @m-schmidt and @zhuowei!
+To make "Hello World" run on the MWMNSA, first the changes from page 78 (Chapter 3) have to be applied to account for the differences between the Darwin and the Linux kernel.
+The next trick is to insert `.align 4` (or `.p2align 2`), because Darwin likes things to be aligned on even boundaries. Thanks to @m-schmidt and @zhuowei! The books mentions this in Aligning Data in Chapter 5, page 114.
 
 To make the linker work, a little more is needed, most of it should look familiar to Mac/iOS developers. These changes need to be applied to the `makefile` and to the `build` file. The complete call to the linker looks like this:
 ```
@@ -171,7 +171,7 @@ Changes like in Chapter 4
 
 ## Chapter 6
 
-As we learned in Chapter 5, all assembler directives (like `.equ` must be in lowercase for the Clang assember. 
+As we learned in Chapter 5, all assembler directives (like `.equ`) must be in lowercase for the Clang assember. 
 
 ## Chapter 7
 
