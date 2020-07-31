@@ -174,10 +174,22 @@ Changes like in Chapter 4
 As we learned in Chapter 5, all assembler directives (like `.equ`) must be in lowercase for the Clang assember. 
 
 ## Chapter 7
+Linux, by design, is made for tinkering, and Darwin is not. `unistd.h` is not part of the userland MacOS SDK, and the whole system call mechanism is considered private and subject to change. As @sagaarjha said: _"Go used to create static binaries on macOS but they would constantly break whenever an update came out"_. Therefore, the code still lives in its own [branch](https://github.com/below/HelloSilicon/tree/Chapter_7).
 
-As of right now, I will skip this chapter. Linux, by design, is made for tinkering, and Darwin is not. `unistd.h` is not part of the userland MacOS SDK, and the whole system call mechanism is considered private and subject to change. As @sagaarjha said: _"Go used to create static binaries on macOS but they would constantly break whenever an update came out"_.
+That said, I started to dig in [`xnu/bsd/kern.syscalls.master`](https://github.com/apple/darwin-xnu/blob/master/bsd/kern/syscalls.master), where it appears we can find the syscall numbers for things like [`openat`](https://github.com/apple/darwin-xnu/blob/a449c6a3b8014d9406c2ddbdc81795da24aa7443/bsd/kern/syscalls.master#L733). With this info, I tried to change the calls like this:
+```
+.macro  openFile    fileName, flags
+        mov         X0, #AT_FDCWD
+        adrp        X1, \fileName@PAGE
+        add         X1, X1, \fileName@PAGEOFF
+        mov         X2, #\flags
+        mov         X3, #S_RDWR         // RW access rights
+        mov         X16, #463   // openat, see bsd/kern/syscalls.master
+        svc         #0x80
+.endm
+```
 
-When I find the time I may look deeper into this. Or maybe someone else wants to?
+However, after the `svc #0x80`, X0 is always 9, regardless of the imput file. Right now, that's as far as I got, and any help is appeciated.
 
 ## Chapter 8
 
@@ -241,9 +253,9 @@ At this point, the changes should be self-explainatory. The usual makefile adjus
 
 Like in Chapter 11, all the chages have been introduced already. Nothing new here
 
-## Chapter 16
+## Chapter 13
 
-This chapter is still in the works. There is one [issue](https://github.com/below/HelloSilicon/issues/15) I'd like to fix
+This chapter is still in the works on a seperate [branch](https://github.com/below/HelloSilicon/tree/Chapter_13). There is one [issue](https://github.com/below/HelloSilicon/issues/15) I'd like to fix
 
 ## Chapter 14
 
