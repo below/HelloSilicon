@@ -2,3 +2,4 @@
 xcuserdata
 *.o
 codesnippets
+*.dsym
