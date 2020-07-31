@@ -4,7 +4,7 @@
 // Uses X0, X1, X8.
 // Return code is in X0.
 
-#include <asm/unistd.h>
+// #include <asm/unistd.h>
 
 .equ	O_RDONLY, 0
 .equ	O_WRONLY, 1
@@ -17,7 +17,7 @@
         ldr         X1, =\fileName
         mov         X2, #\flags
 	mov	    X3, #S_RDWR		// RW access rights
-        mov	    X8, #__NR_openat
+        mov	    X16, #463	// openat, see bsd/kern/syscalls.master
         svc         0
 .endm
 .macro  readFile   fd, buffer, length

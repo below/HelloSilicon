@@ -8,7 +8,8 @@
 // X10 - number of characters read
 //
 
-#include <asm/unistd.h>
+//#include <asm/unistd.h>
+.equ	O_RDONLY, 0
 #include "fileio.S"
 
 .equ	BUFFERLEN, 250
