@@ -51,10 +51,10 @@ cont:	// end if
 	SVC	#0x80 	    // Call linux to output the string
 
 // Setup the parameters to exit the program
-// and then call Linux to do it.
+// and then call the kernel to do it.
 	MOV     X0, #0      // Use 0 return code
-        MOV     X16, #1     // Service command code 93 terminates this program
-        SVC     #0x80           // Call linux to terminate the program
+        MOV     X16, #1     // System call number 1 terminates this program
+        SVC     #0x80           // Call kernel to terminate the program
 
 .data
 hexstr:      .ascii  "0x123456789ABCDEFG\n"

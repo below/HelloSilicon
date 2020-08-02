@@ -18,9 +18,9 @@
 	mov	    X3, X\reg	// for the %x
 	mov	    X1, #\reg	
 	add	    X1, X1, #'0'	// for %c
-	str	    X1, [SP, #-32]!	// Push X1 onto the stack
-	str	    X2, [SP, #8]	// Push X2 onto the stack
-	str	    X3, [SP, #32]	// Push X3 onto the stack
+    str     X1, [SP, #-32]! // Move the stack pointer four doublewords (32 bytes) down and push X1 onto the stack
+    str     X2, [SP, #8]    // Push X2 to one doubleword above the current stack pointer
+    str     X3, [SP, #16]   // Push X3 to two doublewords above the current stack pointer
 	adrp  	    X0, ptfStr@PAGE // printf format str
 	add	    X0, X0, ptfStr@PAGEOFF	// add offset for format str
 	bl	    _printf	// call printf

@@ -18,7 +18,7 @@ _main:
 
 	bl	    _printf	// call printf
 
-	ldr	x10, [SP], #32
+	add	    SP, SP, #32	// Clean up stack
 
 	MOV	X0, #0		// return code
 	ldp	x29, LR, [sp], #16     ; Restore FR, LR

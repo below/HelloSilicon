@@ -7,7 +7,7 @@ In this repository, I will code along with the book [Programming with 64-Bit ARM
 
 ## Latest News
 
-Most content is done. What is missing is most notably Chapter 7, and Chapter 14 stil has an open issue
+Most content is done. What is missing is most notably Chapter 7, and Chapter 14 stil has an open issue.
 
 ### Prerequisites
 
@@ -15,25 +15,33 @@ While I pretty much assume that people who made it here meet most if not all req
 
 * You need [Xcode 12](https://developer.apple.com/xcode/), and to make things easier, the command line tools should be installed. I believe they are when you say "Yes" to "Install additional components", but I might be wrong. This ensures that the tools are found in default locations (namely `/usr/bin`). If you are not sure, check _Preferences → Locations_ in Xcode.
 
-* All application samples also require [macOS Big Sur](https://developer.apple.com/macos/), [iOS 14](https://developer.apple.com/ios/) or their respective watchOS or tvOS equivalents. Especially for the later three systems it is not a necessity per-se, but it makes things a lot simpler.
+* All application samples also require [macOS Big Sur](https://developer.apple.com/macos/), [iOS 14](https://developer.apple.com/ios/) or their respective watchOS or tvOS equivalents. Especially for the later three systems it is not a necessity per-se (neither is Xcode 11), but it makes things a lot simpler.
 
 * Finally, while all samples can be adjusted to work on Apple's current production ARM64 devices, for best results you should have access to a [MWMNSA](https://developer.apple.com/programs/universal/).
 
 With the exception of the existing iOS samples, the book is based on the Linux operating system. Apple's operating systems (macOS, iOS, watchOS and tvOS) are actually just flavors of the [Darwin](https://en.wikipedia.org/wiki/Darwin_(operating_system)) operating system, so they share a set of common core compoents. 
-While Linux and Darwin share a common ancestor and appear to be very similar, some changes are needed to make the samples run on Apple hardware.
+While Linux and Darwin have a common ancestor and appear to be very similar, some changes are needed to make the samples run on Apple hardware.
 
 ### Tools
 
-The book uses Linux GNU tools, such as the GNU `as` assembler. While there is an `as` command on macOS, it will invoce the integrated Clang assembler by default. And even if there is the `-Q` option to use the GNU based assembler, this was only ever an option for x86_64 — and this will be deprecated as well.
+The book uses Linux GNU tools, such as the GNU `as` assembler. While there is an `as` command on macOS, it will invoce the integrated [Clang](https://clang.llvm.org) assembler by default. And even if there is the `-Q` option to use the GNU based assembler, this was only ever an option for x86_64 — and this will be deprecated as well.
 ```
 % as -Q -arch arm64
 /usr/bin/as: can't specifiy -Q with -arch arm64
 ```
 Thus, the GNU assembler syntax is not an option for Darwin, and the code will have to be adjusted for the Clang assembler syntax.
 
+Likewise, while there is a `gcc` command on macOS, this simply calls Clang configured to behave more like gcc. For transparancy, all calls to `gcc` will be replaced with `clang`.
+
+```
+% gcc --version
+Configured with: --prefix=/Applications/Xcode-beta.app/Contents/Developer/usr --with-gxx-include-dir=/Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/4.2.1
+Apple clang version 12.0.0 (clang-1200.0.26.2)
+```
+
 ### Operating System
 
-Linux and Darwin, which have similar roots in AT&T Unix, are significantly different at the level we are looking at. For the listings in the book, this mostly concerns system calls (i.e. when we want the Kernel to do someting for us), and the way Darwin accesses memory. 
+Linux and Darwin, which have similar roots in [AT&T Unix System V](http://www.unix.org/what_is_unix/history_timeline.html), are significantly different at the level we are looking at. For the listings in the book, this mostly concerns system calls (i.e. when we want the Kernel to do someting for us), and the way Darwin accesses memory. 
 
 The changes will be explained in details below.
 
@@ -41,12 +49,15 @@ The changes will be explained in details below.
 
 If you are reading this, I assume you know that the macOS Terminal can be found in _Applications → Utilities → Terminal.app_. But if you didn't I feel honored to tell you and I wish you lots of fun on this journey! Don't be afraid to ask questions.
 
+The default Calculator.app on macOS has a "Programmer Mode", too. You enable it with _View → Programmer_ or the ⌘3 shortcut.
+
 ### Listing 1-1
 
 To make "Hello World" run on the MWMNSA, first the changes from page 78 (Chapter 3) have to be applied to account for the differences between the Darwin and the Linux kernel.
 The next trick is to insert `.align 4` (or `.p2align 2`), because Darwin likes things to be aligned on even boundaries. Thanks to @m-schmidt and @zhuowei! The books mentions this in Aligning Data in Chapter 5, page 114.
 
 To make the linker work, a little more is needed, most of it should look familiar to Mac/iOS developers. These changes need to be applied to the `makefile` and to the `build` file. The complete call to the linker looks like this:
+
 ```
 ld -o HelloWorld HelloWorld.o \
 	-lSystem \
@@ -69,18 +80,19 @@ The chagnes from [Chapter 1](https://github.com/below/HelloSilicon#chapter-1) (m
 
 ### Register and Shift
 
-The clang assembler does not understand the `MOV X1, X2, LSL #1` aliases, but requires `LSL X1, X2, #1`. Apple has told me (FB7855327) that they are not planning to change this.
+The Clang assembler does not understand the `MOV X1, X2, LSL #1` aliases, but requires `LSL X1, X2, #1`. Apple has told me (FB7855327) that they are not planning to change this.
 
 ### Register and Extension
+Apparently, the Clang assembler does not like the `SXTB` or `UXTH` extension operators on `ADD`, and we have to do this in two operations:
 
-Apparently, the clang assembler does not like the `sxtb` or `uxth` extension operators on `ADD`, and we have to do this in two operations:
 ```
 SXTB	X0, X0
 ADD	X2, X1, X0
 ```
+
 First, we extract the byte from X0, then we can add it.
 
-I have not done a deep dive into why that is. The extensions are listed in the [ARM Compiler armasm User Guide](https://developer.arm.com/documentation/dui0801/c/a64-general-instructions/add--extended-register-?lang=en), but Clang only seems to understand the sxtx and uxtx extensions. And honestly, I don't know what they are doing…
+I have not done a deep dive into why that is. The extensions are listed in the [ARM Compiler armasm User Guide](https://developer.arm.com/documentation/dui0801/c/a64-general-instructions/add--extended-register-?lang=en), but Clang only seems to understand the `SXTX` and `UXTX` extensions. And honestly, I don't know what they are doing…
 
 If anyone has a hint where I can find the Clang assembly syntax reference guide, I'd be happy if you'd let me know.
 
@@ -90,11 +102,14 @@ If anyone has a hint where I can find the Clang assembly syntax reference guide,
 
 On macOS, `gdb` has been replaced with the [LLDB Debugger](https://lldb.llvm.org) `lldb` of the LLVM project. The syntax is not always the same as for gdb, so I will note the differences here. 
 
-To start debugging our **moveexamps** program, enter the command
+To start debugging our **movexamps** program, enter the command
+
 ```
-lldb moveexamps
+lldb movexamps
 ```
+
 This yields the abbreviated output:
+
 ```
 (lldb) target create "movexamps"
 Current executable set to 'movexamps' (arm64).
@@ -103,22 +118,26 @@ Current executable set to 'movexamps' (arm64).
 
 Commands like `run` or `list` work just the same, and there is a nice [GDB to LLDB command map](https://lldb.llvm.org/use/map.html).
 
-To disassemble our program, we a slightly different syntax is used for lldb:
+To disassemble our program, a slightly different syntax is used for lldb:
+
 ```
 disassemble --name start
 ```
-Note that because we are linking a dynamic executable, the listing will be long and include a other `start` functions. Our code will be listed under the line ``movexamps`start:``
+
+Note that because we are linking a dynamic executable, the listing will be long and include other `start` functions. Our code will be listed under the line ``movexamps`start``.
 
 Likewise, lldb wants the breakpoint name without the underscore: `b start`
 
-To get the registers on llbd, we use **register read** (or **re r**).
+To get the registers on llbd, we use **register read** (or **re r**). Without arguments, this command will print all registers, or you can specify just the registers you would like to see, like `re r SP X0 X1`.
 
 We can see all the breakpoints with **breakpoint list** (or **br l**). We can delete a breakpoint with **breakpoint delete** (or **br de**) specifying the breakpoint number to delete.
 
 **lldb** has even more powerful mechanisms to display memory. The main command is **memory read** (or **m read**). For starters, we will present the parameters used by the book:
+
 ```
 memory read -fx -c4 -s4
 ```
+
 where
 * **-f** is the display format
 * **-s** size of the data
@@ -128,16 +147,16 @@ where
 
 As an excersise, I have added code to find the default Xcode toolchain on macOS. In the book they are using this to later switch from a Linux to an Android toolchain. This process is much different for macOS and iOS: It does not usually involve a different toolchain, but instead a different Software Development Kit (SDK). You can see that in [Listing 1-1](https://github.com/below/HelloSilicon#listing-1-1) where `-sysroot` is set. 
 
-That said, while it is possible to build an iOS executable with the command line, it is not a trivial process. So for building apps, I will stick to Xcode.
+That said, while it is possible to build an iOS executable with the command line it is not a trivial process. So for building apps I will stick to Xcode.
 
 ### Listing 3-7
 
-As [Chapter 10](https://github.com/below/HelloSilicon#chapter-10) focusses on building an app that will run on iOS I have chosen to simply create a Command Line Tool, which is now using the same `HelloWorld.s` file.
+As [Chapter 10](https://github.com/below/HelloSilicon#chapter-10) focusses on building an app that will run on iOS, I have chosen to simply create a Command Line Tool here which is now using the same `HelloWorld.s` file.
 Thankfully @saagarjha [suggested](https://github.com/below/HelloSilicon/issues/5) how it would be possible to build the sample with Xcode _without_ `libc`, and I might come back to try that later.
 
 ## Chapter 4
 
-Besides the changes that are common, we face a new issue, which is described in the book in Chapter 5: Darwin does not like `LSR X1, =symbol`, we will get the error `ld: Absolute addressing not allowed in arm64 code`. If we use `ASR X1, symbol`, our data has to be in the read-only `.text` section. In this sample however, we want writable data. 
+Besides the changes that are common, we face a new issue, which is described in the book in Chapter 5: Darwin does not like `LSR X1, =symbol`, we will get the error `ld: Absolute addressing not allowed in arm64 code`. If we use `ASR X1, symbol`, as suggested in Chapter 3 of the book, our data has to be in the read-only `.text` section. In this sample however, we want writable data. 
 
 On Darwin 
 > All large or possibly nonlocal data is accessed indirectly through a global offset table (GOT) entry. The GOT entry is accessed directly using RIP-relative addressing. [Apple Documentation](https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/MachOTopics/1-Articles/x86_64_code.html#//apple_ref/doc/uid/TP40005044-SW1)
@@ -148,11 +167,13 @@ Thankfully, @claui gave me a pointer into the right direction, and the full answ
 > The `ADRP` instruction loads the address of the 4KB page anywhere in the +/-4GB (33 bits) range of the current instruction (which takes 21 high bits of the offset). This is denoted by the `@PAGE` operator. then, we can either use `LDR` or `STR` to read or write any address inside that page or `ADD` to to calculate the final address using the remaining 12 bits of the offset (denoted by `@PAGEOFF`).
 
 So this: 
+
 ```
 	LDR	X1, =outstr // address of output string
 ```
 
 becomes this:
+
 ```
 	ADRP	X1, outstr@PAGE	// address of output string
 	ADD	X1, X1, outstr@PAGEOFF
@@ -167,7 +188,7 @@ The `quad`, `octa` and `fill` keywords apparently must be in lowercase for the l
 
 ### Listing 5-10
 
-Changes like in Chapter 4
+Changes like in Chapter 4.
 
 ## Chapter 6
 
@@ -176,7 +197,8 @@ As we learned in Chapter 5, all assembler directives (like `.equ`) must be in lo
 ## Chapter 7
 Linux, by design, is made for tinkering, and Darwin is not. `unistd.h` is not part of the userland MacOS SDK, and the whole system call mechanism is considered private and subject to change. As @sagaarjha said: _"Go used to create static binaries on macOS but they would constantly break whenever an update came out"_. Therefore, the code still lives in its own [branch](https://github.com/below/HelloSilicon/tree/Chapter_7).
 
-That said, I started to dig in [`xnu/bsd/kern.syscalls.master`](https://github.com/apple/darwin-xnu/blob/master/bsd/kern/syscalls.master), where it appears we can find the syscall numbers for things like [`openat`](https://github.com/apple/darwin-xnu/blob/a449c6a3b8014d9406c2ddbdc81795da24aa7443/bsd/kern/syscalls.master#L733). With this info, I tried to change the calls like this:
+That said, I started to dig in [`xnu/bsd/kern.syscalls.master`](https://github.com/apple/darwin-xnu/blob/master/bsd/kern/syscalls.master), where it appears we can find the syscall numbers for things like [`openat`](https://github.com/apple/darwin-xnu/blob/a449c6a3b8014d9406c2ddbdc81795da24aa7443/bsd/kern/syscalls.master#L733). With this info, I tried to change the calls:
+
 ```
 .macro  openFile    fileName, flags
         mov         X0, #AT_FDCWD
@@ -193,7 +215,7 @@ However, after the `svc #0x80`, X0 is always 9, regardless of the imput file. Ri
 
 ## Chapter 8
 
-This chapter is specifically for the Raspberry Pi4, so there is nothing to do here.
+This chapter is specifically for the Raspberry Pi 4, so there is nothing to do here.
 
 ## Chapter 9
 
@@ -205,11 +227,15 @@ Apple clang version 12.0.0 (clang-1200.0.22.41)
 
 ### Listing 9-1
 Apart from the usual changes, it appears that on Linux, printf will accept arguments passed in the registers. On Darwin, this is not the case, and we must pass the arguments on the stack. As I am still learning this stuff, this may not be the most elegant way to do it, but it works:
+
 ```
-mov	    X9, SP	// Move Stackpointer into X9
-str	    X1, [X9]	// Push X1 onto the stack
-str	    X2, [X9, #8]	// Push X2 onto the stack
-str	    X3, [X9, #16]	// Push X3 onto the stack
+    str     X1, [SP, #-32]! // Move the stack pointer four words down and push X1 onto the stack
+    str     X2, [SP, #8]    // Push X2 onto the stack one 
+    str     X3, [SP, #16]   // Push X3 onto the stack
+    adrp    X0, ptfStr@PAGE // printf format str
+    add     X0, X0, ptfStr@PAGEOFF  // add offset for format str
+    bl      _printf // call printf
+    add     SP, SP, #32 // Clean up stack
 ```
 
 It took me quite a while to figure this out, and there is minimal `test.s` and corresponding `build` script to see the printf call in isolation.
