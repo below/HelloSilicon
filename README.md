@@ -11,6 +11,8 @@ Once you found the bug, you feel stupid for not noticing it before. Only after s
 
 Chapter 13 stil has an open issue, though.
 
+I got a mention in Stephen Smith's [blog](https://smist08.wordpress.com/2020/07/31/is-apple-silicon-really-arm/)!
+
 ### Prerequisites
 
 While I pretty much assume that people who made it here meet most if not all required prerequisites, it doesn't hurt to list them. 
@@ -216,17 +218,27 @@ Apple clang version 12.0.0 (clang-1200.0.22.41)
 ```
 
 ### Listing 9-1
-Apart from the usual changes, it appears that on Linux, printf will accept arguments passed in the registers. On Darwin, this is not the case, and we must pass the arguments on the stack. As I am still learning this stuff, this may not be the most elegant way to do it, but it works:
+Apart from the usual changes, it appears that on Linux, printf will accept arguments passed in the registers. On Darwin, this is not the case, and we must pass the arguments on the stack.
 
 ```
-    str     X1, [SP, #-32]! // Move the stack pointer four words down and push X1 onto the stack
-    str     X2, [SP, #8]    // Push X2 onto the stack one 
-    str     X3, [SP, #16]   // Push X3 onto the stack
-    adrp    X0, ptfStr@PAGE // printf format str
-    add     X0, X0, ptfStr@PAGEOFF  // add offset for format str
-    bl      _printf // call printf
-    add     SP, SP, #32 // Clean up stack
+str     X1, [SP, #-32]! // Move the stack pointer four doublewords (32 bytes) down and push X1 onto the stack
+str     X2, [SP, #8]    // Push X2 to one doubleword above the current stack pointer
+str     X3, [SP, #16]   // Push X3 to two doublewords above the current stack pointer
+adrp    X0, ptfStr@PAGE // printf format str
+add     X0, X0, ptfStr@PAGEOFF  // add offset for format str
+bl      _printf // call printf
+add     SP, SP, #32 // Clean up stack
 ```
+
+So first, we are growing the stack downwards 32 bytes, to make room for three 64-Bit values. And because, as pointed out on page 137 in the book, ARM hardware requires the stack pointer to always be 16-byte aligned, we are creating space for a fourth value for padding.
+
+In the same command, **X1** is pushed to the new location of the stack pointer.
+
+Now, we fill the rest of the space we just created by pushing **X2** to a location eight bytes, and **X3** to 16 bytes above the stack pointer. Note that the **str** commands for **X2** and **X3** do not move **SP**.
+
+We could fill the stack in different ways; what is important that the `printf` function expects the parameters as doubleword values in order, upwards from the current stackpointer. So in the case of the "debug.s" file, it expects the parameter for the `%c` to be at the location of **SP**, the parameter for `%32ld` at one longword above this, and finally the parameter for `%016lx` two words, 16 bytes, above the current stack pointer.
+
+What we have effectively done is [allocating memory on the stack](https://en.wikipedia.org/wiki/Stack-based_memory_allocation). As we, the caller, "own" that memory we need to release it after the function branch, in this case simply by shrinking the stack (upwards) by the 32 bytes we allocated. The instruction `add SP, SP, #32` will do that.
 
 It took me quite a while to figure this out, and there is minimal `test.s` and corresponding `build` script to see the printf call in isolation.
 
@@ -237,7 +249,7 @@ It took me quite a while to figure this out, and there is minimal `test.s` and c
 
 No change was required, but there is a peculiar warning: `/usr/bin/ranlib: archive member: libupper.a(upper.o) offset in archive not a multiple of 8 (must be since member is an 64-bit object file)`
 
-I have no idea how to silence this warning, the library appears to be working. @siegel seems to have a similar issue, let's see how we can resolve it.
+I have no idea how to silence this warning, the library appears to be working. @siegel seems to have a similar issue, let's see how we can resolve it. I have filed this with Apple as Feedback FB8164021.
 
 ### Listing 9-7
 Instead of a shared `.so` library, a dynamic Mach-O libary was created. Further information can be fore here: [Creating Dynamic Libraries](https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/100-Articles/CreatingDynamicLibraries.html)
@@ -249,13 +261,13 @@ More importantly, I had to change the `loop` label to a numeric label, and branc
 
 ### Listing 9-9
 
-While the `uppertst5.py` file only needed a minimal change, calling the code was more challenging that I had thought: On the MWMNSA, python is a Mach-O universal binary with 2 architectures: x86_64 and arm64e. Notably absent is the arm64 architecture we were building for up to this point. This makes our dylib unusable with python.
+While the `uppertst5.py` file only needed a minimal change, calling the code was more challenging than I had thought: On the MWMNSA, python is a Mach-O universal binary with 2 architectures: x86_64 and arm64e. Notably absent is the arm64 architecture we were building for up to this point. This makes our dylib unusable with python.
 
 arm64e is the [Armv-8 architecture](https://community.arm.com/developer/ip-products/processors/b/processors-ip-blog/posts/armv8-a-architecture-2016-additions), which Apple is using since the A12 chip. If you want to address devies prior to the A12, you must stick to arm64. It is public knowledge that the MWMNSA runs on an A12Z Bionic, thus Apple decided to take advangage of the new features.
 
-So, what to do? We could compile everything as arm64e, but that would make the library useless on any iPhone but the very latests, and we would like to support those, too.
+So, what to do? We could compile everything as arm64e, but that would make the library useless on any iPhone but the very latest, and we would like to support those, too.
 
-Above, you read something about _universal binary_. For a very long time, the Mach-O executable format had support for several processor architectures. This includes, but is not limited to, Motorola 68k (on NeXT computers), PowerPC, Intel x86 and x86 64-Bit, as well as 32-Bit and 64-Bit arm variants. In this case, I am building a universal dynamic library which includes arm64 and arm64e code. More information can be found [here](https://developer.apple.com/documentation/xcode/building_a_universal_macos_binary). 
+Above, you read something about _universal binary_. For a very long time, the Mach-O executable format had support for several processor architectures. This includes, but is not limited to, Motorola 68k (on NeXT computers), PowerPC, Intel x86, as well arm variants, with additional 32 and 64 bit variantes where applicable. In this case, I am building a universal dynamic library which includes both arm64 and arm64e code. More information can be found [here](https://developer.apple.com/documentation/xcode/building_a_universal_macos_binary).
 
 ## Chapter 10
 No changes in the core code were required, but I created a SwiftUI app that will work on macOS, iOS, watchOS (Series 4 and later), and tvOS.
@@ -275,11 +287,11 @@ This chapter is still in the works; it compiles, but the output is wrong. There 
 
 ## Chapter 14
 
-No unusal changes here
+No unusal changes here.
 
 ## Chapter 15
 
-When I have some time, I might write about where to find the information the book shows about Linux in the Darwin Kernel
+When I have some time, I might write about where to find the information the book shows about Linux in the Darwin Kernel.
 
 ## Chapter 16
 
