@@ -1,0 +1,9 @@
+gcc -o upper upper.c
+objdump -d upper> onopt.txt
+
+gcc -O3 -o upper upper.c
+objdump -d upper> oo3.txt
+
+gcc -Os -o upper upper.c
+objdump -d upper> oos.txt
+
