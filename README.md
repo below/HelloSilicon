@@ -7,7 +7,9 @@ In this repository, I will code along with the book [Programming with 64-Bit ARM
 
 ## Latest News
 
-Most content is done. What is missing is most notably Chapter 7, and Chapter 13 stil has an open issue.
+Once you found the bug, you feel stupid for not noticing it before. Only after some debugging I realized that Darwin has a different value for `AT_FDCWD`. This means: Chapter 7 is ready!
+
+Chapter 13 stil has an open issue, though.
 
 ### Prerequisites
 
@@ -197,21 +199,9 @@ As we learned in Chapter 5, all assembler directives (like `.equ`) must be in lo
 ## Chapter 7
 Linux, by design, is made for tinkering, and Darwin is not. `unistd.h` is not part of the userland MacOS SDK, and the whole system call mechanism is considered private and subject to change. As @sagaarjha said: _"Go used to create static binaries on macOS but they would constantly break whenever an update came out"_. 
 
-That said, I started to dig in [`xnu/bsd/kern.syscalls.master`](https://github.com/apple/darwin-xnu/blob/master/bsd/kern/syscalls.master), where it appears we can find the syscall numbers for things like [`openat`](https://github.com/apple/darwin-xnu/blob/a449c6a3b8014d9406c2ddbdc81795da24aa7443/bsd/kern/syscalls.master#L733). With this info, I tried to change the calls:
+That said, I started to dig in [`xnu/bsd/kern.syscalls.master`](https://github.com/apple/darwin-xnu/blob/master/bsd/kern/syscalls.master), where we can find the syscall numbers for our calls, for example [`openat`](https://github.com/apple/darwin-xnu/blob/a449c6a3b8014d9406c2ddbdc81795da24aa7443/bsd/kern/syscalls.master#L733). Alternatively, they can be found in `usr/sys/syscall.h`.
 
-```
-.macro  openFile    fileName, flags
-        mov         X0, #AT_FDCWD
-        adrp        X1, \fileName@PAGE
-        add         X1, X1, \fileName@PAGEOFF
-        mov         X2, #\flags
-        mov         X3, #S_RDWR         // RW access rights
-        mov         X16, #463   // openat, see bsd/kern/syscalls.master
-        svc         #0x80
-.endm
-```
-
-However, after the `svc #0x80`, X0 is always 9, regardless of the imput file. Right now, that's as far as I got, and any help is appeciated.
+It is also important to notice that while the calls and definitions look similar, Linux and Darwin are not the same: `AT_FDCWD` is -100 on Linux, but -2 on Darwin.
 
 ## Chapter 8
 

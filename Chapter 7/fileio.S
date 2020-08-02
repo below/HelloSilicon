@@ -10,7 +10,7 @@
 .equ	O_WRONLY, 1
 .equ	O_CREAT,  0100
 .equ	S_RDWR,   0666
-.equ	AT_FDCWD, -100
+.equ	AT_FDCWD, -2
 
 .macro  openFile    fileName, flags
 	mov         X0, #AT_FDCWD
