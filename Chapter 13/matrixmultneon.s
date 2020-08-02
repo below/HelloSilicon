@@ -33,15 +33,15 @@ main:
 	LDP	D3, D4, [X0], #16
 	LDR	D5, [X0]
 
-	MUL	V6().4H, V0.4H, V3().4H[0]
-	MLA	V6().4H, V1.4H, V3().4H[1]
-	MLA	V6().4H, V2.4H, V3().4H[2]
-	MUL	V7().4H, V0.4H, V4().4H
-	MLA	V7().4H, V1.4H, V4().4H
-	MLA	V7().4H, V2.4H, V4().4H
-	MUL	V8().4H, V0.4H, V5().4H
-	MLA	V8().4H, V1.4H, V5().4H
-	MLA	V8().4H, V2.4H, V5().4H
+.macro mulcol ccol bcol
+	MUL.4H	\ccol\(), V0, \bcol\()[0]
+	MLA.4H	\ccol\(), V1, \bcol\()[1]
+	MLA.4H	\ccol\(), V2, \bcol\()[2]
+.endm
+
+	mulcol	V6, V3	// process first column
+	mulcol	V7, V4	// process second column
+	mulcol	V8, V5	// process third column
 
 	ADRP	X1, C@PAGE	// Address of C
 	ADD	X1, X1, C@PAGEOFF
