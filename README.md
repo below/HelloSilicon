@@ -7,11 +7,13 @@ In this repository, I will code along with the book [Programming with 64-Bit ARM
 
 ## Latest News
 
+Pop the Champagne! 🍾 All the code is running!
+
 Once you found the bug, you feel stupid for not noticing it before. Only after some debugging I realized that Darwin has a different value for `AT_FDCWD`. This means: Chapter 7 is ready!
 
-Chapter 13 stil has an open issue, though.
+And after some disassembly and reading [Documentation](https://community.arm.com/developer/tools-software/oss-platforms/b/android-blog/posts/arm-neon-programming-quick-reference), Chapter 13 is ready as well.
 
-I got a mention in Stephen Smith's [blog](https://smist08.wordpress.com/2020/07/31/is-apple-silicon-really-arm/)!
+Last but not least, I got a mention in Stephen Smith's [blog](https://smist08.wordpress.com/2020/07/31/is-apple-silicon-really-arm/)!
 
 ### Prerequisites
 
@@ -283,7 +285,19 @@ Like in Chapter 11, all the chages have been introduced already. Nothing new her
 
 ## Chapter 13
 
-This chapter is still in the works; it compiles, but the output is wrong. There is one [issue](https://github.com/below/HelloSilicon/issues/15) I'd like to fix
+Once again, the Clang assembler seems to want a slightly different syntax: Where gcc accepts
+
+```
+MUL V6.4H, V0.4H, V3.4H[0]
+```
+
+the Clang assembler expects
+
+```
+MUL.4H V6, V0, V3[0]
+```
+
+All other changes to the code should be trivial at this point.
 
 ## Chapter 14
 
