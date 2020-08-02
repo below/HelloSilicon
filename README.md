@@ -7,7 +7,7 @@ In this repository, I will code along with the book [Programming with 64-Bit ARM
 
 ## Latest News
 
-Most content is done. What is missing is most notably Chapter 7, and Chapter 14 stil has an open issue.
+Most content is done. What is missing is most notably Chapter 7, and Chapter 13 stil has an open issue.
 
 ### Prerequisites
 
