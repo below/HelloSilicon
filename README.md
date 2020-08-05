@@ -7,6 +7,8 @@ In this repository, I will code along with the book [Programming with 64-Bit ARM
 
 ## Latest News
 
+Finally I figured out the Clang assembler syntax for Chapter 2.
+
 I have updated Chapter 7 to use `sys/syscall.h` to make things cleaner.
 
 ## Prerequisites
