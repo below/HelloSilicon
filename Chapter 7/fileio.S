@@ -4,7 +4,7 @@
 // Uses X0, X1, X8.
 // Return code is in X0.
 
-// #include <asm/unistd.h>
+#include <sys/syscall.h>
 
 .equ	O_RDONLY, 0
 .equ	O_WRONLY, 1
@@ -18,7 +18,7 @@
 	add	    X1, X1, \fileName@PAGEOFF 
         mov         X2, #\flags
 	mov	    X3, #S_RDWR		// RW access rights
-        mov	    X16, #463	// openat, see bsd/kern/syscalls.master
+        mov	    X16, #SYS_openat
         svc         #0x80
 .endm
 .macro  readFile   fd, buffer, length
@@ -26,7 +26,7 @@
         adrp        X1, \buffer@PAGE
 	add	    X1, X1, \buffer@PAGEOFF
         mov         X2, #\length
-        mov         X16, #3
+        mov         X16, #SYS_read
         svc         #0x80
 .endm
 .macro  writeFile   fd, buffer, length
@@ -34,17 +34,17 @@
         adrp        X1, \buffer@PAGE
 	add	    X1, X1, \buffer@PAGEOFF
         mov         X2, \length
-        mov         X16, #4
+        mov         X16, #SYS_write
         svc         #0x80
 .endm
 .macro  flushClose  fd
 //fsync syscall
         mov         X0, \fd
-        mov         X16, #95	//__NR_fsync
+        mov         X16, #SYS_fsync
         svc         #0x80
 
 //close syscall
         mov         X0, \fd
-        mov         X16, #6 // __NR_close
+        mov         X16, #SYS_close
         svc         #0x80
 .endm

@@ -7,23 +7,19 @@ In this repository, I will code along with the book [Programming with 64-Bit ARM
 
 ## Latest News
 
-Pop the Champagne! 🍾 All the code is running!
+I have updated Chapter 7 to use `sys/syscall.h` to make things cleaner.
 
-Once you found the bug, you feel stupid for not noticing it before. Only after some debugging I realized that Darwin has a different value for `AT_FDCWD`. This means: Chapter 7 is ready!
-
-And after some disassembly and reading [Documentation](https://community.arm.com/developer/tools-software/oss-platforms/b/android-blog/posts/arm-neon-programming-quick-reference), Chapter 13 is ready as well.
-
-Last but not least, I got a mention in Stephen Smith's [blog](https://smist08.wordpress.com/2020/07/31/is-apple-silicon-really-arm/)!
-
-### Prerequisites
+## Prerequisites
 
 While I pretty much assume that people who made it here meet most if not all required prerequisites, it doesn't hurt to list them. 
 
 * You need [Xcode 12](https://developer.apple.com/xcode/), and to make things easier, the command line tools should be installed. I believe they are when you say "Yes" to "Install additional components", but I might be wrong. This ensures that the tools are found in default locations (namely `/usr/bin`). If you are not sure, check _Preferences → Locations_ in Xcode.
 
-* All application samples also require [macOS Big Sur](https://developer.apple.com/macos/), [iOS 14](https://developer.apple.com/ios/) or their respective watchOS or tvOS equivalents. Especially for the later three systems it is not a necessity per-se (neither is Xcode 11), but it makes things a lot simpler.
+* All application samples also require [macOS Big Sur](https://developer.apple.com/macos/), [iOS 14](https://developer.apple.com/ios/) or their respective watchOS or tvOS equivalents. Especially for the later three systems it is not a necessity per-se (neither is Xcode 12), but it makes things a lot simpler.
 
 * Finally, while all samples can be adjusted to work on Apple's current production ARM64 devices, for best results you should have access to a [MWMNSA](https://developer.apple.com/programs/universal/).
+
+## Changes To The Book
 
 With the exception of the existing iOS samples, the book is based on the Linux operating system. Apple's operating systems (macOS, iOS, watchOS and tvOS) are actually just flavors of the [Darwin](https://en.wikipedia.org/wiki/Darwin_(operating_system)) operating system, so they share a set of common core compoents. 
 While Linux and Darwin have a common ancestor and appear to be very similar, some changes are needed to make the samples run on Apple hardware.
@@ -59,7 +55,7 @@ The default Calculator.app on macOS has a "Programmer Mode", too. You enable it 
 
 ### Listing 1-1
 
-To make "Hello World" run on the MWMNSA, first the changes from page 78 (Chapter 3) have to be applied to account for the differences between the Darwin and the Linux kernel.
+To make "Hello World" run on the MWMNSA, first the changes from page 78 (Chapter 3) have to be applied to account for the differences between Darwin and the Linux kernel.
 The next trick is to insert `.align 4` (or `.p2align 2`), because Darwin likes things to be aligned on even boundaries. Thanks to @m-schmidt and @zhuowei! The books mentions this in Aligning Data in Chapter 5, page 114.
 
 To make the linker work, a little more is needed, most of it should look familiar to Mac/iOS developers. These changes need to be applied to the `makefile` and to the `build` file. The complete call to the linker looks like this:
@@ -82,7 +78,7 @@ We know the `-o` switch, let's examine the others:
 
 ## Chapter 2
 
-The chagnes from [Chapter 1](https://github.com/below/HelloSilicon#chapter-1) (makefile, alignment, system calls) have to be applied
+The changes from [Chapter 1](https://github.com/below/HelloSilicon#chapter-1) (makefile, alignment, system calls) have to be applied.
 
 ### Register and Shift
 
@@ -201,11 +197,9 @@ Changes like in Chapter 4.
 As we learned in Chapter 5, all assembler directives (like `.equ`) must be in lowercase for the Clang assember. 
 
 ## Chapter 7
-Linux, by design, is made for tinkering, and Darwin is not. `unistd.h` is not part of the userland MacOS SDK, and the whole system call mechanism is considered private and subject to change. As @sagaarjha said: _"Go used to create static binaries on macOS but they would constantly break whenever an update came out"_. 
+`asm/unistd.h` does not exist in the Apple SDKs, but there is `sys/syscalls.h` that we can use.
 
-That said, I started to dig in [`xnu/bsd/kern.syscalls.master`](https://github.com/apple/darwin-xnu/blob/master/bsd/kern/syscalls.master), where we can find the syscall numbers for our calls, for example [`openat`](https://github.com/apple/darwin-xnu/blob/a449c6a3b8014d9406c2ddbdc81795da24aa7443/bsd/kern/syscalls.master#L733). Alternatively, they can be found in `usr/sys/syscall.h`.
-
-It is also important to notice that while the calls and definitions look similar, Linux and Darwin are not the same: `AT_FDCWD` is -100 on Linux, but -2 on Darwin.
+It is also important to notice that while the calls and definitions look similar, Linux and Darwin are not the same: `AT_FDCWD` is -100 on Linux, but must be -2 on Darwin.
 
 ## Chapter 8
 
@@ -242,7 +236,7 @@ We could fill the stack in different ways; what is important that the `printf` f
 
 What we have effectively done is [allocating memory on the stack](https://en.wikipedia.org/wiki/Stack-based_memory_allocation). As we, the caller, "own" that memory we need to release it after the function branch, in this case simply by shrinking the stack (upwards) by the 32 bytes we allocated. The instruction `add SP, SP, #32` will do that.
 
-It took me quite a while to figure this out, and there is minimal `test.s` and corresponding `build` script to see the printf call in isolation.
+It took me quite a while to figure this out, and there is minimal `test.s` and corresponding `build` script to see the printf call in isolation. I have no idea why this is the case, as the ARM64 Procedure Call Standards clearly describe the Linux way.
 
 ### Listing 9-5
 `mytoupper` was prefixed with `_` as this is necessary for C on Darwin to find it.
