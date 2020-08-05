@@ -291,7 +291,19 @@ No unusal changes here.
 
 ## Chapter 15
 
-When I have some time, I might write about where to find the information the book shows about Linux in the Darwin Kernel.
+### Copying a Page of Memory
+
+Some place to start reading ARM64 code in the Darwin Kernel can be found in [bcopy.s](https://github.com/apple/darwin-xnu/blob/master/osfmk/arm64/bcopy.s). There is a lot more in that directory and the repository in general.
+
+
+### Code Created by GCC
+
+No changes were required. The "tiny" code model is not supported for Mach-O excecutables:
+
+```
+% clang -O3 -mcmodel=tiny -o upper upper.c
+fatal error: error in backend: tiny code model is only supported on ELF
+```
 
 ## Chapter 16
 
