@@ -82,21 +82,11 @@ The changes from [Chapter 1](https://github.com/below/HelloSilicon#chapter-1) (m
 
 ### Register and Shift
 
-The Clang assembler does not understand the `MOV X1, X2, LSL #1` aliases, but requires `LSL X1, X2, #1`. Apple has told me (FB7855327) that they are not planning to change this.
+The Clang assembler does not understand the `MOV X1, X2, LSL #1` aliases, instead `LSL X1, X2, #1` (etc) are used. Apple has told me (FB7855327) that they are not planning to change this, and after all, both are actually the instruction `ORR X1, XZR, X2, LSL #1`.
 
 ### Register and Extension
-Apparently, the Clang assembler does not like the `SXTB` or `UXTH` extension operators on `ADD`, and we have to do this in two operations:
 
-```
-SXTB	X0, X0
-ADD	X2, X1, X0
-```
-
-First, we extract the byte from X0, then we can add it.
-
-I have not done a deep dive into why that is. The extensions are listed in the [ARM Compiler armasm User Guide](https://developer.arm.com/documentation/dui0801/c/a64-general-instructions/add--extended-register-?lang=en), but Clang only seems to understand the `SXTX` and `UXTX` extensions. And honestly, I don't know what they are doing…
-
-If anyone has a hint where I can find the Clang assembly syntax reference guide, I'd be happy if you'd let me know.
+Clang requires the source register to be 32-Bit. This makes sense, because with these extensions, the upper 32 Bit of a 64-Bit reqister would never be touched. The GNU Assembler seems to ignore this, and allows you to specifiy a 64-Bit source register.
 
 ## Chapter 3
 
@@ -232,7 +222,7 @@ In the same command, **X1** is pushed to the new location of the stack pointer.
 
 Now, we fill the rest of the space we just created by pushing **X2** to a location eight bytes, and **X3** to 16 bytes above the stack pointer. Note that the **str** commands for **X2** and **X3** do not move **SP**.
 
-We could fill the stack in different ways; what is important that the `printf` function expects the parameters as doubleword values in order, upwards from the current stackpointer. So in the case of the "debug.s" file, it expects the parameter for the `%c` to be at the location of **SP**, the parameter for `%32ld` at one longword above this, and finally the parameter for `%016lx` two words, 16 bytes, above the current stack pointer.
+We could fill the stack in different ways; what is important that the `printf` function expects the parameters as doubleword values in order, upwards from the current stackpointer. So in the case of the "debug.s" file, it expects the parameter for the `%c` to be at the location of **SP**, the parameter for `%32ld` at one doubleword above this, and finally the parameter for `%016lx` two doublewords, 16 bytes, above the current stack pointer.
 
 What we have effectively done is [allocating memory on the stack](https://en.wikipedia.org/wiki/Stack-based_memory_allocation). As we, the caller, "own" that memory we need to release it after the function branch, in this case simply by shrinking the stack (upwards) by the 32 bytes we allocated. The instruction `add SP, SP, #32` will do that.
 

@@ -50,14 +50,9 @@ l6:	// the immediate value can be 12-bits, so 0-4095
 	ADD	X2, X1, X0, LSL 2
 	// With register extension options
 	// X2 = X1 + signed extended byte(X0)
-	MOV	X0, #0x2bfd
-	SXTB	X0, X0
-	ADD	X2, X1, X0
+	ADD	X2, X1, W0, SXTB
 	// X2 = X1 + zero extended halfword(X0) * 4
-	MOV	X0, #0x2bfd
-	MOVK	X0, #0x0043, LSL #16
-	UXTH	X0, W0
-	ADD	X2, X1, X0
+	ADD	X2, X1, W0, UXTH 2
 
 
 l8:	ADDS	X0, X0, #1
