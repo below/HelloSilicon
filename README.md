@@ -28,7 +28,7 @@ While Linux and Darwin have a common ancestor and appear to be very similar, som
 
 ### Tools
 
-The book uses Linux GNU tools, such as the GNU `as` assembler. While there is an `as` command on macOS, it will invoce the integrated [Clang](https://clang.llvm.org) assembler by default. And even if there is the `-Q` option to use the GNU based assembler, this was only ever an option for x86_64 — and this will be deprecated as well.
+The book uses Linux GNU tools, such as the GNU `as` assembler. While there is an `as` command on macOS, it will invoke the integrated [Clang](https://clang.llvm.org) assembler by default. And even if there is the `-Q` option to use the GNU based assembler, this was only ever an option for x86_64 — and this will be deprecated as well.
 ```
 % as -Q -arch arm64
 /usr/bin/as: can't specifiy -Q with -arch arm64
@@ -53,7 +53,7 @@ The changes will be explained in details below.
 
 If you are reading this, I assume you know that the macOS Terminal can be found in _Applications → Utilities → Terminal.app_. But if you didn't I feel honored to tell you and I wish you lots of fun on this journey! Don't be afraid to ask questions.
 
-The default Calculator.app on macOS has a "Programmer Mode", too. You enable it with _View → Programmer_ or the ⌘3 shortcut.
+The default Calculator.app on macOS has a "Programmer Mode", too. You enable it with _View → Programmer_ (⌘3).
 
 ### Listing 1-1
 
@@ -75,7 +75,7 @@ We know the `-o` switch, let's examine the others:
 
 * `-lSystem` tells the linker to link our executable with `libSystem.dylib`. We do that to add the `LC_MAIN` load command to the executable. Generally, Darwin does not support [statically linked executables](https://developer.apple.com/library/archive/qa/qa1118/_index.html). It is [possible](https://stackoverflow.com/questions/32453849/minimal-mach-o-64-binary/32659692#32659692), if not especially elegant to create executables without using `libSystem.dylib`. I will go deeper into that topic when time permits. For people who read _Mac OS X Internals_ I will just add that this replaced `LC_UNIXTHREAD` as of MacOS X 10.7. 
 * `-sysroot`: In order to find `libSystem.dylib`, it is mandatory to tell our linker where to find it. It seems this was not necessary on macOS 10.15 because _"New in macOS Big Sur 11 beta, the system ships with a built-in dynamic linker cache of all system-provided libraries. As part of this change, copies of dynamic libraries are no longer present on the filesystem."_. We use `xcrun -sdk macosx --show-sdk-path` to dynamically use the currently active version of Xcode.
-* `-e _start`: Darwin expects an entrypoint `_main`. In order to keep the sample both as close as possible to the book, and to allow it's use with in the C-Sample from _Chapter 3_, I opted to keep `_start` and tell the linker that this is the entry point we want to use
+* `-e _start`: Darwin expects an entrypoint `_main`. In order to keep the sample both as close as possible to the book, and to allow it's use within the C-Sample from _Chapter 3_, I opted to keep `_start` and tell the linker that this is the entry point we want to use
 * `-arch arm64` for good measure, let's throw in the option to cross-compile this from an Intel Mac
 
 ## Chapter 2
@@ -84,11 +84,15 @@ The changes from [Chapter 1](https://github.com/below/HelloSilicon#chapter-1) (m
 
 ### Register and Shift
 
-The Clang assembler does not understand the `MOV X1, X2, LSL #1` aliases, instead `LSL X1, X2, #1` (etc) are used. Apple has told me (FB7855327) that they are not planning to change this, and after all, both are actually the instruction `ORR X1, XZR, X2, LSL #1`.
+The Clang assembler does not understand the `MOV X1, X2, LSL #1`, instead `LSL X1, X2, #1` (etc) is used. Apple has told me (FB7855327) that they are not planning to change this, and after all, both are just aliasses for the instruction `ORR X1, XZR, X2, LSL #1`.
 
 ### Register and Extension
 
-Clang requires the source register to be 32-Bit. This makes sense, because with these extensions, the upper 32 Bit of a 64-Bit reqister would never be touched. The GNU Assembler seems to ignore this, and allows you to specifiy a 64-Bit source register.
+Clang requires the source register to be 32-Bit. This makes sense, because with these extensions, the upper 32 Bit of a 64-Bit reqister will never be touched:
+```
+ADD X2, X1, W0, SXTB
+```
+ The GNU Assembler seems to ignore this and allows you to specifiy a 64-Bit source register.
 
 ## Chapter 3
 
@@ -169,8 +173,8 @@ So this:
 becomes this:
 
 ```
-	ADRP	X1, outstr@PAGE	// address of output string
-	ADD	X1, X1, outstr@PAGEOFF
+	ADRP	X1, outstr@PAGE	// address of output string 4k page
+	ADD	X1, X1, outstr@PAGEOFF // offset to outstr within the page
 ```
 
 ## Chapter 5
@@ -178,7 +182,7 @@ becomes this:
 The important differences in memory addressing for Darwin were already addresed above.
 
 ### Listing 5-1
-The `quad`, `octa` and `fill` keywords apparently must be in lowercase for the llvm assembler. (See bottom of this file)
+The `quad`, `octa` and `fill` keywords must be in lowercase for the llvm assembler. (See bottom of this file)
 
 ### Listing 5-10
 
@@ -186,10 +190,10 @@ Changes like in Chapter 4.
 
 ## Chapter 6
 
-As we learned in Chapter 5, all assembler directives (like `.equ`) must be in lowercase for the Clang assember. 
+As we learned in Chapter 5, all assembler directives (like `.equ`) must be in lowercase. 
 
 ## Chapter 7
-`asm/unistd.h` does not exist in the Apple SDKs, but there is `sys/syscalls.h` that we can use.
+`asm/unistd.h` does not exist in the Apple SDKs, instead `sys/syscalls.h` can be used.
 
 It is also important to notice that while the calls and definitions look similar, Linux and Darwin are not the same: `AT_FDCWD` is -100 on Linux, but must be -2 on Darwin.
 
@@ -220,15 +224,15 @@ add     SP, SP, #32 // Clean up stack
 
 So first, we are growing the stack downwards 32 bytes, to make room for three 64-Bit values. And because, as pointed out on page 137 in the book, ARM hardware requires the stack pointer to always be 16-byte aligned, we are creating space for a fourth value for padding.
 
-In the same command, **X1** is pushed to the new location of the stack pointer.
+In the same command, **X1** is stored at the new location of the stack pointer.
 
-Now, we fill the rest of the space we just created by pushing **X2** to a location eight bytes, and **X3** to 16 bytes above the stack pointer. Note that the **str** commands for **X2** and **X3** do not move **SP**.
+Now, we fill the rest of the space we just created by storing **X2** in a location eight bytes above, and **X3** 16 bytes above the stack pointer. Note that the **str** commands for **X2** and **X3** do not move **SP**.
 
 We could fill the stack in different ways; what is important that the `printf` function expects the parameters as doubleword values in order, upwards from the current stackpointer. So in the case of the "debug.s" file, it expects the parameter for the `%c` to be at the location of **SP**, the parameter for `%32ld` at one doubleword above this, and finally the parameter for `%016lx` two doublewords, 16 bytes, above the current stack pointer.
 
 What we have effectively done is [allocating memory on the stack](https://en.wikipedia.org/wiki/Stack-based_memory_allocation). As we, the caller, "own" that memory we need to release it after the function branch, in this case simply by shrinking the stack (upwards) by the 32 bytes we allocated. The instruction `add SP, SP, #32` will do that.
 
-It took me quite a while to figure this out, and there is minimal `test.s` and corresponding `build` script to see the printf call in isolation. I have no idea why this is the case, as the ARM64 Procedure Call Standards clearly describe the Linux way.
+It took me quite a while to figure this out, and there is minimal `test.s` and corresponding `build` script to see the printf call in isolation. I have no idea why this is the case, as the [Procedure Call Standard for the ARM 64-bit Architecture ](https://developer.arm.com/documentation/ihi0055/c/) clearly describes the Linux way. I'd be thankful for a hint why Apple is diverting from the PCS, or if I have overlooked something.
 
 ### Listing 9-5
 `mytoupper` was prefixed with `_` as this is necessary for C on Darwin to find it.
@@ -238,7 +242,7 @@ It took me quite a while to figure this out, and there is minimal `test.s` and c
 No change was required.
 
 ### Listing 9-7
-Instead of a shared `.so` library, a dynamic Mach-O libary was created. Further information can be fore here: [Creating Dynamic Libraries](https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/100-Articles/CreatingDynamicLibraries.html)
+Instead of a shared `.so` ELF library, a dynamic Mach-O libary is created. Further information can be found here: [Creating Dynamic Libraries](https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/100-Articles/CreatingDynamicLibraries.html)
 
 ### Listing 9-8
 The size of one variable had to be changed from int to long to make the assembler happy.
@@ -253,10 +257,10 @@ arm64e is the [Armv-8 architecture](https://community.arm.com/developer/ip-produ
 
 So, what to do? We could compile everything as arm64e, but that would make the library useless on any iPhone but the very latest, and we would like to support those, too.
 
-Above, you read something about _universal binary_. For a very long time, the Mach-O executable format had support for several processor architectures. This includes, but is not limited to, Motorola 68k (on NeXT computers), PowerPC, Intel x86, as well arm variants, with additional 32 and 64 bit variantes where applicable. In this case, I am building a universal dynamic library which includes both arm64 and arm64e code. More information can be found [here](https://developer.apple.com/documentation/xcode/building_a_universal_macos_binary).
+Above, you read something about _universal binary_. For a very long time, the Mach-O executable format had support for several processor architectures. This includes, but is not limited to, Motorola 68k (on NeXT computers), PowerPC, Intel x86, as well ARM variants, with additional 32 and 64 bit variantes where applicable. In this case, I am building a universal dynamic library which includes both arm64 and arm64e code. More information can be found [here](https://developer.apple.com/documentation/xcode/building_a_universal_macos_binary).
 
 ## Chapter 10
-No changes in the core code were required, but I created a SwiftUI app that will work on macOS, iOS, watchOS (Series 4 and later), and tvOS.
+No changes in the core code were required, but instead of just an iOS app I created a SwiftUI app that will work on macOS, iOS, watchOS (Series 4 and later), and tvOS.
 
 The only issue I found was that I had to prevent Xcode 12 Beta 3 from attempting to build x386 and x86_64 binaries for the watch App. I would assume that is a bug.
 
@@ -265,7 +269,7 @@ At this point, the changes should be self-explainatory. The usual makefile adjus
 
 ## Chapter 12
 
-Like in Chapter 11, all the chages have been introduced already. Nothing new here
+Like in Chapter 11, all the chages have been introduced already. Nothing new here.
 
 ## Chapter 13
 
@@ -292,7 +296,6 @@ No unusal changes here.
 ### Copying a Page of Memory
 
 Some place to start reading ARM64 code in the Darwin Kernel can be found in [bcopy.s](https://github.com/apple/darwin-xnu/blob/master/osfmk/arm64/bcopy.s). There is a lot more in that directory and the repository in general.
-
 
 ### Code Created by GCC
 
