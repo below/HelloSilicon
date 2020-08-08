@@ -84,7 +84,7 @@ The changes from [Chapter 1](https://github.com/below/HelloSilicon#chapter-1) (m
 
 ### Register and Shift
 
-The Clang assembler does not understand the `MOV X1, X2, LSL #1`, instead `LSL X1, X2, #1` (etc) is used. Apple has told me (FB7855327) that they are not planning to change this, and after all, both are just aliasses for the instruction `ORR X1, XZR, X2, LSL #1`.
+The Clang assembler does not understand `MOV X1, X2, LSL #1`, instead `LSL X1, X2, #1` (etc) is used. Apple has told me (FB7855327) that they are not planning to change this, and after all, both are just aliasses for the instruction `ORR X1, XZR, X2, LSL #1`.
 
 ### Register and Extension
 
