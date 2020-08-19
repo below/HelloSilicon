@@ -1,15 +1,9 @@
 # HelloSilicon
-An attempt with assembly on the Machine We Must Not Speak About
+An attempt with assembly on the _Machine We Must Not Speak About_.
 
 ## Introduction
 
 In this repository, I will code along with the book [Programming with 64-Bit ARM Assembly Language](https://www.apress.com/gp/book/9781484258804), adjusting all sample code for a new platform that might be very, very popular soon. The original sourcecode can be found [here](https://github.com/Apress/programming-with-64-bit-ARM-assembly-language).
-
-## Latest News
-
-Finally I figured out the Clang assembler syntax for Chapter 2.
-
-I have updated Chapter 7 to use `sys/syscall.h` to make things cleaner.
 
 ## Prerequisites
 
@@ -23,19 +17,19 @@ While I pretty much assume that people who made it here meet most if not all req
 
 ## Changes To The Book
 
-With the exception of the existing iOS samples, the book is based on the Linux operating system. Apple's operating systems (macOS, iOS, watchOS and tvOS) are actually just flavors of the [Darwin](https://en.wikipedia.org/wiki/Darwin_(operating_system)) operating system, so they share a set of common core compoents. 
-While Linux and Darwin have a common ancestor and appear to be very similar, some changes are needed to make the samples run on Apple hardware.
+With the exception of the existing iOS samples, the book is based on the Linux operating system. Apple's operating systems (macOS, iOS, watchOS and tvOS) are actually just flavors of the [Darwin](https://en.wikipedia.org/wiki/Darwin_(operating_system)) operating system, so they share a set of common core components. 
+While Linux and Darwin are based on a similar idea and may appear to be very similar, some changes are needed to make the samples run on Apple hardware.
 
 ### Tools
 
-The book uses Linux GNU tools, such as the GNU `as` assembler. While there is an `as` command on macOS, it will invoke the integrated [Clang](https://clang.llvm.org) assembler by default. And even if there is the `-Q` option to use the GNU based assembler, this was only ever an option for x86_64 — and this will be deprecated as well.
+The book uses Linux GNU tools, such as the GNU `as` assembler. While there is an `as` command on macOS, it will invoke the integrated [LLVM Clang](https://clang.llvm.org) assembler by default. And even if there is the `-Q` option to use the GNU based assembler, this was only ever an option for x86_64 — and this will be deprecated as well.
 ```
 % as -Q -arch arm64
 /usr/bin/as: can't specifiy -Q with -arch arm64
 ```
 Thus, the GNU assembler syntax is not an option for Darwin, and the code will have to be adjusted for the Clang assembler syntax.
 
-Likewise, while there is a `gcc` command on macOS, this simply calls Clang configured to behave more like gcc. For transparancy, all calls to `gcc` will be replaced with `clang`.
+Likewise, while there is a `gcc` command on macOS, this simply calls the Clang C-compiler. For transparancy, all calls to `gcc` will be replaced with `clang`.
 
 ```
 % gcc --version
@@ -45,7 +39,7 @@ Apple clang version 12.0.0 (clang-1200.0.26.2)
 
 ### Operating System
 
-Linux and Darwin, which have similar roots in [AT&T Unix System V](http://www.unix.org/what_is_unix/history_timeline.html), are significantly different at the level we are looking at. For the listings in the book, this mostly concerns system calls (i.e. when we want the Kernel to do someting for us), and the way Darwin accesses memory. 
+Linux and Darwin, which were both inspired by [AT&T Unix System V](http://www.unix.org/what_is_unix/history_timeline.html), are significantly different at the level we are looking at. For the listings in the book, this mostly concerns system calls (i.e. when we want the Kernel to do someting for us), and the way Darwin accesses memory. 
 
 The changes will be explained in details below.
 
@@ -84,7 +78,7 @@ The changes from [Chapter 1](https://github.com/below/HelloSilicon#chapter-1) (m
 
 ### Register and Shift
 
-The Clang assembler does not understand the `MOV X1, X2, LSL #1`, instead `LSL X1, X2, #1` (etc) is used. Apple has told me (FB7855327) that they are not planning to change this, and after all, both are just aliasses for the instruction `ORR X1, XZR, X2, LSL #1`.
+The Clang assembler does not understand `MOV X1, X2, LSL #1`, instead `LSL X1, X2, #1` (etc) is used. Apple has told me (FB7855327) that they are not planning to change this, and after all, both are just aliasses for the instruction `ORR X1, XZR, X2, LSL #1`.
 
 ### Register and Extension
 
@@ -126,7 +120,7 @@ Note that because we are linking a dynamic executable, the listing will be long 
 
 Likewise, lldb wants the breakpoint name without the underscore: `b start`
 
-To get the registers on llbd, we use **register read** (or **re r**). Without arguments, this command will print all registers, or you can specify just the registers you would like to see, like `re r SP X0 X1`.
+To get the registers on lldb, we use **register read** (or **re r**). Without arguments, this command will print all registers, or you can specify just the registers you would like to see, like `re r SP X0 X1`.
 
 We can see all the breakpoints with **breakpoint list** (or **br l**). We can delete a breakpoint with **breakpoint delete** (or **br de**) specifying the breakpoint number to delete.
 
@@ -154,10 +148,10 @@ Thankfully @saagarjha [suggested](https://github.com/below/HelloSilicon/issues/5
 
 ## Chapter 4
 
-Besides the changes that are common, we face a new issue, which is described in the book in Chapter 5: Darwin does not like `LSR X1, =symbol`, we will get the error `ld: Absolute addressing not allowed in arm64 code`. If we use `ASR X1, symbol`, as suggested in Chapter 3 of the book, our data has to be in the read-only `.text` section. In this sample however, we want writable data. 
+Besides the changes that are common, we face a new issue which is described in the book in Chapter 5: Darwin does not like `LSR X1, =symbol`, we will get the error `ld: Absolute addressing not allowed in arm64 code`. If we use `ASR X1, symbol`, as suggested in Chapter 3 of the book, our data has to be in the read-only `.text` section. In this sample however, we want writable data. 
 
-On Darwin 
-> All large or possibly nonlocal data is accessed indirectly through a global offset table (GOT) entry. The GOT entry is accessed directly using RIP-relative addressing. [Apple Documentation](https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/MachOTopics/1-Articles/x86_64_code.html#//apple_ref/doc/uid/TP40005044-SW1)
+The [Apple Documentation](https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/MachOTopics/1-Articles/x86_64_code.html#//apple_ref/doc/uid/TP40005044-SW1) tells us that on Darwin:
+> All large or possibly nonlocal data is accessed indirectly through a global offset table (GOT) entry. The GOT entry is accessed directly using RIP-relative addressing.
 
 And by default, on Darwin all data contained in the `.data` section, where data is writeable, is "possibly nonlocal".
 
@@ -251,13 +245,13 @@ More importantly, I had to change the `loop` label to a numeric label, and branc
 
 ### Listing 9-9
 
-While the `uppertst5.py` file only needed a minimal change, calling the code was more challenging than I had thought: On the MWMNSA, python is a Mach-O universal binary with 2 architectures: x86_64 and arm64e. Notably absent is the arm64 architecture we were building for up to this point. This makes our dylib unusable with python.
+While the `uppertst5.py` file only needed a minimal change, calling the code was more challenging than I had thought: On the MWMNSA, python is a Mach-O universal binary with two architectures: x86_64 and arm64e. Notably absent is the arm64 architecture we were building for up to this point. This makes our dylib unusable with python.
 
-arm64e is the [Armv-8 architecture](https://community.arm.com/developer/ip-products/processors/b/processors-ip-blog/posts/armv8-a-architecture-2016-additions), which Apple is using since the A12 chip. If you want to address devies prior to the A12, you must stick to arm64. It is public knowledge that the MWMNSA runs on an A12Z Bionic, thus Apple decided to take advangage of the new features.
+arm64e is the [Armv-8 architecture](https://community.arm.com/developer/ip-products/processors/b/processors-ip-blog/posts/armv8-a-architecture-2016-additions), which Apple is using since the A12 chip. If you want to address devices prior to the A12, you must stick to arm64. It is public knowledge that the MWMNSA runs on an A12Z Bionic, thus Apple decided to take advangage of the new features.
 
 So, what to do? We could compile everything as arm64e, but that would make the library useless on any iPhone but the very latest, and we would like to support those, too.
 
-Above, you read something about _universal binary_. For a very long time, the Mach-O executable format had support for several processor architectures. This includes, but is not limited to, Motorola 68k (on NeXT computers), PowerPC, Intel x86, as well ARM variants, with additional 32 and 64 bit variantes where applicable. In this case, I am building a universal dynamic library which includes both arm64 and arm64e code. More information can be found [here](https://developer.apple.com/documentation/xcode/building_a_universal_macos_binary).
+Above, you read something about _universal binary_. For a very long time, the Mach-O executable format had support for several processor architectures in a single file. This includes, but is not limited to, Motorola 68k (on NeXT computers), PowerPC, Intel x86, as well ARM code, each with their 32 and 64 bit variantes where applicable. In this case, I am building a universal dynamic library which includes both arm64 and arm64e code. More information can be found [here](https://developer.apple.com/documentation/xcode/building_a_universal_macos_binary).
 
 ## Chapter 10
 No changes in the core code were required, but instead of just an iOS app I created a SwiftUI app that will work on macOS, iOS, watchOS (Series 4 and later), and tvOS.
