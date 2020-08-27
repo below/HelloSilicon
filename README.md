@@ -1,6 +1,12 @@
 # HelloSilicon
 An attempt with assembly on the _Machine We Must Not Speak About_.
 
+## News
+
+@jrosengarden [asked](https://github.com/below/HelloSilicon/issues/22#issue-687491010) me how to read the command line, and I gladly [answered](https://github.com/below/HelloSilicon/issues/22#issuecomment-682205151) the question. 
+
+Sample code can be found in Chapter 4, `case.s`.
+
 ## Introduction
 
 In this repository, I will code along with the book [Programming with 64-Bit ARM Assembly Language](https://www.apress.com/gp/book/9781484258804), adjusting all sample code for a new platform that might be very, very popular soon. The original sourcecode can be found [here](https://github.com/Apress/programming-with-64-bit-ARM-assembly-language).
