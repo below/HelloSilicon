@@ -5,7 +5,7 @@ An attempt with assembly on the _Machine We Must Not Speak About_.
 
 @jrosengarden [asked](https://github.com/below/HelloSilicon/issues/22#issue-687491010) me how to read the command line, and I gladly [answered](https://github.com/below/HelloSilicon/issues/22#issuecomment-682205151) the question. 
 
-Sample code can be found in Chapter 4, `case.s`.
+Sample code can be found in Chapter 4 in the file [`case.s`](Chapter%204/case.s).
 
 ## Introduction
 
