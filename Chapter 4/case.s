@@ -37,10 +37,9 @@ _start:		// this is the switch portion of the case statement
 			mov w12, 0xff	// Prepare for error case 
 			cmp x0, #2	// Make sure we have precisely two arguments
 			bne endit	// If it is not: exit
-			ldr x11, [x1, #8]
-			ldr w11, [x11]
-			sxtb w11, w11
-			sub w11, w11, #'0'
+			ldr x11, [x1, #8]	// Get the pointer at x1 + 8
+			ldrb w11, [x11]	// Load the Byte pointed to by that pointer into w11
+			sub w11, w11, #'0' // Subtract the ascii value for '0'
 
 			cmp w11, #1			// will set Z flag to 1 if w11 - 1 == 0
 			b.eq select1		// Z Flag == 1 ?
