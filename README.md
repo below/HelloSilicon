@@ -1,12 +1,6 @@
 # HelloSilicon
 An attempt with assembly on the _Machine We Must Not Speak About_.
 
-## News
-
-@jrosengarden [asked](https://github.com/below/HelloSilicon/issues/22#issue-687491010) me how to read the command line, and I gladly [answered](https://github.com/below/HelloSilicon/issues/22#issuecomment-682205151) the question. 
-
-Sample code can be found in Chapter 4 in the file [`case.s`](Chapter%204/case.s).
-
 ## Introduction
 
 In this repository, I will code along with the book [Programming with 64-Bit ARM Assembly Language](https://www.apress.com/gp/book/9781484258804), adjusting all sample code for a new platform that might be very, very popular soon. The original sourcecode can be found [here](https://github.com/Apress/programming-with-64-bit-ARM-assembly-language).
@@ -177,6 +171,12 @@ becomes this:
 	ADD	X1, X1, outstr@PAGEOFF // offset to outstr within the page
 ```
 
+### Excersises
+
+@jrosengarden [asked](https://github.com/below/HelloSilicon/issues/22#issue-687491010) me how to read the command line, and I gladly [answered](https://github.com/below/HelloSilicon/issues/22#issuecomment-682205151) the question. 
+
+Sample code can be found in Chapter 4 in the file [`case.s`](Chapter%204/case.s).
+
 ## Chapter 5
 
 The important differences in memory addressing for Darwin were already addresed above.
@@ -315,6 +315,7 @@ All that can be said is that clang automatically enables position-independent ex
 * [Mach-O Programming Topics](https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/MachOTopics/0-Introduction/introduction.html#//apple_ref/doc/uid/TP40001827-SW1), an excellent introduction to the Mach-O executable format and how it differs from ELF. Even if it still refrences PowerPC 64-Bit architecture and says nothing about ARM, most of it is still true.
 * [What is required for a Mach-O executable to load?](https://stackoverflow.com/a/42399119/1600891)
 * [Mac OS X Internals, A Systems Approach](https://www.pearson.ch/Informatik/Macintosh/EAN/9780134426549/Mac-OS-X-Internals) Amit Singh, 2007. For better or worse, this is still the definite compendium on the core of macOS and it's siblings.
+* [WWDC20: Explore the new system architecture of Apple Silicon Macs](https://developer.apple.com/videos/play/wwdc2020/10686/) A system overview of the new Apple Silicon machines
 * [Darwin Source Code](https://opensource.apple.com/source/xnu/)
 * [ARM Archicture Reference Manual](https://static.docs.arm.com/ddi0487/ca/DDI0487C_a_armv8_arm.pdf)
 
