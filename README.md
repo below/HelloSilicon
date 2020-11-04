@@ -9,7 +9,7 @@ In this repository, I will code along with the book [Programming with 64-Bit ARM
 
 While I pretty much assume that people who made it here meet most if not all required prerequisites, it doesn't hurt to list them. 
 
-* You need [Xcode 12](https://developer.apple.com/xcode/), and to make things easier, the command line tools should be installed. I believe they are when you say "Yes" to "Install additional components", but I might be wrong. This ensures that the tools are found in default locations (namely `/usr/bin`). If you are not sure, check _Preferences → Locations_ in Xcode.
+* You need [Xcode 12.2](https://developer.apple.com/xcode/), and to make things easier, the command line tools should be installed. I believe they are when you say "Yes" to "Install additional components", but I might be wrong. This ensures that the tools are found in default locations (namely `/usr/bin`). If you are not sure, check _Preferences → Locations_ in Xcode or run `xcode-select --install`.
 
 * All application samples also require [macOS Big Sur](https://developer.apple.com/macos/), [iOS 14](https://developer.apple.com/ios/) or their respective watchOS or tvOS equivalents. Especially for the later three systems it is not a necessity per-se (neither is Xcode 12), but it makes things a lot simpler.
 
@@ -45,11 +45,20 @@ The changes will be explained in details below.
 
 ## Chapter 1
 
-If you are reading this, I assume you know that the macOS Terminal can be found in _Applications → Utilities → Terminal.app_. But if you didn't I feel honored to tell you and I wish you lots of fun on this journey! Don't be afraid to ask questions.
+### Computers and Numbers
 
 The default Calculator.app on macOS has a "Programmer Mode", too. You enable it with _View → Programmer_ (⌘3).
 
-### Listing 1-1
+### CPU Registers
+
+Apple has made certain platform specific choices for the registers:
+
+* Apple reserves **X18** for its own use. Do not use this register.
+* The frame pointer register (**FP**, **X29**) must always address a valid frame record.
+
+### Hello World, Listing 1-1
+
+If you are reading this, I assume you know that the macOS Terminal can be found in _Applications → Utilities → Terminal.app_. But if you didn't I feel honored to tell you and I wish you lots of fun on this journey! Don't be afraid to ask questions.
 
 To make "Hello World" run on the MWMNSA, first the changes from page 78 (Chapter 3) have to be applied to account for the differences between Darwin and the Linux kernel.
 The next trick is to insert `.align 4` (or `.p2align 2`), because Darwin likes things to be aligned on even boundaries. Thanks to @m-schmidt and @zhuowei! The books mentions this in Aligning Data in Chapter 5, page 114.
@@ -210,7 +219,7 @@ Apple clang version 12.0.0 (clang-1200.0.22.41)
 ```
 
 ### Listing 9-1
-Apart from the usual changes, it appears that on Linux, printf will accept arguments passed in the registers. On Darwin, this is not the case, and we must pass the arguments on the stack.
+Apart from the usual changes, Apple diverges from the ARM64 standard ABI (i.e. the convention how functions are called) for variadic functions. Variadic functions are functions which take a variable number of arguments, and `printf` is one of them. Where Linux will accept arguments passed in the registers we must pass them on the stack for Darwin. (Thanks to @jannau for pointing me to the place where this is [documented](https://developer.apple.com/documentation/xcode/writing_arm64_code_for_apple_platforms).)
 
 ```
 str     X1, [SP, #-32]! // Move the stack pointer four doublewords (32 bytes) down and push X1 onto the stack
@@ -231,8 +240,6 @@ Now, we fill the rest of the space we just created by storing **X2** in a locati
 We could fill the stack in different ways; what is important that the `printf` function expects the parameters as doubleword values in order, upwards from the current stackpointer. So in the case of the "debug.s" file, it expects the parameter for the `%c` to be at the location of **SP**, the parameter for `%32ld` at one doubleword above this, and finally the parameter for `%016lx` two doublewords, 16 bytes, above the current stack pointer.
 
 What we have effectively done is [allocating memory on the stack](https://en.wikipedia.org/wiki/Stack-based_memory_allocation). As we, the caller, "own" that memory we need to release it after the function branch, in this case simply by shrinking the stack (upwards) by the 32 bytes we allocated. The instruction `add SP, SP, #32` will do that.
-
-It took me quite a while to figure this out, and there is minimal `test.s` and corresponding `build` script to see the printf call in isolation. I have no idea why this is the case, as the [Procedure Call Standard for the ARM 64-bit Architecture ](https://developer.arm.com/documentation/ihi0055/c/) clearly describes the Linux way. I'd be thankful for a hint why Apple is diverting from the PCS, or if I have overlooked something.
 
 ### Listing 9-5
 `mytoupper` was prefixed with `_` as this is necessary for C on Darwin to find it.
@@ -312,6 +319,7 @@ All that can be said is that clang automatically enables position-independent ex
 
 ## Additional references
 
+* [Writing ARM64 Code for Apple Platforms](https://developer.apple.com/documentation/xcode/writing_arm64_code_for_apple_platforms), documentation how Apple platforms diverge from the standard 64-bit ARM architecture
 * [Mach-O Programming Topics](https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/MachOTopics/0-Introduction/introduction.html#//apple_ref/doc/uid/TP40001827-SW1), an excellent introduction to the Mach-O executable format and how it differs from ELF. Even if it still refrences PowerPC 64-Bit architecture and says nothing about ARM, most of it is still true.
 * [What is required for a Mach-O executable to load?](https://stackoverflow.com/a/42399119/1600891)
 * [Mac OS X Internals, A Systems Approach](https://www.pearson.ch/Informatik/Macintosh/EAN/9780134426549/Mac-OS-X-Internals) Amit Singh, 2007. For better or worse, this is still the definite compendium on the core of macOS and it's siblings.
