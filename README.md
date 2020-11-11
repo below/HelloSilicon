@@ -1,47 +1,31 @@
 # HelloSilicon
-An attempt with assembly on the _Machine We Must Not Speak About_.
+
+An attempt with assembly on the _New Apple Silicon Macs_.
 
 ## Introduction
 
-In this repository, I will code along with the book [Programming with 64-Bit ARM Assembly Language](https://www.apress.com/gp/book/9781484258804), adjusting all sample code for a new platform that might be very, very popular soon. The original sourcecode can be found [here](https://github.com/Apress/programming-with-64-bit-ARM-assembly-language).
+In this repository, I will code along with the book [Programming with 64-Bit ARM Assembly Language](https://www.apress.com/gp/book/9781484258804), adjusting all sample code for Apple's new platform, including the M1 Chip. The original sourcecode can be found [here](https://github.com/Apress/programming-with-64-bit-ARM-assembly-language).
 
 ## Prerequisites
 
 While I pretty much assume that people who made it here meet most if not all required prerequisites, it doesn't hurt to list them. 
 
-* You need [Xcode 12.2](https://developer.apple.com/xcode/), and to make things easier, the command line tools should be installed. I believe they are when you say "Yes" to "Install additional components", but I might be wrong. This ensures that the tools are found in default locations (namely `/usr/bin`). If you are not sure, check _Preferences → Locations_ in Xcode or run `xcode-select --install`.
+* You need [Xcode 12.2](https://developer.apple.com/xcode/), and to make things easier, the command line tools should be installed. This ensures that the tools are found in default locations (namely `/usr/bin`). If you are not sure that the tools are installed, check _Preferences → Locations_ in Xcode or run `xcode-select --install`.
 
 * All application samples also require [macOS Big Sur](https://developer.apple.com/macos/), [iOS 14](https://developer.apple.com/ios/) or their respective watchOS or tvOS equivalents. Especially for the later three systems it is not a necessity per-se (neither is Xcode 12), but it makes things a lot simpler.
 
-* Finally, while all samples can be adjusted to work on Apple's current production ARM64 devices, for best results you should have access to a [MWMNSA](https://developer.apple.com/programs/universal/).
+* Finally, while all samples can be adjusted to work on the iPhone and all other Apple's ARM64 devices, for best results you should have access to an [Apple Silicon Mac](https://www.apple.com/newsroom/2020/11/introducing-the-next-generation-of-mac/) (Formerly known as the MWMNSA, the _Machine We Must Not Speak About).
 
 ## Changes To The Book
 
 With the exception of the existing iOS samples, the book is based on the Linux operating system. Apple's operating systems (macOS, iOS, watchOS and tvOS) are actually just flavors of the [Darwin](https://en.wikipedia.org/wiki/Darwin_(operating_system)) operating system, so they share a set of common core components. 
 While Linux and Darwin are based on a similar idea and may appear to be very similar, some changes are needed to make the samples run on Apple hardware.
 
-### Tools
-
-The book uses Linux GNU tools, such as the GNU `as` assembler. While there is an `as` command on macOS, it will invoke the integrated [LLVM Clang](https://clang.llvm.org) assembler by default. And even if there is the `-Q` option to use the GNU based assembler, this was only ever an option for x86_64 — and this will be deprecated as well.
-```
-% as -Q -arch arm64
-/usr/bin/as: can't specifiy -Q with -arch arm64
-```
-Thus, the GNU assembler syntax is not an option for Darwin, and the code will have to be adjusted for the Clang assembler syntax.
-
-Likewise, while there is a `gcc` command on macOS, this simply calls the Clang C-compiler. For transparancy, all calls to `gcc` will be replaced with `clang`.
-
-```
-% gcc --version
-Configured with: --prefix=/Applications/Xcode-beta.app/Contents/Developer/usr --with-gxx-include-dir=/Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/4.2.1
-Apple clang version 12.0.0 (clang-1200.0.26.2)
-```
-
 ### Operating System
 
 Linux and Darwin, which were both inspired by [AT&T Unix System V](http://www.unix.org/what_is_unix/history_timeline.html), are significantly different at the level we are looking at. For the listings in the book, this mostly concerns system calls (i.e. when we want the Kernel to do someting for us), and the way Darwin accesses memory. 
 
-The changes will be explained in details below.
+You should be able to read the book, and find the differences for Apple Silicon here explained in details below. I have organized them by the headers in the book for easy reference.
 
 ## Chapter 1
 
@@ -56,11 +40,31 @@ Apple has made certain platform specific choices for the registers:
 * Apple reserves **X18** for its own use. Do not use this register.
 * The frame pointer register (**FP**, **X29**) must always address a valid frame record.
 
+### About the GCC Assembler
+
+The book uses Linux GNU tools, such as the GNU `as` assembler. While there is an `as` command on macOS, it will invoke the integrated [LLVM Clang](https://clang.llvm.org) assembler by default. And even if there is the `-Q` option to use the GNU based assembler, this was only ever an option for x86_64 — and this will be deprecated as well.
+```
+% as -Q -arch arm64
+/usr/bin/as: can't specifiy -Q with -arch arm64
+```
+Thus, the GNU assembler syntax is not an option for Darwin, and the code will have to be adjusted for the Clang assembler syntax.
+
+Likewise, while there is a `gcc` command on macOS, this simply calls the Clang C-compiler. For transparancy, all calls to `gcc` will be replaced with `clang`.
+
+```
+% gcc --version
+Configured with: --prefix=/Applications/Xcode-beta.app/Contents/Developer/usr --with-gxx-include-dir=/Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/4.2.1
+Apple clang version 12.0.0 (clang-1200.0.32.27)
+Target: arm64-apple-darwin20.1.0
+Thread model: posix
+InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
+```
+
 ### Hello World, Listing 1-1
 
 If you are reading this, I assume you know that the macOS Terminal can be found in _Applications → Utilities → Terminal.app_. But if you didn't I feel honored to tell you and I wish you lots of fun on this journey! Don't be afraid to ask questions.
 
-To make "Hello World" run on the MWMNSA, first the changes from page 78 (Chapter 3) have to be applied to account for the differences between Darwin and the Linux kernel.
+To make "Hello World" run on Apple Silicon, first the changes from page 78 (Chapter 3) have to be applied to account for the differences between Darwin and the Linux kernel.
 The next trick is to insert `.align 4` (or `.p2align 2`), because Darwin likes things to be aligned on even boundaries. Thanks to @m-schmidt and @zhuowei! The books mentions this in Aligning Data in Chapter 5, page 114.
 
 To make the linker work, a little more is needed, most of it should look familiar to Mac/iOS developers. These changes need to be applied to the `makefile` and to the `build` file. The complete call to the linker looks like this:
@@ -87,7 +91,7 @@ The changes from [Chapter 1](https://github.com/below/HelloSilicon#chapter-1) (m
 
 ### Register and Shift
 
-The Clang assembler does not understand `MOV X1, X2, LSL #1`, instead `LSL X1, X2, #1` (etc) is used. Apple has told me (FB7855327) that they are not planning to change this, and after all, both are just aliasses for the instruction `ORR X1, XZR, X2, LSL #1`.
+The Clang assembler does not understand `MOV X1, X2, LSL #1`, instead `LSL X1, X2, #1` (etc) is used. Apple has told me that they are not planning to change this, and after all, both are just aliasses for the instruction `ORR X1, XZR, X2, LSL #1`.
 
 ### Register and Extension
 
@@ -136,7 +140,7 @@ We can see all the breakpoints with **breakpoint list** (or **br l**). We can de
 **lldb** has even more powerful mechanisms to display memory. The main command is **memory read** (or **m read**). For starters, we will present the parameters used by the book:
 
 ```
-memory read -fx -c4 -s4
+memory read -fx -c4 -s4 $address
 ```
 
 where
@@ -146,7 +150,7 @@ where
 
 ### Listing 3-1
 
-As an excersise, I have added code to find the default Xcode toolchain on macOS. In the book they are using this to later switch from a Linux to an Android toolchain. This process is much different for macOS and iOS: It does not usually involve a different toolchain, but instead a different Software Development Kit (SDK). You can see that in [Listing 1-1](https://github.com/below/HelloSilicon#listing-1-1) where `-sysroot` is set. 
+As an exercise, I have added code to find the default Xcode toolchain on macOS. In the book they are using this to later switch from a Linux to an Android toolchain. This process is much different for macOS and iOS: It does not usually involve a different toolchain, but instead a different Software Development Kit (SDK). You can see that in [Listing 1-1](https://github.com/below/HelloSilicon#listing-1-1) where `-sysroot` is set. 
 
 That said, while it is possible to build an iOS executable with the command line it is not a trivial process. So for building apps I will stick to Xcode.
 
