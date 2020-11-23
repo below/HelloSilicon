@@ -1,31 +1,35 @@
 # HelloSilicon
 
-An attempt with assembly on the _New Apple Silicon Macs_.
+An attempt with assembly on the new Apple Silicon Macs.
 
 ## Introduction
 
-In this repository, I will code along with the book [Programming with 64-Bit ARM Assembly Language](https://www.apress.com/gp/book/9781484258804), adjusting all sample code for Apple's new platform, including the M1 Chip. The original sourcecode can be found [here](https://github.com/Apress/programming-with-64-bit-ARM-assembly-language).
+In this repository, I will code along with the book [Programming with 64-Bit ARM Assembly Language](https://www.apress.com/gp/book/9781484258804), adjusting all sample code for Apple's new ARM64 line of computers. While Apple's marketing material seems to avoid a name for the platform and talks only about the M1 processor, the developer documentation uses the term "Apple Silicon". I will use this term in the following. 
+
+The original sourcecode can be found [here](https://github.com/Apress/programming-with-64-bit-ARM-assembly-language).
 
 ## Prerequisites
 
 While I pretty much assume that people who made it here meet most if not all required prerequisites, it doesn't hurt to list them. 
 
-* You need [Xcode 12.2](https://developer.apple.com/xcode/), and to make things easier, the command line tools should be installed. This ensures that the tools are found in default locations (namely `/usr/bin`). If you are not sure that the tools are installed, check _Preferences → Locations_ in Xcode or run `xcode-select --install`.
+* You need [Xcode 12.2](https://developer.apple.com/xcode/) or later, and to make things easier, the command line tools should be installed. This ensures that the tools are found in default locations (namely `/usr/bin`). If you are not sure that the tools are installed, check _Preferences → Locations_ in Xcode or run `xcode-select --install`.
 
-* All application samples also require [macOS Big Sur](https://developer.apple.com/macos/), [iOS 14](https://developer.apple.com/ios/) or their respective watchOS or tvOS equivalents. Especially for the later three systems it is not a necessity per-se (neither is Xcode 12), but it makes things a lot simpler.
+* All application samples also require [macOS Big Sur](https://developer.apple.com/macos/), [iOS 14](https://developer.apple.com/ios/) or their respective watchOS or tvOS equivalents. Especially for the later three systems it is not a necessity per-se (neither is Xcode 12.2), but it makes things a lot simpler.
 
-* Finally, while all samples can be adjusted to work on the iPhone and all other Apple's ARM64 devices, for best results you should have access to an [Apple Silicon Mac](https://www.apple.com/newsroom/2020/11/introducing-the-next-generation-of-mac/) (Formerly known as the MWMNSA, the _Machine We Must Not Speak About).
+* Finally, while all samples can be adjusted to work on the iPhone and all other of Apple's ARM64 devices, for best results you should have access to an [Apple Silicon Mac](https://www.apple.com/newsroom/2020/11/introducing-the-next-generation-of-mac/), formerly known as the MWMNSA, the _Machine We Must Not Speak About_.
+
+
+## Acknowledgments
+
+I would like to thank @claui, @jannau, @jrosengarden, @m-schmidt, @saagarjha, and @zhuowei! They helped me when I hit a wall, or asked questions that let me improve the content.
 
 ## Changes To The Book
 
 With the exception of the existing iOS samples, the book is based on the Linux operating system. Apple's operating systems (macOS, iOS, watchOS and tvOS) are actually just flavors of the [Darwin](https://en.wikipedia.org/wiki/Darwin_(operating_system)) operating system, so they share a set of common core components. 
-While Linux and Darwin are based on a similar idea and may appear to be very similar, some changes are needed to make the samples run on Apple hardware.
-
-### Operating System
 
 Linux and Darwin, which were both inspired by [AT&T Unix System V](http://www.unix.org/what_is_unix/history_timeline.html), are significantly different at the level we are looking at. For the listings in the book, this mostly concerns system calls (i.e. when we want the Kernel to do someting for us), and the way Darwin accesses memory. 
 
-You should be able to read the book, and find the differences for Apple Silicon here explained in details below. I have organized them by the headers in the book for easy reference.
+This file is organized so that you can read the book, and read about the differences for Apple Silicon side by side. The headlines in this document follow those in the book.
 
 ## Chapter 1
 
@@ -62,10 +66,10 @@ InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault
 
 ### Hello World, Listing 1-1
 
-If you are reading this, I assume you know that the macOS Terminal can be found in _Applications → Utilities → Terminal.app_. But if you didn't I feel honored to tell you and I wish you lots of fun on this journey! Don't be afraid to ask questions.
+If you are reading this, I assume you already knew that the macOS Terminal can be found in _Applications → Utilities → Terminal.app_. But if you didn't I feel honored to tell you and I wish you lots of fun on this journey! Don't be afraid to ask questions.
 
 To make "Hello World" run on Apple Silicon, first the changes from page 78 (Chapter 3) have to be applied to account for the differences between Darwin and the Linux kernel.
-The next trick is to insert `.align 4` (or `.p2align 2`), because Darwin likes things to be aligned on even boundaries. Thanks to @m-schmidt and @zhuowei! The books mentions this in Aligning Data in Chapter 5, page 114.
+To silence the avoid, I insert `.align 4` (or `.p2align 2`), because Darwin likes things to be aligned on even boundaries. The books mentions this in Aligning Data in Chapter 5, page 114.
 
 To make the linker work, a little more is needed, most of it should look familiar to Mac/iOS developers. These changes need to be applied to the `makefile` and to the `build` file. The complete call to the linker looks like this:
 
@@ -91,7 +95,7 @@ The changes from [Chapter 1](https://github.com/below/HelloSilicon#chapter-1) (m
 
 ### Register and Shift
 
-The Clang assembler does not understand `MOV X1, X2, LSL #1`, instead `LSL X1, X2, #1` (etc) is used. Apple has told me that they are not planning to change this, and after all, both are just aliasses for the instruction `ORR X1, XZR, X2, LSL #1`.
+The Clang assembler does not understand `MOV X1, X2, LSL #1`, instead `LSL X1, X2, #1` (etc) is used. After all, both are just aliasses for the instruction `ORR X1, XZR, X2, LSL #1`.
 
 ### Register and Extension
 
@@ -99,7 +103,7 @@ Clang requires the source register to be 32-Bit. This makes sense, because with 
 ```
 ADD X2, X1, W0, SXTB
 ```
- The GNU Assembler seems to ignore this and allows you to specifiy a 64-Bit source register.
+The GNU Assembler seems to ignore this and allows you to specifiy a 64-Bit source register.
 
 ## Chapter 3
 
@@ -157,7 +161,6 @@ That said, while it is possible to build an iOS executable with the command line
 ### Listing 3-7
 
 As [Chapter 10](https://github.com/below/HelloSilicon#chapter-10) focusses on building an app that will run on iOS, I have chosen to simply create a Command Line Tool here which is now using the same `HelloWorld.s` file.
-Thankfully @saagarjha [suggested](https://github.com/below/HelloSilicon/issues/5) how it would be possible to build the sample with Xcode _without_ `libc`, and I might come back to try that later.
 
 ## Chapter 4
 
@@ -168,7 +171,7 @@ The [Apple Documentation](https://developer.apple.com/library/archive/documentat
 
 And by default, on Darwin all data contained in the `.data` section, where data is writeable, is "possibly nonlocal".
 
-Thankfully, @claui gave me a pointer into the right direction, and the full answer can be found [here](https://reverseengineering.stackexchange.com/a/15324): 
+The full answer can be found [here](https://reverseengineering.stackexchange.com/a/15324): 
 > The `ADRP` instruction loads the address of the 4KB page anywhere in the +/-4GB (33 bits) range of the current instruction (which takes 21 high bits of the offset). This is denoted by the `@PAGE` operator. then, we can either use `LDR` or `STR` to read or write any address inside that page or `ADD` to to calculate the final address using the remaining 12 bits of the offset (denoted by `@PAGEOFF`).
 
 So this: 
@@ -186,7 +189,7 @@ becomes this:
 
 ### Excersises
 
-@jrosengarden [asked](https://github.com/below/HelloSilicon/issues/22#issue-687491010) me how to read the command line, and I gladly [answered](https://github.com/below/HelloSilicon/issues/22#issuecomment-682205151) the question. 
+I was asked how to read the command line, and I gladly [answered](https://github.com/below/HelloSilicon/issues/22#issuecomment-682205151) the question. 
 
 Sample code can be found in Chapter 4 in the file [`case.s`](Chapter%204/case.s).
 
@@ -216,14 +219,10 @@ This chapter is specifically for the Raspberry Pi 4, so there is nothing to do h
 
 ## Chapter 9
 
-For transparency reasons, I replaced `gcc` with `clang`. On macOS it doesn't matter because:
-```
-% gcc --version
-Apple clang version 12.0.0 (clang-1200.0.22.41)
-```
+For transparency reasons, I replaced `gcc` with `clang`.
 
 ### Listing 9-1
-Apart from the usual changes, Apple diverges from the ARM64 standard ABI (i.e. the convention how functions are called) for variadic functions. Variadic functions are functions which take a variable number of arguments, and `printf` is one of them. Where Linux will accept arguments passed in the registers we must pass them on the stack for Darwin. (Thanks to @jannau for pointing me to the place where this is [documented](https://developer.apple.com/documentation/xcode/writing_arm64_code_for_apple_platforms).)
+Apart from the usual changes, Apple diverges from the ARM64 standard ABI (i.e. the convention how functions are called) for variadic functions. Variadic functions are functions which take a variable number of arguments, and `printf` is one of them. Where Linux will accept arguments passed in the registers we must pass them on the stack for Darwin.
 
 ```
 str     X1, [SP, #-32]! // Move the stack pointer four doublewords (32 bytes) down and push X1 onto the stack
@@ -264,7 +263,7 @@ More importantly, I had to change the `loop` label to a numeric label, and branc
 
 While the `uppertst5.py` file only needed a minimal change, calling the code was more challenging than I had thought: On the MWMNSA, python is a Mach-O universal binary with two architectures: x86_64 and arm64e. Notably absent is the arm64 architecture we were building for up to this point. This makes our dylib unusable with python.
 
-arm64e is the [Armv-8 architecture](https://community.arm.com/developer/ip-products/processors/b/processors-ip-blog/posts/armv8-a-architecture-2016-additions), which Apple is using since the A12 chip. If you want to address devices prior to the A12, you must stick to arm64. It is public knowledge that the MWMNSA runs on an A12Z Bionic, thus Apple decided to take advangage of the new features.
+arm64e is the [Armv-8 architecture](https://community.arm.com/developer/ip-products/processors/b/processors-ip-blog/posts/armv8-a-architecture-2016-additions), which Apple is using since the A12 chip. If you want to address devices prior to the A12, you must stick to arm64. The first Macs to use ARM64 run on the M1 CPU, thus Apple decided to take advangage of the new features.
 
 So, what to do? We could compile everything as arm64e, but that would make the library useless on any iPhone but the very latest, and we would like to support those, too.
 
@@ -272,8 +271,6 @@ Above, you read something about _universal binary_. For a very long time, the Ma
 
 ## Chapter 10
 No changes in the core code were required, but instead of just an iOS app I created a SwiftUI app that will work on macOS, iOS, watchOS (Series 4 and later), and tvOS.
-
-The only issue I found was that I had to prevent Xcode 12 Beta 3 from attempting to build x386 and x86_64 binaries for the watch App. I would assume that is a bug.
 
 ## Chapter 11
 At this point, the changes should be self-explainatory. The usual makefile adjustments, `.align 4`, address mode changes, and `_printf` adjustments.
@@ -284,7 +281,7 @@ Like in Chapter 11, all the chages have been introduced already. Nothing new her
 
 ## Chapter 13
 
-Once again, the Clang assembler seems to want a slightly different syntax: Where gcc accepts
+Once again, the Clang assembler wants a slightly different syntax: Where gcc accepts
 
 ```
 MUL V6.4H, V0.4H, V3.4H[0]
