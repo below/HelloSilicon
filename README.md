@@ -3,7 +3,7 @@ An attempt with assembly on the _Machine We Must Not Speak About_.
 
 ## Introduction
 
-In this repository, I will code along with the book [Programming with 64-Bit ARM Assembly Language](https://www.apress.com/gp/book/9781484258804), adjusting all sample code for a new platform that might be very, very popular soon. The original sourcecode can be found [here](https://github.com/Apress/programming-with-64-bit-ARM-assembly-language).
+In this repository, I will code along with the book [Programming with 64-Bit ARM Assembly Language](https://www.apress.com/de/book/9781484258804?utm_medium=affiliate&utm_source=commission_junction&utm_campaign=3_nsn6445_product_PID%zp&utm_content=de_05032018#otherversion=9781484258804), adjusting all sample code for a new platform that might be very, very popular soon. The original sourcecode can be found [here](https://github.com/Apress/programming-with-64-bit-ARM-assembly-language).
 
 ## Prerequisites
 
