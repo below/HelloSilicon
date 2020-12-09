@@ -4,7 +4,7 @@ An attempt with assembly on the new Apple Silicon Macs.
 
 ## Introduction
 
-In this repository, I will code along with the book [Programming with 64-Bit ARM Assembly Language](https://www.apress.com/gp/book/9781484258804), adjusting all sample code for Apple's new ARM64 line of computers. While Apple's marketing material seems to avoid a name for the platform and talks only about the M1 processor, the developer documentation uses the term "Apple Silicon". I will use this term in the following. 
+In this repository, I will code along with the book [Programming with 64-Bit ARM Assembly Language](https://www.apress.com/de/book/9781484258804?utm_medium=affiliate&utm_source=commission_junction&utm_campaign=3_nsn6445_product_PID%zp&utm_content=de_05032018#otherversion=9781484258804), adjusting all sample code for Apple's new ARM64 line of computers. While Apple's marketing material seems to avoid a name for the platform and talks only about the M1 processor, the developer documentation uses the term "Apple Silicon". I will use this term in the following. 
 
 The original sourcecode can be found [here](https://github.com/Apress/programming-with-64-bit-ARM-assembly-language).
 
