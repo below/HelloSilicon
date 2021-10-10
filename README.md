@@ -99,7 +99,7 @@ The Clang assembler does not understand `MOV X1, X2, LSL #1`, instead `LSL X1, X
 
 ### Register and Extension
 
-Clang requires the source register to be 32-Bit. This makes sense, because with these extensions, the upper 32 Bit of a 64-Bit reqister will never be touched:
+Clang requires the source register to be 32-Bit. This makes sense, because with these extensions, the upper 32 Bit of a 64-Bit register will never be touched:
 ```
 ADD X2, X1, W0, SXTB
 ```
