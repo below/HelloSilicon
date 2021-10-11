@@ -255,9 +255,14 @@ No change was required.
 Instead of a shared `.so` ELF library, a dynamic Mach-O libary is created. Further information can be found here: [Creating Dynamic Libraries](https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/100-Articles/CreatingDynamicLibraries.html)
 
 ### Listing 9-8
-The size of one variable had to be changed from int to long to make the assembler happy.
+In inline-assembly, which we are using here, The `cont` label must be declared as a local label by prefixing it with `L`. While this was not necessary in pure assembly, like in Chapter 5, the llvm C-Frontend will automatically add the directive [`.subsections_via_symbols`](https://developer.apple.com/library/archive/documentation/DeveloperTools/Reference/Assembler/040-Assembler_Directives/asm_directives.html#//apple_ref/doc/uid/TP30000823-SW13) to the code:
 
-More importantly, I had to change the `loop` label to a numeric label, and branch to it with the `f` — forward — option. If anyone has an idea how a non-numeric label can be used here, that would be apprecated.
+> Funny Darwin hack: This flag tells the linker that no global symbols contain code that falls through to other global symbols (e.g. the obvious implementation of multiple entry points).  If this doesn't occur, the linker can safely perform dead code stripping. Since LLVM never generates code that does this, it is always safe to set.
+(From [llvm source code](https://github.com/llvm/llvm-project/blob/89b57061f7b769e9ea9bf6ed686e284f3e55affe/llvm/lib/Target/AArch64/AArch64AsmPrinter.cpp#L568))
+
+While we are using the LLVM toolchain, in assembly — including inline-assembly — all safety checks are off so we must take extra precautions and specifically declare the forward label local.
+
+Also, the size of one variable had to be changed from int to long to make the compiler complete happy and remove all warnings
 
 ### Listing 9-9
 
