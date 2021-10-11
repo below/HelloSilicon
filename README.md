@@ -1,16 +1,16 @@
 # HelloSilicon
 
-An attempt with assembly on the new Apple Silicon Macs.
+An introduction to assembly on Apple Silicon Macs.
 
 ## Introduction
 
-In this repository, I will code along with the book [Programming with 64-Bit ARM Assembly Language](https://www.apress.com/de/book/9781484258804?utm_medium=affiliate&utm_source=commission_junction&utm_campaign=3_nsn6445_product_PID%zp&utm_content=de_05032018#otherversion=9781484258804), adjusting all sample code for Apple's new ARM64 line of computers. While Apple's marketing material seems to avoid a name for the platform and talks only about the M1 processor, the developer documentation uses the term "Apple Silicon". I will use this term in the following. 
+In this repository, I will code along with the book [Programming with 64-Bit ARM Assembly Language](https://www.apress.com/de/book/9781484258804?utm_medium=affiliate&utm_source=commission_junction&utm_campaign=3_nsn6445_product_PID%zp&utm_content=de_05032018#otherversion=9781484258804), adjusting all sample code for Apple's ARM64 line of computers. While Apple's marketing material seems to avoid a name for the platform and talks only about the M1 processor, the developer documentation uses the term "Apple Silicon". I will use this term in the following.
 
 The original sourcecode can be found [here](https://github.com/Apress/programming-with-64-bit-ARM-assembly-language).
 
 ## Prerequisites
 
-While I pretty much assume that people who made it here meet most if not all required prerequisites, it doesn't hurt to list them. 
+While I pretty much assume that people who made it here meet most if not all required prerequisites, it doesn't hurt to list them.
 
 * You need [Xcode 12.2](https://developer.apple.com/xcode/) or later, and to make things easier, the command line tools should be installed. This ensures that the tools are found in default locations (namely `/usr/bin`). If you are not sure that the tools are installed, check _Preferences → Locations_ in Xcode or run `xcode-select --install`.
 
@@ -25,9 +25,9 @@ I would like to thank @claui, @jannau, @jrosengarden, @m-schmidt, @saagarjha, an
 
 ## Changes To The Book
 
-With the exception of the existing iOS samples, the book is based on the Linux operating system. Apple's operating systems (macOS, iOS, watchOS and tvOS) are actually just flavors of the [Darwin](https://en.wikipedia.org/wiki/Darwin_(operating_system)) operating system, so they share a set of common core components. 
+With the exception of the existing iOS samples, the book is based on the Linux operating system. Apple's operating systems (macOS, iOS, watchOS and tvOS) are actually just flavors of the [Darwin](https://en.wikipedia.org/wiki/Darwin_(operating_system)) operating system, so they share a set of common core components.
 
-Linux and Darwin, which were both inspired by [AT&T Unix System V](http://www.unix.org/what_is_unix/history_timeline.html), are significantly different at the level we are looking at. For the listings in the book, this mostly concerns system calls (i.e. when we want the Kernel to do someting for us), and the way Darwin accesses memory. 
+Linux and Darwin, which were both inspired by [AT&T Unix System V](http://www.unix.org/what_is_unix/history_timeline.html), are significantly different at the level we are looking at. For the listings in the book, this mostly concerns system calls (i.e. when we want the Kernel to do someting for us), and the way Darwin accesses memory.
 
 This file is organized so that you can read the book, and read about the differences for Apple Silicon side by side. The headlines in this document follow those in the book.
 
@@ -46,7 +46,7 @@ Apple has made certain platform specific choices for the registers:
 
 ### About the GCC Assembler
 
-The book uses Linux GNU tools, such as the GNU `as` assembler. While there is an `as` command on macOS, it will invoke the integrated [LLVM Clang](https://clang.llvm.org) assembler by default. And even if there is the `-Q` option to use the GNU based assembler, this was only ever an option for x86_64 — and this will be deprecated as well.
+The book uses Linux GNU tools, such as the GNU `as` assembler. While there is an `as` command on macOS, it will invoke the integrated [LLVM Clang](https://clang.llvm.org) assembler by default. And even if there is the `-Q` option to use the GNU based assembler, this was only ever an option for x86_64 — and is already deprecated as of this writing.
 ```
 % as -Q -arch arm64
 /usr/bin/as: can't specifiy -Q with -arch arm64
@@ -84,7 +84,7 @@ ld -o HelloWorld HelloWorld.o \
 We know the `-o` switch, let's examine the others:
 
 
-* `-lSystem` tells the linker to link our executable with `libSystem.dylib`. We do that to add the `LC_MAIN` load command to the executable. Generally, Darwin does not support [statically linked executables](https://developer.apple.com/library/archive/qa/qa1118/_index.html). It is [possible](https://stackoverflow.com/questions/32453849/minimal-mach-o-64-binary/32659692#32659692), if not especially elegant to create executables without using `libSystem.dylib`. I will go deeper into that topic when time permits. For people who read _Mac OS X Internals_ I will just add that this replaced `LC_UNIXTHREAD` as of MacOS X 10.7. 
+* `-lSystem` tells the linker to link our executable with `libSystem.dylib`. We do that to add the `LC_MAIN` load command to the executable. Generally, Darwin does not support [statically linked executables](https://developer.apple.com/library/archive/qa/qa1118/_index.html). It is [possible](https://stackoverflow.com/questions/32453849/minimal-mach-o-64-binary/32659692#32659692), if not especially elegant to create executables without using `libSystem.dylib`. I will go deeper into that topic when time permits. For people who read _Mac OS X Internals_ I will just add that this replaced `LC_UNIXTHREAD` as of MacOS X 10.7.
 * `-sysroot`: In order to find `libSystem.dylib`, it is mandatory to tell our linker where to find it. It seems this was not necessary on macOS 10.15 because _"New in macOS Big Sur 11 beta, the system ships with a built-in dynamic linker cache of all system-provided libraries. As part of this change, copies of dynamic libraries are no longer present on the filesystem."_. We use `xcrun -sdk macosx --show-sdk-path` to dynamically use the currently active version of Xcode.
 * `-e _start`: Darwin expects an entrypoint `_main`. In order to keep the sample both as close as possible to the book, and to allow it's use within the C-Sample from _Chapter 3_, I opted to keep `_start` and tell the linker that this is the entry point we want to use
 * `-arch arm64` for good measure, let's throw in the option to cross-compile this from an Intel Mac. You can leave this off when running on Apple Silicon.
@@ -99,7 +99,7 @@ The Clang assembler does not understand `MOV X1, X2, LSL #1`, instead `LSL X1, X
 
 ### Register and Extension
 
-Clang requires the source register to be 32-Bit. This makes sense, because with these extensions, the upper 32 Bit of a 64-Bit register will never be touched:
+Clang requires the source register to be 32-Bit. This makes sense because with these extensions, the upper 32 Bit of a 64-Bit register will never be touched:
 ```
 ADD X2, X1, W0, SXTB
 ```
@@ -109,7 +109,7 @@ The GNU Assembler seems to ignore this and allows you to specifiy a 64-Bit sourc
 
 ### Beginning GDB
 
-On macOS, `gdb` has been replaced with the [LLDB Debugger](https://lldb.llvm.org) `lldb` of the LLVM project. The syntax is not always the same as for gdb, so I will note the differences here. 
+On macOS, `gdb` has been replaced with the [LLDB Debugger](https://lldb.llvm.org) `lldb` of the LLVM project. The syntax is not always the same as for gdb, so I will note the differences here.
 
 To start debugging our **movexamps** program, enter the command
 
@@ -141,7 +141,7 @@ To get the registers on lldb, we use **register read** (or **re r**). Without ar
 
 We can see all the breakpoints with **breakpoint list** (or **br l**). We can delete a breakpoint with **breakpoint delete** (or **br de**) specifying the breakpoint number to delete.
 
-**lldb** has even more powerful mechanisms to display memory. The main command is **memory read** (or **m read**). For starters, we will present the parameters used by the book:
+**lldb** has even more powerful mechanisms to display memory. The main command is **memory read** (or **m read**). For starters, these are the parameters used by the book:
 
 ```
 memory read -fx -c4 -s4 $address
@@ -154,7 +154,7 @@ where
 
 ### Listing 3-1
 
-As an exercise, I have added code to find the default Xcode toolchain on macOS. In the book they are using this to later switch from a Linux to an Android toolchain. This process is much different for macOS and iOS: It does not usually involve a different toolchain, but instead a different Software Development Kit (SDK). You can see that in [Listing 1-1](https://github.com/below/HelloSilicon#listing-1-1) where `-sysroot` is set. 
+As an exercise, I have added code to find the default Xcode toolchain on macOS. In the book they are using this to later switch from a Linux to an Android toolchain. This process is much different for macOS and iOS: It does not usually involve a different toolchain, but instead a different Software Development Kit (SDK). You can see this in [Listing 1-1](https://github.com/below/HelloSilicon#listing-1-1) where `-sysroot` is set.
 
 That said, while it is possible to build an iOS executable with the command line it is not a trivial process. So for building apps I will stick to Xcode.
 
@@ -164,17 +164,17 @@ As [Chapter 10](https://github.com/below/HelloSilicon#chapter-10) focusses on bu
 
 ## Chapter 4
 
-Besides the changes that are common, we face a new issue which is described in the book in Chapter 5: Darwin does not like `LSR X1, =symbol`, we will get the error `ld: Absolute addressing not allowed in arm64 code`. If we use `ASR X1, symbol`, as suggested in Chapter 3 of the book, our data has to be in the read-only `.text` section. In this sample however, we want writable data. 
+Besides the common changes, we face a new issue which is described in the book in Chapter 5: Darwin does not like `LSR X1, =symbol`, it will produce the error `ld: Absolute addressing not allowed in arm64 code`. If we use `ASR X1, symbol`, as suggested in Chapter 3 of the book, our data has to be in the read-only `.text` section. In this sample however, we want writable data.
 
 The [Apple Documentation](https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/MachOTopics/1-Articles/x86_64_code.html#//apple_ref/doc/uid/TP40005044-SW1) tells us that on Darwin:
 > All large or possibly nonlocal data is accessed indirectly through a global offset table (GOT) entry. The GOT entry is accessed directly using RIP-relative addressing.
 
 And by default, on Darwin all data contained in the `.data` section, where data is writeable, is "possibly nonlocal".
 
-The full answer can be found [here](https://reverseengineering.stackexchange.com/a/15324): 
+The full answer can be found [here](https://reverseengineering.stackexchange.com/a/15324):
 > The `ADRP` instruction loads the address of the 4KB page anywhere in the +/-4GB (33 bits) range of the current instruction (which takes 21 high bits of the offset). This is denoted by the `@PAGE` operator. then, we can either use `LDR` or `STR` to read or write any address inside that page or `ADD` to to calculate the final address using the remaining 12 bits of the offset (denoted by `@PAGEOFF`).
 
-So this: 
+So this:
 
 ```
 	LDR	X1, =outstr // address of output string
@@ -189,9 +189,9 @@ becomes this:
 
 ### Excersises
 
-I was asked how to read the command line, and I gladly [answered](https://github.com/below/HelloSilicon/issues/22#issuecomment-682205151) the question. 
+I was asked how to read the command line, and I gladly [answered](https://github.com/below/HelloSilicon/issues/22#issuecomment-682205151) the question.
 
-Sample code can be found in Chapter 4 in the file [`case.s`](Chapter%204/case.s).
+Sample code can be found in Chapter 4 in the file [`case.s`](Chapter%2004/case.s).
 
 ## Chapter 5
 
@@ -206,7 +206,7 @@ Changes like in Chapter 4.
 
 ## Chapter 6
 
-As we learned in Chapter 5, all assembler directives (like `.equ`) must be in lowercase. 
+As we learned in Chapter 5, all assembler directives (like `.equ`) must be in lowercase.
 
 ## Chapter 7
 `asm/unistd.h` does not exist in the Apple SDKs, instead `sys/syscalls.h` can be used.
@@ -234,13 +234,13 @@ bl      _printf // call printf
 add     SP, SP, #32 // Clean up stack
 ```
 
-So first, we are growing the stack downwards 32 bytes, to make room for three 64-Bit values. And because, as pointed out on page 137 in the book, ARM hardware requires the stack pointer to always be 16-byte aligned, we are creating space for a fourth value for padding.
+So first, we are growing the stack downwards 32 bytes to make room for three 64-Bit values. We are creating space for a fourth value for padding because, as pointed out on page 137 in the book, ARM hardware requires the stack pointer to always be 16-byte aligned.
 
 In the same command, **X1** is stored at the new location of the stack pointer.
 
-Now, we fill the rest of the space we just created by storing **X2** in a location eight bytes above, and **X3** 16 bytes above the stack pointer. Note that the **str** commands for **X2** and **X3** do not move **SP**.
+Now, we fill the rest of the space that was just created by storing **X2** in a location eight bytes above, and **X3** 16 bytes above the stack pointer. Note that the **str** commands for **X2** and **X3** do not move **SP**.
 
-We could fill the stack in different ways; what is important that the `printf` function expects the parameters as doubleword values in order, upwards from the current stackpointer. So in the case of the "debug.s" file, it expects the parameter for the `%c` to be at the location of **SP**, the parameter for `%32ld` at one doubleword above this, and finally the parameter for `%016lx` two doublewords, 16 bytes, above the current stack pointer.
+We could fill the stack in different ways; what is important that the `printf` function expects the parameters as doubleword values in order, upwards from the current stackpointer. So in the case of the `debug.s` file, it expects the parameter for the `%c` to be at the location of **SP**, the parameter for `%32ld` at one doubleword above this, and finally the parameter for `%016lx` two doublewords, 16 bytes, above the current stack pointer.
 
 What we have effectively done is [allocating memory on the stack](https://en.wikipedia.org/wiki/Stack-based_memory_allocation). As we, the caller, "own" that memory we need to release it after the function branch, in this case simply by shrinking the stack (upwards) by the 32 bytes we allocated. The instruction `add SP, SP, #32` will do that.
 
@@ -261,13 +261,13 @@ More importantly, I had to change the `loop` label to a numeric label, and branc
 
 ### Listing 9-9
 
-While the `uppertst5.py` file only needed a minimal change, calling the code was more challenging than I had thought: On the MWMNSA, python is a Mach-O universal binary with two architectures: x86_64 and arm64e. Notably absent is the arm64 architecture we were building for up to this point. This makes our dylib unusable with python.
+While the `uppertst5.py` file only needed a minimal change, calling the code is a little more challenging: On Apple Silicon Macs, python is a Mach-O universal binary with two architectures: x86_64 and arm64e. Notably absent is the arm64 architecture we were building for up to this point. This makes our dylib unusable with python.
 
-arm64e is the [Armv-8 architecture](https://community.arm.com/developer/ip-products/processors/b/processors-ip-blog/posts/armv8-a-architecture-2016-additions), which Apple is using since the A12 chip. If you want to address devices prior to the A12, you must stick to arm64. The first Macs to use ARM64 run on the M1 CPU, thus Apple decided to take advangage of the new features.
+arm64e is the [Armv-8 architecture](https://community.arm.com/developer/ip-products/processors/b/processors-ip-blog/posts/armv8-a-architecture-2016-additions), which Apple is using since the A12 chip. If you want to address devices prior to the A12, you must stick to arm64. The first Macs to use ARM64 run on the M1 CPU based on the A14 architecture, thus Apple decided to take advangage of the new features.
 
-So, what to do? We could compile everything as arm64e, but that would make the library useless on any iPhone but the very latest, and we would like to support those, too.
+So, what to do? We could compile everything as arm64e, but that would make the library useless on devices like the iPhone X or older, and we would like to support them, too.
 
-Above, you read something about _universal binary_. For a very long time, the Mach-O executable format had support for several processor architectures in a single file. This includes, but is not limited to, Motorola 68k (on NeXT computers), PowerPC, Intel x86, as well ARM code, each with their 32 and 64 bit variantes where applicable. In this case, I am building a universal dynamic library which includes both arm64 and arm64e code. More information can be found [here](https://developer.apple.com/documentation/xcode/building_a_universal_macos_binary).
+Above, you read something about a _universal binary_. For a very long time, the Mach-O executable format had support for several processor architectures in a single file. This includes, but is not limited to, Motorola 68k (on NeXT computers), PowerPC, Intel x86, as well ARM code, each with their 32 and 64 bit variantes where applicable. In this case, I am building a universal dynamic library which includes both arm64 and arm64e code. More information can be found [here](https://developer.apple.com/documentation/xcode/building_a_universal_macos_binary).
 
 ## Chapter 10
 No changes in the core code were required, but instead of just an iOS app I created a SwiftUI app that will work on macOS, iOS, watchOS (Series 4 and later), and tvOS.
