@@ -19,8 +19,8 @@
 
 _start:	MOV		X0, #-1
 	openFile	inFile, O_RDONLY
-	ADDS		X11, XZR, X0	// save file descriptor
-	B.PL		nxtfil  // pos number file opened ok
+	MOV		X11, X0	// save file descriptor (or error)
+	B.CC		nxtfil  // carry clear, file opened ok
 	MOV		X1, #1  // stdout
 	ADRP		X2, inpErrsz@PAGE	// Error msg
 	ADD		X2, X2, inpErrsz@PAGEOFF	
@@ -29,8 +29,8 @@ _start:	MOV		X0, #-1
 	B		exit
 
 nxtfil: openFile	outFile, O_CREAT+O_WRONLY
-	ADDS		X9, XZR, X0	// save file descriptor
-	B.PL		loop    // pos number file opened ok
+	MOV		X9 , X0	// save file descriptor (or error)
+	B.CC		loop    // carry clear, file opened ok
 	MOV		X1, #1
 	ADRP		X2, outErrsz@PAGE
 	ADD		X2, X2, outErrsz@PAGEOFF
