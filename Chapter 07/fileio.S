@@ -1,7 +1,7 @@
 // Various macros to perform file I/O
 
 // The fd parameter needs to be a register.
-// Uses X0, X1, X8.
+// Uses X0-X3, X16.
 // Return code is in X0.
 
 #include <sys/syscall.h>

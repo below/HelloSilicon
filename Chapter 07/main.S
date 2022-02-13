@@ -2,7 +2,7 @@
 // Assembler program to convert a string to
 // all upper case by calling a function.
 //
-// X0-X2, X8 - used by macros to call linux
+// X0-X2, X16 - used by macros to call kernel
 // X11 - input file descriptor
 // X9 - output file descriptor
 // X10 - number of characters read
