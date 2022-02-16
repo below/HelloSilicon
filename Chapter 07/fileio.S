@@ -1,14 +1,14 @@
 // Various macros to perform file I/O
 
 // The fd parameter needs to be a register.
-// Uses X0, X1, X8.
+// Uses X0-X3, X16.
 // Return code is in X0.
 
 #include <sys/syscall.h>
 
 .equ	O_RDONLY, 0
 .equ	O_WRONLY, 1
-.equ	O_CREAT,  0100
+.equ	O_CREAT,  0x00000200
 .equ	S_RDWR,   0666
 .equ	AT_FDCWD, -2
 

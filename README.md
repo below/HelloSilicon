@@ -213,6 +213,8 @@ As we learned in Chapter 5, all assembler directives (like `.equ`) must be in lo
 
 It is also important to notice that while the calls and definitions look similar, Linux and Darwin are not the same: `AT_FDCWD` is -100 on Linux, but must be -2 on Darwin.
 
+Unlike Linux, errors are signified by setting the carry flag, and the error codes are non-negative. We therefore `MOV` the result into the required register instead of `ADDS` (we don't need to check for negative numbers, and need to preserve the condition flags) and B.CC to the success path.
+
 ## Chapter 8
 
 This chapter is specifically for the Raspberry Pi 4, so there is nothing to do here.
