@@ -8,7 +8,7 @@
 
 .equ	O_RDONLY, 0
 .equ	O_WRONLY, 1
-.equ	O_CREAT,  0100
+.equ	O_CREAT,  0x00000200
 .equ	S_RDWR,   0666
 .equ	AT_FDCWD, -2
 
