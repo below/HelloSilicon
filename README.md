@@ -31,7 +31,7 @@ Linux and Darwin, which were both inspired by [AT&T Unix System V](http://www.un
 
 This file is organized so that you can read the book, and read about the differences for Apple Silicon side by side. The headlines in this document follow those in the book.
 
-## Chapter 1
+## Chapter 1: Getting Started
 
 ### Computers and Numbers
 
@@ -89,7 +89,7 @@ We know the `-o` switch, let's examine the others:
 * `-e _start`: Darwin expects an entrypoint `_main`. In order to keep the sample both as close as possible to the book, and to allow it's use within the C-Sample from _Chapter 3_, I opted to keep `_start` and tell the linker that this is the entry point we want to use
 * `-arch arm64` for good measure, let's throw in the option to cross-compile this from an Intel Mac. You can leave this off when running on Apple Silicon.
 
-## Chapter 2
+## Chapter 2: Loading and Adding
 
 The changes from [Chapter 1](https://github.com/below/HelloSilicon#chapter-1) (makefile, alignment, system calls) have to be applied.
 
@@ -105,7 +105,7 @@ ADD X2, X1, W0, SXTB
 ```
 The GNU Assembler seems to ignore this and allows you to specifiy a 64-Bit source register.
 
-## Chapter 3
+## Chapter 3: Tooling Up
 
 ### Beginning GDB
 
@@ -162,7 +162,7 @@ That said, while it is possible to build an iOS executable with the command line
 
 As [Chapter 10](https://github.com/below/HelloSilicon#chapter-10) focusses on building an app that will run on iOS, I have chosen to simply create a Command Line Tool here which is now using the same `HelloWorld.s` file.
 
-## Chapter 4
+## Chapter 4: Controlling Programm Flow
 
 Besides the common changes, we face a new issue which is described in the book in Chapter 5: Darwin does not like `LSR X1, =symbol`, it will produce the error `ld: Absolute addressing not allowed in arm64 code`. If we use `ASR X1, symbol`, as suggested in Chapter 3 of the book, our data has to be in the read-only `.text` section. In this sample however, we want writable data.
 
@@ -193,7 +193,7 @@ I was asked how to read the command line, and I gladly [answered](https://github
 
 Sample code can be found in Chapter 4 in the file [`case.s`](Chapter%2004/case.s).
 
-## Chapter 5
+## Chapter 5: Thanks for the Memories
 
 The important differences in memory addressing for Darwin were already addresed above.
 
@@ -204,22 +204,22 @@ The `quad`, `octa` and `fill` keywords must be in lowercase for the llvm assembl
 
 Changes like in Chapter 4.
 
-## Chapter 6
+## Chapter 6: Functions and the Stack
 
 As we learned in Chapter 5, all assembler directives (like `.equ`) must be in lowercase.
 
-## Chapter 7
+## Chapter 7: Linux Operating System Services
 `asm/unistd.h` does not exist in the Apple SDKs, instead `sys/syscalls.h` can be used.
 
 It is also important to notice that while the calls and definitions look similar, Linux and Darwin are not the same: `AT_FDCWD` is -100 on Linux, but must be -2 on Darwin.
 
 Unlike Linux, errors are signified by setting the carry flag, and the error codes are non-negative. We therefore `MOV` the result into the required register instead of `ADDS` (we don't need to check for negative numbers, and need to preserve the condition flags) and B.CC to the success path.
 
-## Chapter 8
+## Chapter 8: Programming GPIO Pins
 
 This chapter is specifically for the Raspberry Pi 4, so there is nothing to do here.
 
-## Chapter 9
+## Chapter 9: Interacting with C and Python
 
 For transparency reasons, I replaced `gcc` with `clang`.
 
@@ -276,17 +276,19 @@ So, what to do? We could compile everything as arm64e, but that would make the l
 
 Above, you read something about a _universal binary_. For a very long time, the Mach-O executable format had support for several processor architectures in a single file. This includes, but is not limited to, Motorola 68k (on NeXT computers), PowerPC, Intel x86, as well ARM code, each with their 32 and 64 bit variantes where applicable. In this case, I am building a universal dynamic library which includes both arm64 and arm64e code. More information can be found [here](https://developer.apple.com/documentation/xcode/building_a_universal_macos_binary).
 
-## Chapter 10
+## Chapter 10: Interfacing with Kotlin and Swift
+
 No changes in the core code were required, but instead of just an iOS app I created a SwiftUI app that will work on macOS, iOS, watchOS (Series 4 and later), and tvOS.
 
-## Chapter 11
+## Chapter 11: Multiply, Divide, and Accumulate
+
 At this point, the changes should be self-explainatory. The usual makefile adjustments, `.align 4`, address mode changes, and `_printf` adjustments.
 
-## Chapter 12
+## Chapter 12: Floating-Point Operations
 
 Like in Chapter 11, all the chages have been introduced already. Nothing new here.
 
-## Chapter 13
+## Chapter 13: Neon Coprocessor
 
 Once again, the Clang assembler wants a slightly different syntax: Where gcc accepts
 
@@ -302,11 +304,11 @@ MUL.4H V6, V0, V3[0]
 
 All other changes to the code should be trivial at this point.
 
-## Chapter 14
+## Chapter 14: Optimizing Code
 
 No unusal changes here.
 
-## Chapter 15
+## Chapter 15: Reading and Understanding Code
 
 ### Copying a Page of Memory
 
@@ -321,7 +323,7 @@ No changes were required. The "tiny" code model is not supported for Mach-O exce
 fatal error: error in backend: tiny code model is only supported on ELF
 ```
 
-## Chapter 16
+## Chapter 16: Hacking Code
 
 All that can be said is that clang automatically enables position-independent executables, and the option `-no-pie` does not work. Therefore, the exploit shown in the `upper.s` file can not be reproduced.
 
