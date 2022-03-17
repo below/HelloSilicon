@@ -21,7 +21,7 @@ While I pretty much assume that people who made it here meet most if not all req
 
 ## Acknowledgments
 
-I would like to thank @claui, @jannau, @jrosengarden, @m-schmidt, @saagarjha, and @zhuowei! They helped me when I hit a wall, or asked questions that let me improve the content.
+I would like to thank [@claui](https://github.com/claui), [@jannau](https://github.com/jannau), [@jrosengarden](https://github.com/jrosengarden), [@m-schmidt](https://github.com/m-schmidt), [@saagarjha](https://github.com/saagarjha), and [@zhuowei](https://github.com/zhuoweir)! They helped me when I hit a wall, or asked questions that let me improve the content.
 
 ## Changes To The Book
 
