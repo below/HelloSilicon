@@ -266,15 +266,35 @@ While we are using the LLVM toolchain, in assembly — including inline-assembly
 
 Also, the size of one variable had to be changed from int to long to make the compiler complete happy and remove all warnings
 
+### Calling Assembly from Python
+
+Note that as of this writing, all Python IDEs for macOS attempt to load x86\_64 libraries, even when the app itself is universal. So currently the only way to run the sample is on the command line. Also, as of macOS 12.3, Apple [removed Python 2](https://developer.apple.com/documentation/macos-release-notes/macos-12_3-release-notes), and developers should use Python 3.
+ 
 ### Listing 9-9
 
-While the `uppertst5.py` file only needed a minimal change, calling the code is a little more challenging: On Apple Silicon Macs, python is a Mach-O universal binary with two architectures: x86_64 and arm64e. Notably absent is the arm64 architecture we were building for up to this point. This makes our dylib unusable with python.
+While the `uppertst5.py` file only needed a minimal change, calling the code is a little more challenging. On Apple Silicon Macs, Python is a Mach-O universal binary with two architectures, x86\_64 and arm64e:
+
+```
+% lipo -info /usr/bin/python3 
+Architectures in the fat file: /usr/bin/python3 are: x86_64 arm64e
+```
+
+Notably absent is the arm64 architecture we were building for up to this point. This makes our dylib unusable with Python.
 
 arm64e is the [Armv-8 architecture](https://community.arm.com/developer/ip-products/processors/b/processors-ip-blog/posts/armv8-a-architecture-2016-additions), which Apple is using since the A12 chip. If you want to address devices prior to the A12, you must stick to arm64. The first Macs to use ARM64 run on the M1 CPU based on the A14 architecture, thus Apple decided to take advangage of the new features.
 
 So, what to do? We could compile everything as arm64e, but that would make the library useless on devices like the iPhone X or older, and we would like to support them, too.
 
 Above, you read something about a _universal binary_. For a very long time, the Mach-O executable format had support for several processor architectures in a single file. This includes, but is not limited to, Motorola 68k (on NeXT computers), PowerPC, Intel x86, as well ARM code, each with their 32 and 64 bit variantes where applicable. In this case, I am building a universal dynamic library which includes both arm64 and arm64e code. More information can be found [here](https://developer.apple.com/documentation/xcode/building_a_universal_macos_binary).
+
+As mentioned above, no currently available Python IDE on macOS will load the ARM64 library, so use the command line to run your code:
+
+```
+% python3 uppertst5.py 
+b'This is a test!'
+b'THIS IS A TEST!'
+16
+```
 
 ## Chapter 10: Interfacing with Kotlin and Swift
 
