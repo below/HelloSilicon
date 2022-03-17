@@ -285,7 +285,7 @@ arm64e is the [Armv-8 architecture](https://community.arm.com/developer/ip-produ
 
 So, what to do? We could compile everything as arm64e, but that would make the library useless on devices like the iPhone X or older, and we would like to support them, too.
 
-Above, you read something about a _universal binary_. For a very long time, the Mach-O executable format had support for several processor architectures in a single file. This includes, but is not limited to, Motorola 68k (on NeXT computers), PowerPC, Intel x86, as well ARM code, each with their 32 and 64 bit variantes where applicable. In this case, I am building a universal dynamic library which includes both arm64 and arm64e code. More information can be found [here](https://developer.apple.com/documentation/xcode/building_a_universal_macos_binary).
+Above, you read something about a _universal binary_. For a very long time, the Mach-O executable format was supporting several processor architectures in a single file. This includes, but is not limited to, Motorola 68k (on NeXT computers), PowerPC, Intel x86, as well ARM code, each with their 32 and 64 bit variantes where applicable. In this case, I am building a universal dynamic library which includes both arm64 and arm64e code. More information can be found [here](https://developer.apple.com/documentation/xcode/building_a_universal_macos_binary).
 
 As mentioned above, no currently available Python IDE on macOS will load the ARM64 library, so use the command line to run your code:
 
