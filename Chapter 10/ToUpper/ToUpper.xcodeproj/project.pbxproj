@@ -696,7 +696,6 @@
 		CB64C3CA24CEDF3C00D1C852 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ToUpper WatchKit Extension/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
@@ -720,7 +719,6 @@
 		CB64C3CB24CEDF3C00D1C852 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ToUpper WatchKit Extension/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
