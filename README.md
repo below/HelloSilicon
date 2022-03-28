@@ -268,8 +268,6 @@ Also, the size of one variable had to be changed from int to long to make the co
 
 ### Calling Assembly from Python
 
-Note that as of this writing, all Python IDEs for macOS attempt to load x86\_64 libraries, even when the app itself is universal. So currently the only way to run the sample is on the command line. Also, as of macOS 12.3, Apple [removed Python 2](https://developer.apple.com/documentation/macos-release-notes/macos-12_3-release-notes), and developers should use Python 3.
- 
 ### Listing 9-9
 
 While the `uppertst5.py` file only needed a minimal change, calling the code is a little more challenging. On Apple Silicon Macs, Python is a Mach-O universal binary with two architectures, x86\_64 and arm64e:
@@ -287,14 +285,23 @@ So, what to do? We could compile everything as arm64e, but that would make the l
 
 Above, you read something about a _universal binary_. For a very long time, the Mach-O executable format was supporting several processor architectures in a single file. This includes, but is not limited to, Motorola 68k (on NeXT computers), PowerPC, Intel x86, as well ARM code, each with their 32 and 64 bit variantes where applicable. In this case, I am building a universal dynamic library which includes both arm64 and arm64e code. More information can be found [here](https://developer.apple.com/documentation/xcode/building_a_universal_macos_binary).
 
-As mentioned above, no currently available Python IDE on macOS will load the ARM64 library, so use the command line to run your code:
+While most of the Python IDEs that work for Linux are also avilable for macOS, as of this writing, the only Python IDEs which itself runs as arm64 — and thus will load arm64 libraries — is Python.org [IDLE](https://www.python.org/downloads/macos/), version 3.10 or newer. 
 
+![Figure 9-1. . Our Python program running in the IDLE IDE](images/Figure_9-1.png?raw=true "Our Python program running in the IDLE IDE")
+
+***Figure 9-1.*** *Our Python program running in the IDLE IDE*
+
+Alternatively, you can use the command line to test the program. (As of macOS 12.3, Apple [removed Python 2](https://developer.apple.com/documentation/macos-release-notes/macos-12_3-release-notes) and developers should use Python 3)
+ 
 ```
 % python3 uppertst5.py 
 b'This is a test!'
 b'THIS IS A TEST!'
 16
 ```
+
+A final note: While the Apple python3 binary is arm64e, the Python Framework used by IDLE is arm64. The fact that the library built in this chapter is a universal binary containing both architectures allows it to be used in either environment.
+
 
 ## Chapter 10: Interfacing with Kotlin and Swift
 
