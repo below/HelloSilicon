@@ -168,7 +168,7 @@ As [Chapter 10](https://github.com/below/HelloSilicon#chapter-10) focusses on bu
 
 Be aware that the function numbers are not only different, but on Darwin, they are considered private and subject to change.
 
-## Chapter 4: Controlling Programm Flow
+## Chapter 4: Controlling Program Flow
 
 Besides the common changes, we face a new issue which is described in the book in Chapter 5: Darwin does not like `LDR X1, =symbol`, it will produce the error `ld: Absolute addressing not allowed in arm64 code`. If we use `ASR X1, symbol`, as suggested in Chapter 3 of the book, our data has to be in the read-only `.text` section. In this sample however, we want writable data.
 
