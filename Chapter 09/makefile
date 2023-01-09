@@ -11,6 +11,9 @@ LDFLAGS = -lSystem -lc -e main -arch arm64
 
 all: addexamp2 uppertst uppertst2 uppertst3 uppertst4
 
+scanf: scanf.o
+	ld -o scanf scanf.o -lSystem -syslibroot `xcrun -sdk macosx --show-sdk-path` -e _start -arch arm64 
+
 upper.e.o : upper.s
 	as -arch arm64e $(DEBUGFLAG) $< -o upper.e.o
 
