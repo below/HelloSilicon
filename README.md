@@ -27,7 +27,7 @@ I would like to thank [@claui](https://github.com/claui), [@jannau](https://gith
 
 With the exception of the existing iOS samples, the book is based on the Linux operating system. Apple's operating systems (macOS, iOS, watchOS and tvOS) are actually just flavors of the [Darwin](https://en.wikipedia.org/wiki/Darwin_(operating_system)) operating system, so they share a set of common core components.
 
-Linux and Darwin, which were both inspired by [AT&T Unix System V](http://www.unix.org/what_is_unix/history_timeline.html), are significantly different at the level we are looking at. For the listings in the book, this mostly concerns system calls (i.e. when we want the Kernel to do someting for us), and the way Darwin accesses memory.
+Linux and Darwin, which were both inspired by [AT&T Unix System V](http://www.unix.org/what_is_unix/history_timeline.html), are significantly different at the level we are looking at. For the listings in the book, this mostly concerns system calls (i.e. when we want the Kernel to do something for us), and the way Darwin accesses memory.
 
 This file is organized so that you can read the book, and read about the differences for Apple Silicon side by side. The headlines in this document follow those in the book.
 
@@ -49,11 +49,11 @@ Apple has made certain platform specific choices for the registers:
 The book uses Linux GNU tools, such as the GNU `as` assembler. While there is an `as` command on macOS, it will invoke the integrated [LLVM Clang](https://clang.llvm.org) assembler by default. And even if there is the `-Q` option to use the GNU based assembler, this was only ever an option for x86_64 — and is already deprecated as of this writing.
 ```
 % as -Q -arch arm64
-/usr/bin/as: can't specifiy -Q with -arch arm64
+/usr/bin/as: can't specify -Q with -arch arm64
 ```
 Thus, the GNU assembler syntax is not an option, and the code will have to be adjusted for the Clang assembler syntax.
 
-Likewise, while there is a `gcc` command on macOS, this simply calls the Clang C-compiler. For transparancy, all calls to `gcc` will be replaced with `clang`.
+Likewise, while there is a `gcc` command on macOS, this simply calls the Clang C-compiler. For transparency, all calls to `gcc` will be replaced with `clang`.
 
 ```
 % gcc --version
@@ -99,7 +99,7 @@ The changes from [Chapter 1](https://github.com/below/HelloSilicon#chapter-1) (m
 
 ### Register and Shift
 
-The gcc assembler accepts `MOV X1, X2, LSL #1`, which is not defined by the [ARM Compiler User Guide](https://developer.arm.com/documentation/dui0801/g/A64-General-Instructions/MOV--register-?lang=en), instead `LSL X1, X2, #1` (etc) is used. After all, both are just aliasses for the instruction `ORR X1, XZR, X2, LSL #1`.
+The gcc assembler accepts `MOV X1, X2, LSL #1`, which is not defined by the [ARM Compiler User Guide](https://developer.arm.com/documentation/dui0801/g/A64-General-Instructions/MOV--register-?lang=en), instead `LSL X1, X2, #1` (etc) is used. After all, both are just aliases for the instruction `ORR X1, XZR, X2, LSL #1`.
 
 ### Register and Extension
 
@@ -107,7 +107,7 @@ Clang requires the source register to be 32-Bit. This makes sense because with t
 ```
 ADD X2, X1, W0, SXTB
 ```
-The GNU Assembler seems to ignore this and allows you to specifiy a 64-Bit source register.
+The GNU Assembler seems to ignore this and allows you to specify a 64-Bit source register.
 
 ## Chapter 3: Tooling Up
 
@@ -201,7 +201,7 @@ Sample code can be found in Chapter 4 in the file [`case.s`](Chapter%2004/case.s
 
 ## Chapter 5: Thanks for the Memories
 
-The important differences in memory addressing for Darwin were already addresed above.
+The important differences in memory addressing for Darwin were already addressed above.
 
 ### Listing 5-1
 The `quad`, `octa` and `fill` keywords must be in lowercase for the llvm assembler. (See bottom of this file)
@@ -262,7 +262,7 @@ What we have effectively done is [allocating memory on the stack](https://en.wik
 No change was required.
 
 ### Listing 9-7
-Instead of a shared `.so` ELF library, a dynamic Mach-O libary is created. Further information can be found here: [Creating Dynamic Libraries](https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/100-Articles/CreatingDynamicLibraries.html)
+Instead of a shared `.so` ELF library, a dynamic Mach-O library is created. Further information can be found here: [Creating Dynamic Libraries](https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/100-Articles/CreatingDynamicLibraries.html)
 
 ### Listing 9-8
 In inline-assembly, which we are using here, The `cont` label must be declared as a local label by prefixing it with `L`. While this was not necessary in pure assembly, like in Chapter 5, the llvm C-Frontend will automatically add the directive [`.subsections_via_symbols`](https://developer.apple.com/library/archive/documentation/DeveloperTools/Reference/Assembler/040-Assembler_Directives/asm_directives.html#//apple_ref/doc/uid/TP30000823-SW13) to the code:
@@ -293,7 +293,7 @@ So, what to do? We could compile everything as arm64e, but that would make the l
 
 Above, you read something about a _universal binary_. For a very long time, the Mach-O executable format was supporting several processor architectures in a single file. This includes, but is not limited to, Motorola 68k (on NeXT computers), PowerPC, Intel x86, as well ARM code, each with their 32 and 64 bit variantes where applicable. In this case, I am building a universal dynamic library which includes both arm64 and arm64e code. More information can be found [here](https://developer.apple.com/documentation/xcode/building_a_universal_macos_binary).
 
-While most of the Python IDEs that work for Linux are also avilable for macOS, as of this writing, the only Python IDEs which itself runs as arm64 — and thus will load arm64 libraries — is Python.org [IDLE](https://www.python.org/downloads/macos/), version 3.10 or newer. 
+While most of the Python IDEs that work for Linux are also available for macOS, as of this writing, the only Python IDEs which itself runs as arm64 — and thus will load arm64 libraries — is Python.org [IDLE](https://www.python.org/downloads/macos/), version 3.10 or newer. 
 
 ![Figure 9-1. . Our Python program running in the IDLE IDE](images/Figure_9-1.png?raw=true "Our Python program running in the IDLE IDE")
 
@@ -341,7 +341,7 @@ All other changes to the code should be trivial at this point.
 
 ## Chapter 14: Optimizing Code
 
-No unusal changes here.
+No unusual changes here.
 
 ## Chapter 15: Reading and Understanding Code
 
@@ -351,7 +351,7 @@ Some place to start reading ARM64 code in the Darwin Kernel can be found in [bco
 
 ### Code Created by GCC
 
-No changes were required. The "tiny" code model is not supported for Mach-O excecutables:
+No changes were required. The "tiny" code model is not supported for Mach-O executables:
 
 ```
 % clang -O3 -mcmodel=tiny -o upper upper.c
@@ -365,12 +365,12 @@ All that can be said is that clang automatically enables position-independent ex
 ## Additional references
 
 * [Writing ARM64 Code for Apple Platforms](https://developer.apple.com/documentation/xcode/writing_arm64_code_for_apple_platforms), documentation how Apple platforms diverge from the standard 64-bit ARM architecture
-* [Mach-O Programming Topics](https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/MachOTopics/0-Introduction/introduction.html#//apple_ref/doc/uid/TP40001827-SW1), an excellent introduction to the Mach-O executable format and how it differs from ELF. Even if it still refrences PowerPC 64-Bit architecture and says nothing about ARM, most of it is still true.
+* [Mach-O Programming Topics](https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/MachOTopics/0-Introduction/introduction.html#//apple_ref/doc/uid/TP40001827-SW1), an excellent introduction to the Mach-O executable format and how it differs from ELF. Even if it still references PowerPC 64-Bit architecture and says nothing about ARM, most of it is still true.
 * [What is required for a Mach-O executable to load?](https://stackoverflow.com/a/42399119/1600891)
 * [Mac OS X Internals, A Systems Approach](https://www.pearson.ch/Informatik/Macintosh/EAN/9780134426549/Mac-OS-X-Internals) Amit Singh, 2007. For better or worse, this is still the definite compendium on the core of macOS and it's siblings.
 * [WWDC20: Explore the new system architecture of Apple Silicon Macs](https://developer.apple.com/videos/play/wwdc2020/10686/) A system overview of the new Apple Silicon machines
 * [Darwin Source Code](https://opensource.apple.com/source/xnu/)
-* [ARM Archicture Reference Manual](https://static.docs.arm.com/ddi0487/ca/DDI0487C_a_armv8_arm.pdf)
+* [ARM Architecture Reference Manual](https://static.docs.arm.com/ddi0487/ca/DDI0487C_a_armv8_arm.pdf)
 
 ## One More Thing…
 _"The C language is case-sensitive. Compilers are case-sensitive. The Unix command line, ufs, and nfs file systems are case-sensitive. I'm case-sensitive too, especially about product names. The IDE is called Xcode. Big X, little c. Not XCode or xCode or X-Code. Remember that now."_ — Chris Espinosa
