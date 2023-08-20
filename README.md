@@ -370,7 +370,7 @@ All that can be said is that clang automatically enables position-independent ex
 * [Mac OS X Internals, A Systems Approach](https://www.pearson.ch/Informatik/Macintosh/EAN/9780134426549/Mac-OS-X-Internals) Amit Singh, 2007. For better or worse, this is still the definite compendium on the core of macOS and it's siblings.
 * [WWDC20: Explore the new system architecture of Apple Silicon Macs](https://developer.apple.com/videos/play/wwdc2020/10686/) A system overview of the new Apple Silicon machines
 * [Darwin Source Code](https://opensource.apple.com/source/xnu/)
-* [ARM Archicture Reference Manual](https://static.docs.arm.com/ddi0487/ca/DDI0487C_a_armv8_arm.pdf)
+* [ARM Architecture Reference Manual](https://developer.arm.com/documentation/ddi0487/latest/)
 
 ## One More Thing…
 _"The C language is case-sensitive. Compilers are case-sensitive. The Unix command line, ufs, and nfs file systems are case-sensitive. I'm case-sensitive too, especially about product names. The IDE is called Xcode. Big X, little c. Not XCode or xCode or X-Code. Remember that now."_ — Chris Espinosa
