@@ -71,6 +71,13 @@ If you are reading this, I assume you already knew that the macOS Terminal can b
 To make "Hello World" run on Apple Silicon, first the changes from page 78 (Chapter 3) have to be applied to account for the differences between Darwin and the Linux kernel.
 To silence the warning, I insert `.align 4` (or `.p2align 2`), because Darwin likes things to be aligned on even boundaries. The books mentions this in Aligning Data in Chapter 5, page 114.
 
+System calls in Linux and macOS have several differences due to the unique conventions of each system. Here are some key distinctions:
+* Function Number: The function numbers differ between the two systems, with Linux using 64 and macOS using 4. The table for Darwin (Apple) system calls can be found at this link: [Darwin System Calls](https://opensource.apple.com/source/xnu/xnu-7195.81.3/bsd/kern/syscalls.master.auto.html). Please note that this is a specific version (the most recent at the time of writing), and newer versions can be found [here](https://opensource.apple.com/source/xnu/).
+* Address for Storing Function Numbers: The address used for storing function numbers also varies. In Linux, it’s on X8, while in macOS, it’s on X16.
+* Interruption Call: The call for interruption is 0 in Linux, whereas it’s 0x80 on Apple Silicon.
+
+
+
 To make the linker work, a little more is needed, most of it should look familiar to Mac/iOS developers. These changes need to be applied to the `makefile` and to the `build` file. The complete call to the linker looks like this:
 
 ```
@@ -88,6 +95,7 @@ We know the `-o` switch, let's examine the others:
 * `-sysroot`: In order to find `libSystem.dylib`, it is mandatory to tell our linker where to find it. It seems this was not necessary on macOS 10.15 because _"New in macOS Big Sur 11 beta, the system ships with a built-in dynamic linker cache of all system-provided libraries. As part of this change, copies of dynamic libraries are no longer present on the filesystem."_. We use `xcrun -sdk macosx --show-sdk-path` to dynamically use the currently active version of Xcode.
 * `-e _start`: Darwin expects an entrypoint `_main`. In order to keep the sample both as close as possible to the book, and to allow it's use within the C-Sample from _Chapter 3_, I opted to keep `_start` and tell the linker that this is the entry point we want to use
 * `-arch arm64` for good measure, let's throw in the option to cross-compile this from an Intel Mac. You can leave this off when running on Apple Silicon.
+
 
 ### Reverse Engineering Our Program
 
