@@ -12,7 +12,7 @@
 .include "uppermacro.s"
 
 .global _start	            // Provide program starting address to linker
-.align 2
+.align 4
 
 _start:
 	// Convert tststr to uppercase

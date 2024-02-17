@@ -25,7 +25,7 @@
 
 
 .global _start	 							// Provide program starting address
-.align 2
+.align 4
 
 _start:		// this is the switch portion of the case statement
 			// branching to select1, select2, select3 or default

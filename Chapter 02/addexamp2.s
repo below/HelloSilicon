@@ -2,7 +2,7 @@
 // Example of 128-Bit addition with the ADD/ADC instructions.
 //
 .global _start	            // Provide program starting address to linker
-.align 2
+.align 4
 
 // Load the registers with some data
 // First 64-bit number is 0x0000000000000003FFFFFFFFFFFFFFFF
