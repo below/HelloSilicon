@@ -1,12 +1,12 @@
 # HelloSilicon
 
-An introduction to assembly on Apple Silicon Macs.
+An introduction to assembly on Apple silicon Macs.
 
 ## Introduction
 
-In this repository, I will code along with the book [Programming with 64-Bit ARM Assembly Language](https://link.springer.com/book/10.1007/978-1-4842-5881-1?source=shoppingads&locale=de&cjsku=9781484258804), adjusting all sample code for Apple's ARM64 line of computers. While Apple's marketing material seems to avoid a name for the platform and talks only about the M1 processor, the developer documentation uses the term "Apple Silicon". I will use this term in the following.
+In this repository, I will code along with the book [Programming with 64-Bit ARM Assembly Language](https://link.springer.com/book/10.1007/978-1-4842-5881-1?source=shoppingads&locale=de&cjsku=9781484258804), adjusting all sample code for Apple's ARM64 line of computers. While Apple's marketing material seems to avoid a name for the platform and talks only about the M1 processor, the developer documentation uses the term "Apple silicon". I will use this term in the following.
 
-The original sourcecode can be found [here](https://github.com/Apress/programming-with-64-bit-ARM-assembly-language).
+The original source code can be found [here](https://github.com/Apress/programming-with-64-bit-ARM-assembly-language).
 
 ## Prerequisites
 
@@ -16,7 +16,7 @@ While I pretty much assume that people who made it here meet most if not all req
 
 * All application samples also require at least [macOS Big Sur](https://developer.apple.com/macos/), [iOS 14](https://developer.apple.com/ios/) or their respective watchOS or tvOS equivalents. Especially for the later three systems it is not a necessity per-se (neither is Xcode 12.2), but it makes things a lot simpler.
 
-* Finally, while all samples can be adjusted to work on the iPhone and all other of Apple's ARM64 devices, for best results you should have access to an [Apple Silicon Mac](https://www.apple.com/newsroom/2020/11/introducing-the-next-generation-of-mac/), formerly known as the MWMNSA, the _Machine We Must Not Speak About_.
+* Finally, while all samples can be adjusted to work on the iPhone and all other of Apple's ARM64 devices, for best results you should have access to an [Apple silicon Mac](https://www.apple.com/newsroom/2020/11/introducing-the-next-generation-of-mac/).
 
 
 ## Acknowledgments
@@ -29,7 +29,7 @@ With the exception of the existing iOS samples, the book is based on the Linux o
 
 Linux and Darwin, which were both inspired by [AT&T Unix System V](http://www.unix.org/what_is_unix/history_timeline.html), are significantly different at the level we are looking at. For the listings in the book, this mostly concerns system calls (i.e. when we want the Kernel to do someting for us), and the way Darwin accesses memory.
 
-This file is organized so that you can read the book, and read about the differences for Apple Silicon side by side. The headlines in this document follow those in the book.
+This file is organized so that you can read the book, and read about the differences for Apple silicon side by side. The headlines in this document follow those in the book.
 
 ## Chapter 1: Getting Started
 
@@ -68,7 +68,7 @@ InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault
 
 If you are reading this, I assume you already knew that the macOS Terminal can be found in _Applications → Utilities → Terminal.app_. But if you didn't I feel honored to tell you and I wish you lots of fun on this journey! Don't be afraid to ask questions.
 
-To make "Hello World" run on Apple Silicon, first the changes from page 78 (Chapter 3) have to be applied to account for the differences between Darwin and the Linux kernel.
+To make "Hello World" run on Apple silicon, first the changes from page 78 (Chapter 3) have to be applied to account for the differences between Darwin and the Linux kernel.
 To silence the warning, I insert `.align 4` (or `.p2align 2`), because Darwin likes things to be aligned on even boundaries. The books mentions this in Aligning Data in Chapter 5, page 114.
 
 System calls in Linux and macOS have several differences due to the unique conventions of each system. Here are some key distinctions:
@@ -96,12 +96,12 @@ We know the `-o` switch, let's examine the others:
 * `-lSystem` tells the linker to link our executable with `libSystem.dylib`. We do that to add the `LC_MAIN` load command to the executable. Generally, Darwin does not support [statically linked executables](https://developer.apple.com/library/archive/qa/qa1118/_index.html). It is [possible](https://stackoverflow.com/questions/32453849/minimal-mach-o-64-binary/32659692#32659692), if not especially elegant to create executables without using `libSystem.dylib`. I will go deeper into that topic when time permits. For people who read _Mac OS X Internals_ I will just add that this replaced `LC_UNIXTHREAD` as of MacOS X 10.7.
 * `-sysroot`: In order to find `libSystem.dylib`, it is mandatory to tell our linker where to find it. It seems this was not necessary on macOS 10.15 because _"New in macOS Big Sur 11 beta, the system ships with a built-in dynamic linker cache of all system-provided libraries. As part of this change, copies of dynamic libraries are no longer present on the filesystem."_. We use `xcrun -sdk macosx --show-sdk-path` to dynamically use the currently active version of Xcode.
 * `-e _start`: Darwin expects an entrypoint `_main`. In order to keep the sample both as close as possible to the book, and to allow it's use within the C-Sample from _Chapter 3_, I opted to keep `_start` and tell the linker that this is the entry point we want to use
-* `-arch arm64` for good measure, let's throw in the option to cross-compile this from an Intel Mac. You can leave this off when running on Apple Silicon.
+* `-arch arm64` for good measure, let's throw in the option to cross-compile this from an Intel Mac. You can leave this off when running on Apple silicon.
 
 
 ### Reverse Engineering Our Program
 
-While the objdump command line programm works just as well on Darwin and produces the expected output, also try the “--macho” (or “-m”) option, which causes objdump to use the Mach-O specific object file parser.
+While the `objdump` command line program works just as well on Darwin and produces the expected output, also try the `--macho` (or `-m`) option, which causes objdump to use the Mach-O specific object file parser.
 
 ## Chapter 2: Loading and Adding
 
@@ -113,11 +113,11 @@ The gcc assembler accepts `MOV X1, X2, LSL #1`, which is not defined by the [ARM
 
 ### Register and Extension
 
-Clang requires the source register to be 32-Bit. This makes sense because with these extensions, the upper 32 Bit of a 64-Bit register will never be touched:
+Clang requires the source register to be 32-bit. This makes sense because with these extensions, the upper 32 Bit of a 64-bit register will never be touched:
 ```
 ADD X2, X1, W0, SXTB
 ```
-The GNU Assembler seems to ignore this and allows you to specifiy a 64-Bit source register.
+The GNU Assembler seems to ignore this and allows you to specifiy a 64-bit source register.
 
 ## Chapter 3: Tooling Up
 
@@ -254,7 +254,7 @@ bl      _printf // call printf
 add     SP, SP, #32 // Clean up stack
 ```
 
-So first, we are growing the stack downwards 32 bytes to make room for three 64-Bit values. We are creating space for a fourth value for padding because, as pointed out on page 137 in the book, ARM hardware requires the stack pointer to always be 16-byte aligned.
+So first, we are growing the stack downwards 32 bytes to make room for three 64-bit values. We are creating space for a fourth value for padding because, as pointed out on page 137 in the book, ARM hardware requires the stack pointer to always be 16-byte aligned.
 
 In the same command, **X1** is stored at the new location of the stack pointer.
 
@@ -288,7 +288,7 @@ Also, the size of one variable had to be changed from int to long to make the co
 
 ### Listing 9-9
 
-While the `uppertst5.py` file only needed a minimal change, calling the code is a little more challenging. On Apple Silicon Macs, Python is a Mach-O universal binary with two architectures, x86\_64 and arm64e:
+While the `uppertst5.py` file only needed a minimal change, calling the code is a little more challenging. On Apple silicon Macs, Python is a Mach-O universal binary with two architectures, x86\_64 and arm64e:
 
 ```
 % lipo -info /usr/bin/python3 
@@ -375,10 +375,10 @@ All that can be said is that clang automatically enables position-independent ex
 ## Additional references
 
 * [Writing ARM64 Code for Apple Platforms](https://developer.apple.com/documentation/xcode/writing_arm64_code_for_apple_platforms), documentation how Apple platforms diverge from the standard 64-bit ARM architecture
-* [Mach-O Programming Topics](https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/MachOTopics/0-Introduction/introduction.html#//apple_ref/doc/uid/TP40001827-SW1), an excellent introduction to the Mach-O executable format and how it differs from ELF. Even if it still refrences PowerPC 64-Bit architecture and says nothing about ARM, most of it is still true.
+* [Mach-O Programming Topics](https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/MachOTopics/0-Introduction/introduction.html#//apple_ref/doc/uid/TP40001827-SW1), an excellent introduction to the Mach-O executable format and how it differs from ELF. Even if it still refrences PowerPC 64-bit architecture and says nothing about ARM, most of it is still true.
 * [What is required for a Mach-O executable to load?](https://stackoverflow.com/a/42399119/1600891)
 * [Mac OS X Internals, A Systems Approach](https://www.pearson.ch/Informatik/Macintosh/EAN/9780134426549/Mac-OS-X-Internals) Amit Singh, 2007. For better or worse, this is still the definite compendium on the core of macOS and it's siblings.
-* [WWDC20: Explore the new system architecture of Apple Silicon Macs](https://developer.apple.com/videos/play/wwdc2020/10686/) A system overview of the new Apple Silicon machines
+* [WWDC20: Explore the new system architecture of Apple silicon Macs](https://developer.apple.com/videos/play/wwdc2020/10686/) A system overview of the new Apple silicon machines
 * [Darwin Source Code](https://opensource.apple.com/source/xnu/)
 * [ARM Architecture Reference Manual](https://developer.arm.com/documentation/ddi0487/latest/)
 

@@ -11,7 +11,7 @@
 //
 
 .global _start	 // Provide program starting address
-.align 2
+.align 4
 
 _start: MOV	X4, #0x6E3A
 	MOVK	X4, #0x4F5D, LSL #16

@@ -2,7 +2,7 @@
 // Examples of the ADD/MOVN instructions.
 //
 .global _start	            // Provide program starting address to linker
-.align 2
+.align 4
 
 // Multiply 2 by -1 by using MOVN and then adding 1
 _start:	MOVN	W0, #2
