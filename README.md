@@ -203,7 +203,7 @@ becomes this:
 	ADD	X1, X1, outstr@PAGEOFF // offset to outstr within the page
 ```
 
-### Excersises
+### Exercises
 
 I was asked how to read the command line, and I gladly [answered](https://github.com/below/HelloSilicon/issues/22#issuecomment-682205151) the question.
 
