@@ -335,17 +335,11 @@ Like in Chapter 11, all the chages have been introduced already. Nothing new her
 
 ## Chapter 13: Neon Coprocessor
 
-Once again, the Clang assembler wants a slightly different syntax: Where gcc accepts
-
-```
-MUL V6.4H, V0.4H, V3.4H[0]
-```
-
-the Clang assembler expects
-
-```
-MUL.4H V6, V0, V3[0]
-```
+The example used a nonstandard syntax for referencing a single vector element,
+which GNU assembler accepts, but Clang doesn't.
+Where the example used `V3.4H[0]` for referencing the first 16 bit element,
+the correct, standard syntax is `V3.H[0]`, which is accepted both by GNU
+assembler and Clang.
 
 All other changes to the code should be trivial at this point.
 
