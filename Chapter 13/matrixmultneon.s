@@ -34,9 +34,9 @@ main:
 	LDR	D5, [X0]
 
 .macro mulcol ccol bcol
-	MUL.4H	\ccol\(), V0, \bcol\()[0]
-	MLA.4H	\ccol\(), V1, \bcol\()[1]
-	MLA.4H	\ccol\(), V2, \bcol\()[2]
+	MUL	\ccol\().4H, V0.4H, \bcol\().H[0]
+	MLA	\ccol\().4H, V1.4H, \bcol\().H[1]
+	MLA	\ccol\().4H, V2.4H, \bcol\().H[2]
 .endm
 
 	mulcol	V6, V3	// process first column
