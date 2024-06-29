@@ -18,6 +18,11 @@ _start: MOV	X4, #0x6E3A
 	MOVK	X4, #0xFEDC, LSL #32
 	MOVK	X4, #0x1234, LSL #48
 
+    // Set X1 to the end of the destination
+    ADRP    X1, hexstr@PAGE
+    ADD     X1, X1, hexstr@PAGEOFF
+    ADD     X1, X1, #17
+
 // The loop is FOR W5 = 16 TO 1 STEP -1
 	MOV	W5, #16	    // 16 digits to print
 loop:	AND	W6, W4, #0xf // mask of least sig digit
