@@ -180,7 +180,7 @@ Be aware that the function numbers are not only different, but on Darwin, they a
 
 ## Chapter 4: Controlling Program Flow
 
-Besides the common changes, we face a new issue which is described in the book in Chapter 5: Darwin does not like `LDR X1, =symbol`, it will produce the error `ld: Absolute addressing not allowed in arm64 code`. If we use `ASR X1, symbol`, as suggested in Chapter 3 of the book, our data has to be in the read-only `.text` section. In this sample however, we want writable data.
+Besides the common changes, we face a new issue which is described in the book in Chapter 5: Darwin does not like `LDR X1, =symbol`, it will produce the error `ld: Absolute addressing not allowed in arm64 code`. If we use `ADR X1, symbol`, as suggested in Chapter 3 of the book, our data has to be in the read-only `.text` section. In this sample however, we want writable data.
 
 The [Apple Documentation](https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/MachOTopics/1-Articles/x86_64_code.html#//apple_ref/doc/uid/TP40005044-SW1) tells us that on Darwin:
 > All large or possibly nonlocal data is accessed indirectly through a global offset table (GOT) entry. The GOT entry is accessed directly using RIP-relative addressing.
