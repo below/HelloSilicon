@@ -10,7 +10,7 @@
 .global _l9
 
 .data
-l1: .byte 74, 0112, 0b00101010, 0x4A, 0X4a, 'J', 'H' + 2
+l1: .byte 74, 0112, 0b01001010, 0x4A, 0X4a, 'J', 'H' + 2
 	.word	0x1234ABCD, -1434
 	.quad	0x123456789ABCDEF0
 	.ascii	"Hello World\n"
