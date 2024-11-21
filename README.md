@@ -72,7 +72,7 @@ To make "Hello World" run on Apple silicon, first the changes from page 78 (Chap
 To silence the warning, I insert `.align 4` (or `.p2align 2`), because Darwin likes things to be aligned on even boundaries. The books mentions this in Aligning Data in Chapter 5, page 114.
 
 System calls in Linux and macOS have several differences due to the unique conventions of each system. Here are some key distinctions:
-* Function Number: The function numbers differ between the two systems, with Linux using 64 and macOS using 4. The table for Darwin (Apple) system calls can be found at this link: [Darwin System Calls](https://opensource.apple.com/source/xnu/xnu-7195.81.3/bsd/kern/syscalls.master.auto.html). Please note that this is a specific version (the most recent at the time of writing), and newer versions can be found [here](https://opensource.apple.com/source/xnu/).
+* Function Number: The function numbers differ between the two systems, with Linux using 64 and macOS using 4. The table for Darwin (Apple) system calls can be found at this link: [Darwin System Calls](https://github.com/apple-oss-distributions/xnu/blob/main/bsd/kern/syscalls.master).
 > [!CAUTION]
 > Darwin function numbers are considered private by Apple, and are subject to change. They are provided here for educational purposes only
 * Address for Storing Function Numbers: The address used for storing function numbers also varies. In Linux, it’s on X8, while in macOS, it’s on X16.
