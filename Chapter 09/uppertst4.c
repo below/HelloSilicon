@@ -5,8 +5,6 @@
 
 #include <stdio.h>
 
-extern int mytoupper( char *, char * );
-
 #define MAX_BUFFSIZE 255
 int main()
 {
