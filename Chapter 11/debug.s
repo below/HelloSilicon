@@ -14,7 +14,7 @@
 	stp	    X14, X15, [SP, #-16]!	
 	stp	    X16, X17, [SP, #-16]!	
 	stp	    X18, LR, [SP, #-16]!	
-	mov	    X1, #\reg	// for the %c
+	mov	    X1, #\reg	// for the %u
 	mov	    X2, X\reg	// for the %d
 	mov	    X3, X\reg	// for the %x
     str     X1, [SP, #-32]! // Move the stack pointer four doublewords (32 bytes) down and push X1 onto the stack
