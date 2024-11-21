@@ -14,10 +14,9 @@
 	stp	    X14, X15, [SP, #-16]!	
 	stp	    X16, X17, [SP, #-16]!	
 	stp	    X18, LR, [SP, #-16]!	
+	mov	    X1, #\reg	// for the %u
 	mov	    X2, X\reg	// for the %d
 	mov	    X3, X\reg	// for the %x
-	mov	    X1, #\reg	
-	add	    X1, X1, #'0'	// for %c
     str     X1, [SP, #-32]! // Move the stack pointer four doublewords (32 bytes) down and push X1 onto the stack
     str     X2, [SP, #8]    // Push X2 to one doubleword above the current stack pointer
     str     X3, [SP, #16]   // Push X3 to two doublewords above the current stack pointer
@@ -67,6 +66,6 @@
 .endm
 
 .data
-ptfStr: .asciz	"X%c = %32ld, 0x%016lx\n"
+ptfStr: .asciz	"X%-2u = %32ld, 0x%016lx\n"
 .align 4
 .text
