@@ -12,8 +12,8 @@
 _start: 
 l1:	STP	Q8, Q9, [SP, #-32]!
 	STR	Q10, [SP, #-16]!
-	LDP	Q8, Q9, [SP], #32
 	LDR	Q10, [SP], #16
+	LDP	Q8, Q9, [SP], #32
 
 l2:	ADRP	X1, fp1@PAGE
 	ADD	X1, X1, fp1@PAGEOFF
