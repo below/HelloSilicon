@@ -17,7 +17,7 @@ _start:	MOV	X2, #0x0000000000000003
 
 // Setup the parameters to exit the programc
 // and then call the kernel to do it.
-// R0 is the return code and will be what we
+// X0 is the return code and will be what we
 // calculated above.
 	MOV     X16, #1		// System call number 1 terminates this program
 	SVC     #0x80		// Call kernel to terminate the program
