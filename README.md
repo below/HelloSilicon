@@ -109,7 +109,7 @@ The changes from [Chapter 1](https://github.com/below/HelloSilicon#chapter-1) (m
 
 ### Register and Shift
 
-The gcc assembler accepts `MOV X1, X2, LSL #1`, which is not defined by the [ARM Compiler User Guide](https://developer.arm.com/documentation/dui0801/g/A64-General-Instructions/MOV--register-?lang=en), instead `LSL X1, X2, #1` (etc) is used. After all, both are just aliasses for the instruction `ORR X1, XZR, X2, LSL #1`.
+The gcc assembler accepts `MOV X1, X2, LSL #1`, which is not defined by the [ARM Compiler User Guide](https://developer.arm.com/documentation/dui0801/g/A64-General-Instructions/MOV--register-?lang=en). Instead, `LSL X1, X2, #1` (etc) is used.
 
 ### Register and Extension
 
