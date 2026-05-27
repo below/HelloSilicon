@@ -21,7 +21,7 @@ fpcomp:	// load the 3 numbers
 	FSUB	S3, S1, S0
 	FABS	S3, S3
 	FCMP	S3, S2	
-	B.LE		notequal
+	B.GE		notequal
 	MOV		X0, #1
 	B		done	
 	

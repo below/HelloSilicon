@@ -31,6 +31,11 @@ loop:
 	SUBS	W19, W19, #1	// decrement loop counter
 	B.NE	loop		// loop if more points
 
+// Store running sum for later use
+	ADRP	X0, runsum@PAGE
+	ADD	X0, X0, runsum@PAGEOFF
+	STR	S1, [X0]
+
 	// compare running sum to real sum
 	FCMP	S1, S2	
 	// print if the numbers are equal or not
