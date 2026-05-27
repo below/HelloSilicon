@@ -49,14 +49,16 @@ l5:	STR	W0, [SP]	// Store a
 
 l6:	ADD	SP, SP, #16
 
-l7:	SUB	FP, SP, #16
+l7:	STR	FP, [SP, #-16]!	// Save FP
+	SUB	FP, SP, #16
 	SUB	SP, SP, #16
 
 l8:	STR	W0, [FP]		// Store a
-	STR	W1, [FP, #-4]	// Store b
-	STR	W2, [FP, #-8]	// Store c
+	STR	W1, [FP, #4]	// Store b
+	STR	W2, [FP, #8]	// Store c
 
 	ADD	SP, SP, #16
+	LDR	FP, [SP], #16	// Restore FP
 
 l9:	BL	SUMFN
 	B	l10
